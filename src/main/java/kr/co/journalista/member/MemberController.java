@@ -40,6 +40,12 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
+	//마이페이지 연결
+	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
+	public void getmypage() throws Exception{
+		logger.info("get mypage");
+	}
+	
 //    //이메일 인증 코드 검증
 //    @RequestMapping(value = "/emailConfirm", method = RequestMethod.GET)
 //    public String emailConfirm(MemberVO vo, Model model, RedirectAttributes rttr) throws Exception { 
