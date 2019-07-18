@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.journalista.mappers.boardMapper">
+
+
+	<insert id="write" parameterType="kr.co.journalista.board.BoardVO">
+		insert into
+		tbl_board(title,
+		content, writer)
+		values(#{title}, #{content} , #{writer})
+	</insert>
+
+	<update id="update" parameterType="kr.co.journalista.board.BoardVO">
+		update
+		tbl_board
+		set
+		title =
+		#{title},
+		content = #{content}
+		where
+		bno = #{bno}
+	</update>
+
+	<delete id="delete" parameterType="int">
+		delete from
+		tbl_board
+		where
+		bno =
+		#{bno}
+	</delete>
+
+	<select id="view" parameterType="int"
+		resultType="kr.co.journalista.board.BoardVO">
+		select
+		bno, title, content, writer, regDate, viewCnt
+		from
+		tbl_board
+		where
+		bno = #{bno}
+	</select>
+
+	<select id="updateReadcnt" resultType="int">
+		update tbl_board 
+		set viewCnt = viewCnt +1 
+		where bno = #{bno}
+	</select>
+
+	<!-- 게시물 목록 -->
+	<select id="list" resultType="kr.co.journalista.board.BoardVO">
+		select
+		bno, title, content, writer,
+		regDate, viewCnt
+		from tbl_board
+	</select>
+
+	<!-- 게시물 총 갯수 구하기 -->
+	<select id="count" resultType="int">
+		select
+		count(bno)
+		from
+		tbl_board
+	</select>
+
+	<!-- 페이징 1 -->
+	<select id="listPage" parameterType="hashMap"
+		resultType="kr.co.journalista.board.BoardVO">
+		select
+		bno, title, content, writer, regDate, viewCnt
+		from
+		tbl_board
+		limit #{displayPost}, #{postNum}
+
+	</select>
+</mapper>

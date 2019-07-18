@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+  "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+  "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+ 
+<tiles-definitions>
+ 
+    <!-- 화면의 기초가 되는 base -->
+    <definition name="base" template="/WEB-INF/views/include/template.jsp">
+        <put-attribute name="nav"   value="/WEB-INF/views/include/nav.jsp" />
+        <put-attribute name="header" value="/WEB-INF/views/include/mainheader.jsp" />
+        <put-attribute name="body" value="" />
+        <put-attribute name="footer" value="/WEB-INF/views/include/footer.jsp" />
+    </definition>
+        
+    <definition name="*" extends="base">
+		<put-attribute name="body" value="/WEB-INF/views/{1}.jsp" />
+    </definition>
+    
+    <definition name="*/*" extends="base">
+		<put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />
+    </definition>
+    
+    
+</tiles-definitions>
+    
