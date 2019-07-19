@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import kr.co.journalista.MemberVO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public class MemberDAOImpl implements MemberDAO {
@@ -27,4 +28,10 @@ public class MemberDAOImpl implements MemberDAO {
 		return sql.selectOne(namespace + ".idCheck", userId);
 	}
 
+	// 회원정보 수정
+	@Override
+	@Transactional
+	public int mypage_update(MemberVO vo) throws Exception {
+		return sql.update(namespace + ".update_mypage", vo);
+	}
 }

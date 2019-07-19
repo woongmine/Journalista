@@ -46,7 +46,18 @@ public class MemberController {
 	public void getmypage() throws Exception{
 		logger.info("get mypage");
 	}
-	
+	//회원정보 수정 겟, 포스트
+	@RequestMapping(value = "/update", method = RequestMethod.GET)
+	public void getmypage_update() throws Exception{
+		logger.info("get mypage_update");
+	}
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public String postmypage_update(HttpSession session, MemberVO vo) throws Exception {
+		logger.info("post mypage_update");
+		service.mypage_update(vo); 
+		session.invalidate();	 
+		return "redirect:/";
+	}
 //    //이메일 인증 코드 검증
 //    @RequestMapping(value = "/emailConfirm", method = RequestMethod.GET)
 //    public String emailConfirm(MemberVO vo, Model model, RedirectAttributes rttr) throws Exception { 
