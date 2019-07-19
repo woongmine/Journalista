@@ -2,72 +2,75 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<html>
-<head>
 <title>회원가입</title>
-<script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
 
-</head>
-<script>
-/*
-	$(".idCheck").click(function() {
-
-		 var query = {userId : $("#userId").val()};
-
+<script type="text/javascript">
+	var isCheckEmail = 0;
+	function checkEmail () {
+		var inputId = $("#email").val();
 		$.ajax({
-			url : "/member/idCheck",
-			type : "post",
-			data : query,
-			success : function(data) {
-
-				if (data == 1) {
-					$(".result .msg").text("사용 불가");
-					$(".result .msg").attr("style", "color:#f00");
+			async: false,
+			type: "post",
+			url: "/emailCheck",
+			data: inputEmail,
+			success: function (data) {
+				if(data == "S") {
+					alert("사용가능한 이메일입니다.");
 					
-					$("#submit").attr("disabled", "disabled");
-
+					$("#inputEmail").addClass("has-success")
+					$("#inputEmail").removeClass("has-error")
+					
+					$("#password").focus();
+					isCheckEmail = 1;
 				} else {
-					$(".result .msg").text("사용 가능");
-					$(".result .msg").attr("style", "color:#00f");
+					alert("이메일이 존재합니다. 다른 이메일을 입력해주세요.");
 					
-					$("#submit").removeAttr("disabled");
-
+					$("#inputEmail").addClass("has-error")
+					$("#inputEmail").removeClass("has-success")
+					
+					$("#email").focus();
 				}
+			},
+			error: function(req, status, errThrown) {
+				alert("network error occur");
 			}
-		}); // ajax 끝
-	});
-	
-	$("#userId").keyup(function(){
-		 $(".result .msg").text("아이디를 확인해주십시오.");
-		 $(".result .msg").attr("style", "color:#000");
-		 
-		 $("#submit").attr("disabled", "disabled");
-		 
-		});*/
-</script>
-<body>
+		});
+	}
 
-	<form role="form" method="post" autocomplete="off">
-		<p>
-			<label for="email">이메일</label> <input type="email" id="email"
-				name="email" placeholder="example@example.com"/>
-		</p>
-		<p>
-			<label for="name">닉네임</label> <input type="text" id="name"
-				name="name" />
-		</p>
-		<p>
-			<label for="password">패스워드</label> <input type="password"
-				id="password" name="password" />
-		</p>
-		<p>
-			<button type="submit" id="submit">가입</button>
-		</p>
-		
-		<p>
-			<a href="/">처음으로</a>
-		</p>
-	</form>
-	
-</body>
-</html>
+</script>
+
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-3"></div>
+		<div class="col-sm-6"><br>
+			<div class="card">
+				<h4 class="card-header">Please Sign Up</h4>
+				<div class="card-body">
+					<p class="card-text">
+						<form role="form" action="register" method="post">
+							<div class="form-group" id="inputEmail">
+								<label>이메일</label> 
+								<input class="form-control" style="margin-bottom: 5px;" placeholder="이메일" name="email" id="email" type="email" /> 
+								<input type="button" class="btn btn-secondary btn-sm" style="width: 20%;" value="중복확인" onclick="checkEmail();" />
+							</div>
+							<div class="form-group">
+                            	<label>비밀번호</label>
+                            	<input class="form-control" placeholder="비밀번호" name="password" id="password" type="password" />
+                            </div>
+                            <div class="form-group">
+                            	<label>비밀번호 확인</label>
+                            	<input class="form-control" placeholder="비밀번호 확인" name="passwordCheck" id="passwordCheck" type="password" />
+                            </div>
+                            <div class="form-group">
+                            	<label>닉네임</label>
+                            	<input class="form-control" placeholder="닉네임을 입력해주세요" name="name" id="name" type="text" />
+                            </div>
+                            <button class="btn btn-lg btn-success btn-block">회원가입</button>
+						</form>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-3"></div>
+	</div>
+</div>
