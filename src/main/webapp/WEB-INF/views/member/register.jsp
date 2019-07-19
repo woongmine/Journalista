@@ -9,7 +9,7 @@
 
 </head>
 <script>
-
+/*
 	$(".idCheck").click(function() {
 
 		 var query = {userId : $("#userId").val()};
@@ -43,30 +43,27 @@
 		 
 		 $("#submit").attr("disabled", "disabled");
 		 
-		});
+		});*/
 </script>
 <body>
 
 	<form role="form" method="post" autocomplete="off">
 		<p>
-			<label for="userId">아이디</label> <input type="text" id="userId"
-				name="userId" />
-			<button type="button" class="idCheck" name="idCheck">아이디 중복체크</button>
-		</p>
-		<p class="result">
-			<span class="msg">아이디를 확인해주세요</span>
+			<label for="email">이메일</label> <input type="email" id="email"
+				name="email" placeholder="example@example.com"/>
 		</p>
 		<p>
-			<label for="userPass">패스워드</label> <input type="password"
-				id="userPass" name="userPass" />
+			<label for="name">닉네임</label> <input type="text" id="name"
+				name="name" />
 		</p>
 		<p>
-			<label for="userName">닉네임</label> <input type="text" id="userName"
-				name="userName" />
+			<label for="password">패스워드</label> <input type="password"
+				id="password" name="password" />
 		</p>
 		<p>
-			<button type="submit" id="submit" disabled="disabled">가입</button>
+			<button type="submit" id="submit">가입</button>
 		</p>
+		
 		<p>
 			<a href="/">처음으로</a>
 		</p>

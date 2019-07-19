@@ -1,5 +1,6 @@
 package kr.co.journalista.member;
 
+import kr.co.journalista.MemberVO;
 public interface MemberService {
 
 	// 회원가입

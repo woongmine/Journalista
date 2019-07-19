@@ -1,5 +1,6 @@
 package kr.co.journalista.member;
 
+import kr.co.journalista.MemberVO;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -23,22 +24,22 @@ public class MemberController {
 	MemberService service;
 	
 	 // 글 작성 get
-	@RequestMapping(value = "/register", method = RequestMethod.GET)
-	public void getRegister() throws Exception {
-		logger.info("get register");
-		
-	}
-	
-	// 글 작성 post
-	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String postRegister(MemberVO vo, Model model, RedirectAttributes rttr) throws Exception{
-        System.out.println("regesterPost 진입 ");
-		logger.info("post register");
-		service.register(vo);
-        rttr.addFlashAttribute("msg" , "가입시 사용한 이메일로 인증해주세요");
-		
-		return "redirect:/";
-	}
+//	@RequestMapping(value = "/register", method = RequestMethod.GET)
+//	public void getRegister() throws Exception {
+//		logger.info("get register");
+//		
+//	}
+//	
+//	// 글 작성 post
+//	@RequestMapping(value = "/register", method = RequestMethod.POST)
+//	public String postRegister(MemberVO vo, Model model, RedirectAttributes rttr) throws Exception{
+//        System.out.println("regesterPost 진입 ");
+//		logger.info("post register");
+//		service.register(vo);
+//        rttr.addFlashAttribute("msg" , "가입시 사용한 이메일로 인증해주세요");
+//		
+//		return "redirect:/";
+//	}
 	
 	//마이페이지 연결
 	@RequestMapping(value = "/mypage", method = RequestMethod.GET)

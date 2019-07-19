@@ -2,6 +2,7 @@ package kr.co.journalista.member;
 
 import javax.inject.Inject;
 
+import kr.co.journalista.MemberVO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 

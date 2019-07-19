@@ -1,5 +1,6 @@
 package kr.co.journalista.member;
 
+import kr.co.journalista.MemberVO;
 public interface MemberDAO {
 
 	public void register(MemberVO vo) throws Exception;
