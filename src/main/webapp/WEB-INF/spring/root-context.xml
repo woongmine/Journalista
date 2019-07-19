@@ -18,9 +18,9 @@
 		<property name="driverClassName"
 			value="org.mariadb.jdbc.Driver" />
 		<property name="url"
-			value="jdbc:mariadb://14.55.249.14:3307/airfly" />
-		<property name="username" value="airfly" />
-		<property name="password" value="12345" />
+			value="jdbc:mariadb://14.55.249.14:3307/woong" />
+		<property name="username" value="woong" />
+		<property name="password" value="95123" />
 	</bean>
 
 	<bean id="sqlSessionFactory"
