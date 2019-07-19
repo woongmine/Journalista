@@ -1,20 +1,26 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<!DOCTYPE html>
 <title>회원가입</title>
 
 <script type="text/javascript">
 	var isCheckEmail = 0;
 	function checkEmail () {
-		var inputId = $("#email").val();
+		console.log("이메일체크들어감");
+		var inputEmail = $('#email').val();
+		console.log(inputEmail);
 		$.ajax({
-			async: false,
+			async: true,
 			type: "post",
-			url: "/emailCheck",
+			url: "emailCheck",
 			data: inputEmail,
+            dataType : "text",
+            contentType: "application/json; charset=UTF-8",
 			success: function (data) {
 				if(data == "S") {
+					console.log("사용가능이메일 들어감");
+					console.log(data);
 					alert("사용가능한 이메일입니다.");
 					
 					$("#inputEmail").addClass("has-success")
@@ -23,6 +29,8 @@
 					$("#password").focus();
 					isCheckEmail = 1;
 				} else {
+					console.log("사용불가능이메일 들어감");
+					console.log(data);
 					alert("이메일이 존재합니다. 다른 이메일을 입력해주세요.");
 					
 					$("#inputEmail").addClass("has-error")
@@ -31,21 +39,20 @@
 					$("#email").focus();
 				}
 			},
-			error: function(req, status, errThrown) {
-				alert("network error occur");
+			error: function(request,status,error) {
+			    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 			}
 		});
 	}
 
 </script>
 
-
 <div class="container">
 	<div class="row">
 		<div class="col-sm-3"></div>
 		<div class="col-sm-6"><br>
 			<div class="card">
-				<h4 class="card-header">Please Sign Up</h4>
+				<h4 class="card-header">회원가입</h4>
 				<div class="card-body">
 					<p class="card-text">
 						<form role="form" action="register" method="post">
