@@ -62,11 +62,11 @@ background: linear-gradient(to right, #ec2F4B, #009FFF);
     <div class="details">
       <img src="https://www.w3schools.com/howto/img_avatar.png" alt="profile" class="profile-pic">
       <form action="../member/update/" method="get">
-      <h1 class="heading">${member.userName} <button type="submit" class="btn-sm btn-info">수정</button></h1>
+      <h1 class="heading">${member.name} <button type="submit" class="btn-sm btn-info">수정</button></h1>
       </form>
       <div class="email">
 
-        <p>이메일주소</p>
+        <p>${member.email }</p>
       </div>
       <div class="stats">
         <div class="col-4">
