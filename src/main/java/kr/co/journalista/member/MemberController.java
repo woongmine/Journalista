@@ -40,13 +40,31 @@ public class MemberController {
 //		
 //		return "redirect:/";
 //	}
+	//로그아웃 컨트롤러
+	@RequestMapping(value = "/member/logout", method = RequestMethod.GET)
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/";
+	}	
 	
-	//마이페이지 연결
+	//마이페이지로 이동하는 컨트롤러
+	
 	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
 	public void getmypage() throws Exception{
 		logger.info("get mypage");
 	}
-
+	//회원정보 수정 겟, 포스트
+	@RequestMapping(value = "/update", method = RequestMethod.GET)
+	public void getmypage_update() throws Exception{
+		logger.info("get mypage_update");
+	}
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public String postmypage_update(HttpSession session, MemberVO vo) throws Exception {
+		logger.info("post mypage_update");
+		service.mypage_update(vo); 
+		session.invalidate();	 
+		return "redirect:/";
+	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public void getLogin() throws Exception{

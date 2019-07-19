@@ -23,4 +23,9 @@ public class MemberServiceImpl implements MemberService {
 		return dao.idCheck(userId);
 	}
 
+	//회원정보 수정
+	@Override
+	public void mypage_update(MemberVO vo) throws Exception {
+		dao.mypage_update(vo);
+	}
 }
