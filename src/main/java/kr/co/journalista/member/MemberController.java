@@ -63,7 +63,7 @@ public class MemberController {
 //        return "/user/emailConfirm";
 //    }
 
-	
+	//로그인 컨트롤러
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public void getLogin() throws Exception{
 		logger.info("get login");
@@ -82,6 +82,12 @@ public class MemberController {
 			session.setAttribute("member", login);
 		}
 		
+		return "redirect:/";
+	}
+	//로그아웃 컨트롤러
+	@RequestMapping(value = "/member/logout", method = RequestMethod.GET)
+	public String logout(HttpSession session) {
+		session.invalidate();
 		return "redirect:/";
 	}
 	
