@@ -16,8 +16,13 @@
 		select count(*) from airfly.member where `email` like CONCAT('%',#{email},'%')
 	</select>
 
-	<!-- 회원정보 수정 -->
-	<update id="update_mypage" parameterType="kr.co.journalista.MemberVO">
-		update member set name = #{name}, password = #{password} where email = #{email}
-	</update>
+	<!-- 로그인 -->
+	<select id="login" parameterType="kr.co.journalista.MemberVO" resultType="kr.co.journalista.MemberVO">
+		select
+		email, name
+		from airfly.member
+		where email = #{email}
+		and password = #{password}	
+	</select>
+
 </mapper>

@@ -44,7 +44,6 @@
 			}
 		});
 	}
-
 </script>
 
 <div class="container">

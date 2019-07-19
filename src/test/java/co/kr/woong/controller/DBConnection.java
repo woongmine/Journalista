@@ -10,17 +10,19 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import kr.co.journalista.MemberVO;
 import kr.co.journalista.board.BoardService;
 import kr.co.journalista.board.BoardVO;
+import kr.co.journalista.register.RegisterService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/spring/**/root-context.xml"})
 public class DBConnection {
 
 	final String DRIVER = "org.mariadb.jdbc.Driver";
-	final String URL = "jdbc:mariadb://172.30.1.12:3307";
-	final String USER = "woong";
-	final String PASSWORD = "95123";
+	final String URL = "jdbc:mariadb://14.55.249.14:3307";
+	final String USER = "airfly";
+	final String PASSWORD = "12345";
 
 	@Test
 	public void connectionTest() throws Exception {
@@ -35,20 +37,20 @@ public class DBConnection {
 			e.printStackTrace();
 		}
 	} // connectionTest end
-	
-	@Inject
-	private BoardService service;
-	
-	@Test
-	public void writeTest() throws Exception{
-		BoardVO vo = new BoardVO();
-		
-		vo.setTitle("제목 테스트");
-		vo.setContent("내용 테스트");
-		vo.setWriter("작성자 테스트");
-		
-		service.write(vo);
-		
-	}
+//	
+//	@Inject
+//	private RegisterService service;
+//	
+//	@Test
+//	public void writeTest() throws Exception{
+//		MemberVO vo = new MemberVO();
+//		
+//		vo.setEmail("이메일 테스트");
+//		vo.setName("이름 테스트");
+//		vo.setPassword("비번 테스트");
+//		
+//		service.register(vo);
+//		
+//	}
 	
 }

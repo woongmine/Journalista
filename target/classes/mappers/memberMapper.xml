@@ -6,25 +6,23 @@
 
 	<!-- 회원 가입 -->
 	<insert id="register"
-		parameterType="kr.co.journalista.member.MemberVO">
-		insert into myMember(userId, userPass, userName)
-		values(#{userId}, #{userPass}, #{userName})
+		parameterType="kr.co.journalista.MemberVO">
+		insert into airfly.member(`email`, `password`, `name`, `leave`, `auth`)
+		values(#{email}, #{password}, #{name}, 0, 0)
 	</insert>
-
-	<!-- 로그인 -->
-	<select id="login" resultType="kr.co.journalista.member.MemberVO">
-		select
-		userId, userName
-		from
-		myMember
-		where userId = #{userId}
-		and userPass = #{userPass}
+	
+	<!-- 이메일 중복체크 -->
+	<select id="emailCheck" parameterType="String" resultType="integer">
+		select count(*) from airfly.member where `email` like CONCAT('%',#{email},'%')
 	</select>
 
-	<!-- 아이디 확인 -->
-	<select id="idCheck" resultType="kr.co.journalista.member.MemberVO">
-		select userId from myMember
-		    where userId = #{userId}
+	<!-- 로그인 -->
+	<select id="login" parameterType="kr.co.journalista.MemberVO" resultType="kr.co.journalista.MemberVO">
+		select
+		email, name
+		from airfly.member
+		where email = #{email}
+		and password = #{password}	
 	</select>
 
 </mapper>
