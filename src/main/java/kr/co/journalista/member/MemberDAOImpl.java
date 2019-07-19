@@ -14,13 +14,6 @@ public class MemberDAOImpl implements MemberDAO {
 	
 	private static String namespace = "kr.co.journalista.mappers.memberMapper";
 	
-	// 회원가입
-	@Override
-	public void register(MemberVO vo) throws Exception {
-		System.out.println("회원등록완료");
-		sql.insert(namespace + ".register", vo);
-		System.out.println("ㄹㅇ회원등록완료");
-	}
 	
 	// 로그인
 	@Override

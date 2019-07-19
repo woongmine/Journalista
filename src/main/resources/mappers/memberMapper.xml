@@ -11,14 +11,14 @@
 		values(#{email}, #{password}, #{name}, 0, 0)
 	</insert>
 
-	<!-- 로그인 
+	
 	<select id="login" resultType="kr.co.journalista.MemberVO">
 		select
-		userId, userName
+		email, name
 		from
-		myMember
-		where userId = #{userId}
-		and userPass = #{userPass}
+		airfly.member
+		where email = #{email}
+		and password = #{password}
 	</select>
 
 	
@@ -26,5 +26,5 @@
 		select userId from myMember
 		    where userId = #{userId}
 	</select>
--->
+
 </mapper>

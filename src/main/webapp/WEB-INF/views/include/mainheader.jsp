@@ -14,7 +14,7 @@
       <a class="nav-item nav-link" href="/board/listPage?num=1">게시판</a>
       <a class="nav-item nav-link" href="/member/login">로그인</a>
       <a class="nav-item nav-link" href="/member/register">회원가입</a>
-            <c:if test="${member.userName!=null}">
+            <c:if test="${member.name!=null}">
       	<a class="nav-item nav-link" href="/member/mypage">회원정보</a>
 	  </c:if>
     </div>

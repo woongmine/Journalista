@@ -8,8 +8,8 @@
 	<!-- Main content -->
 	<section class="content container-fluid">
 		<form method="post">
-			아이디:<input type="text" name="userId" /> <br /> 
-			비밀번호:<input type="password" name="userPass" /> <br /> 
+			이메일:<input type="email" name="email" /> <br /> 
+			비밀번호:<input type="password" name="password" /> <br /> 
 			<input type="submit" value="로그인" />
 			<input type="button" value="메인으로" id="main" />
 		</form>
