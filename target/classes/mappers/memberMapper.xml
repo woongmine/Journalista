@@ -24,5 +24,8 @@
 		where email = #{email}
 		and password = #{password}	
 	</select>
-
+	<!-- 회원정보 수정 -->
+	<update id="update_mypage" parameterType="kr.co.journalista.MemberVO">
+		update airfly.member set name = #{name}, password = #{password} where email = #{email}
+	</update>
 </mapper>
