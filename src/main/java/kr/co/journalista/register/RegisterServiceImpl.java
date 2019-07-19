@@ -17,4 +17,10 @@ public class RegisterServiceImpl  implements RegisterService{
 		dao.register(vo);
 	}
 
+	@Override
+	public int emailCheck(String email) throws Exception {
+		int emailCnt = dao.emailCheck(email);
+		return emailCnt;
+	}
+
 }

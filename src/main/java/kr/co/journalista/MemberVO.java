@@ -6,6 +6,7 @@ public class MemberVO {
 	private String password;
 	private int leave;
 	private int auth;
+	private String email_key;
 	
 	public String getEmail() {
 		return email;
@@ -36,6 +37,12 @@ public class MemberVO {
 	}
 	public void setAuth(int auth) {
 		this.auth = auth;
+	}
+	public String getEmail_key() {
+		return email_key;
+	}
+	public void setEmail_key(String email_key) {
+		this.email_key = email_key;
 	}
 	
 	

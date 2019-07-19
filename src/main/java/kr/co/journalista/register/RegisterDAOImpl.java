@@ -19,4 +19,10 @@ public class RegisterDAOImpl implements RegisterDAO{
 		System.out.println("회원등록완료");
 		sql.insert(namespace + ".register", vo);
 	}
+
+	@Override
+	public int emailCheck(String email) throws Exception {
+		int emailCount = sql.selectOne(namespace + ".emailCheck", email);
+		return emailCount;
+	}
 }

@@ -11,7 +11,7 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="co.kr.woong">
+	<logger name="kr.co.journalista">
 		<level value="info" />
 	</logger>
 	
@@ -34,7 +34,7 @@
 
 	<!-- Root Logger -->
 	<root>
-		<priority value="warn" />
+		<priority value="DEBUG" />
 		<appender-ref ref="console" />
 	</root>
 	

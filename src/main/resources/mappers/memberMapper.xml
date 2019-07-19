@@ -10,21 +10,11 @@
 		insert into airfly.member(`email`, `password`, `name`, `leave`, `auth`)
 		values(#{email}, #{password}, #{name}, 0, 0)
 	</insert>
-
 	
-	<select id="login" resultType="kr.co.journalista.MemberVO">
-		select
-		email, name
-		from
-		airfly.member
-		where email = #{email}
-		and password = #{password}
+	<!-- 이메일 중복체크 -->
+	<select id="emailCheck" parameterType="String" resultType="integer">
+		select count(*) from airfly.member where `email` like CONCAT('%',#{email},'%')
 	</select>
 
-	
-	<select id="idCheck" resultType="kr.co.journalista.MemberVO">
-		select userId from myMember
-		    where userId = #{userId}
-	</select>
 
 </mapper>
