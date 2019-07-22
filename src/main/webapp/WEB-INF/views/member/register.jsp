@@ -64,7 +64,7 @@
 								<label>이메일</label> 
 								<% if (email == null) {
 									%>
-									<input class="form-control" style="margin-bottom: 5px;" placeholder="이메일" name="email" id="email" type="email" /> 
+									<input class="form-control" style="margin-bottom: 5px;" placeholder="이메일" name="email" id="email" type="email" autofocus/> 
 								<% } else {
 									%>
 									<input class="form-control" style="margin-bottom: 5px;" value="<%= email %>" name="email" id="email" type="email" /> 
@@ -78,9 +78,13 @@
                             	<% if (password == null) {
 									%>
 									<input class="form-control" style="margin-bottom: 5px;" placeholder="비밀번호" name="password" id="password" type="password" /> 
-								<% } else {
+								<% } else if (password.equals("")){
 									%>
-									<input class="form-control" style="margin-bottom: 5px;" value="<%= password %>" name="password" id="password" type="password" /> 
+									<input class="form-control" style="margin-bottom: 5px;" value="<%= password %>" name="password" id="password" type="password" autofocus/> 
+								<%
+								} else {
+									%>
+									<input class="form-control" style="margin-bottom: 5px;" value="<%= password %>" name="password" id="password" type="password"/> 
 								<%
 								}
 								 %>
@@ -103,9 +107,13 @@
                             	<% if (name == null) {
 									%>
 									<input class="form-control" style="margin-bottom: 5px;" placeholder="닉네임" name="name" id="name" type="text" /> 
-								<% } else {
+								<% } else if (name.equals("")){
 									%>
-									<input class="form-control" style="margin-bottom: 5px;" value="<%= name %>" name="name" id="name" type="text" /> 
+									<input class="form-control" style="margin-bottom: 5px;" value="<%= name %>" name="name" id="name" type="text" autofocus/> 
+								<%
+								} else{
+									%>
+									<input class="form-control" style="margin-bottom: 5px;" value="<%= name %>" name="name" id="name" type="text" />
 								<%
 								}
 								 %>
