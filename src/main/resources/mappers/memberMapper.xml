@@ -7,8 +7,8 @@
 	<!-- 회원 가입 -->
 	<insert id="register"
 		parameterType="kr.co.journalista.MemberVO">
-		insert into airfly.member(`email`, `password`, `name`, `leave`, `auth`)
-		values(#{email}, #{password}, #{name}, 0, 0)
+		insert into airfly.member(`email`, `password`, `name`, `leave`, `auth`, `Reg_date`)
+		values(#{email}, #{password}, #{name}, 0, 0, #{Reg_date})
 	</insert>
 	
 	<!-- 이메일 중복체크 -->
@@ -24,8 +24,5 @@
 		where email = #{email}
 		and password = #{password}	
 	</select>
-	<!-- 회원정보 수정 -->
-	<update id="update_mypage" parameterType="kr.co.journalista.MemberVO">
-		update airfly.member set name = #{name}, password = #{password} where email = #{email}
-	</update>
+
 </mapper>

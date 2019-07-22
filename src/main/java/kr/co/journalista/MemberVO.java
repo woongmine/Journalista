@@ -1,12 +1,30 @@
 package kr.co.journalista;
 
+import java.util.Date;
+
 public class MemberVO {
 	private String email;
 	private String name;
 	private String password;
+	private String passwordCheck;
 	private int leave;
 	private int auth;
 	private String email_key;
+	private Date Reg_date;
+	
+	
+	public Date getReg_date() {
+		return Reg_date;
+	}
+	public void setReg_date(Date reg_date) {
+		Reg_date = reg_date;
+	}
+	public String getPasswordCheck() {
+		return passwordCheck;
+	}
+	public void setPasswordCheck(String passwordCheck) {
+		this.passwordCheck = passwordCheck;
+	}
 	
 	public String getEmail() {
 		return email;
