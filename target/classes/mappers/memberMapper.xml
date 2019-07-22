@@ -37,5 +37,5 @@
 	<update id="userAuth">
 		update airfly.member set email_key = 'Y' where email = #{email}
 	</update>
-	
+
 </mapper>

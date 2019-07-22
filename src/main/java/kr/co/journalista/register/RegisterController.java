@@ -1,20 +1,13 @@
 package kr.co.journalista.register;
 
 import java.io.PrintWriter;
-<<<<<<< HEAD
 import java.util.Date;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-=======
 import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletResponse;
->>>>>>> 7fb24ce0434bff09a9a8804770a7ab68b6bb8e50
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,20 +36,13 @@ public class RegisterController {
 	}
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-<<<<<<< HEAD
 	public String postRegister(MemberVO vo, Model model, RedirectAttributes rttr, HttpServletRequest request, HttpSession session, HttpServletResponse response) throws Exception{
-=======
-	public void postRegister(MemberVO vo, HttpServletResponse response) throws Exception{
->>>>>>> 7fb24ce0434bff09a9a8804770a7ab68b6bb8e50
 		PrintWriter writer = response.getWriter();
         response.setCharacterEncoding("utf-8");
         response.setContentType("text/html; utf-8");
 		logger.info("가입폼들어감");
-<<<<<<< HEAD
 		logger.info(vo.toString());
 
-=======
->>>>>>> 7fb24ce0434bff09a9a8804770a7ab68b6bb8e50
 		if(vo.getEmail() == "" || vo.getName() == "" || vo.getPassword() == "" || vo.getPassword() == "") {
 			writer.write("<script> alert(\"모든 빈칸을 채워주셔야 합니다.\"); location.href='register';</script>");
 		}
@@ -67,7 +53,6 @@ public class RegisterController {
 		else {
 			Date date = new Date();
 			vo.setReg_date(date);
-<<<<<<< HEAD
 			service.create(vo);
 			writer.write("<script> alert(\"회원가입 완료.\"); location.href='/';</script>");
 		}
@@ -75,12 +60,8 @@ public class RegisterController {
 		rttr.addFlashAttribute("authmsg" , "가입시 사용한 이메일로 인증해주 3");
 
 		return "redirect:/";
-=======
-			service.register(vo);
-			writer.write("<script> alert(\"회원가입 완료.\"); location.href='/';</script>");
-		}
->>>>>>> 7fb24ce0434bff09a9a8804770a7ab68b6bb8e50
 	}
+	
 	
 	@RequestMapping(value = "/emailCheck")
 	@ResponseBody
