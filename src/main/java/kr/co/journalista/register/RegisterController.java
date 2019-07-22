@@ -36,30 +36,34 @@ public class RegisterController {
 	}
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String postRegister(MemberVO vo, Model model, RedirectAttributes rttr, HttpServletRequest request, HttpSession session, HttpServletResponse response) throws Exception{
+	public void postRegister(MemberVO vo, RedirectAttributes rttr, HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception{
 		PrintWriter writer = response.getWriter();
         response.setCharacterEncoding("utf-8");
         response.setContentType("text/html; utf-8");
 		logger.info("가입폼들어감");
-		logger.info(vo.toString());
-
-		if(vo.getEmail() == "" || vo.getName() == "" || vo.getPassword() == "" || vo.getPassword() == "") {
+		if(vo.getEmail() == "" || vo.getName() == "" || vo.getPassword() == "" || vo.getPasswordCheck() == "") {
+			session.setAttribute("email", vo.getEmail());
+			session.setAttribute("name", vo.getName());
+			session.setAttribute("password", vo.getPassword());
+			session.setAttribute("passwordCheck", vo.getPasswordCheck());
 			writer.write("<script> alert(\"모든 빈칸을 채워주셔야 합니다.\"); location.href='register';</script>");
 		}
 		else if(!vo.getPassword().equals(vo.getPasswordCheck())) {
-			System.out.println(vo.getPassword() + ", " + vo.getPasswordCheck());
+			session.setAttribute("email", vo.getEmail());
+			session.setAttribute("name", vo.getName());
+			session.setAttribute("password", "");
+			session.setAttribute("passwordCheck", "");
 			writer.write("<script> alert(\"비밀번호를 확인해주세요.\"); location.href='register';</script>");
 		}
 		else {
 			Date date = new Date();
 			vo.setReg_date(date);
 			service.create(vo);
+			session.invalidate();
 			writer.write("<script> alert(\"회원가입 완료.\"); location.href='/';</script>");
 		}
 
 		rttr.addFlashAttribute("authmsg" , "가입시 사용한 이메일로 인증해주 3");
-
-		return "redirect:/";
 	}
 	
 	

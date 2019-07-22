@@ -1,6 +1,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<% String email = (String)session.getAttribute("email"); %>
+<% String name = (String)session.getAttribute("name"); %>
+<% String password = (String)session.getAttribute("password"); %>
+<% String passwordCheck = (String)session.getAttribute("passwordCheck"); %>
+
 <!DOCTYPE html>
 <title>회원가입</title>
 
@@ -57,22 +62,55 @@
 						<form role="form" action="register" method="post">
 							<div class="form-group" id="inputEmail">
 								<label>이메일</label> 
-								<input class="form-control" style="margin-bottom: 5px;" placeholder="이메일" name="email" id="email" type="email" /> 
+								<% if (email == null) {
+									%>
+									<input class="form-control" style="margin-bottom: 5px;" placeholder="이메일" name="email" id="email" type="email" /> 
+								<% } else {
+									%>
+									<input class="form-control" style="margin-bottom: 5px;" value="<%= email %>" name="email" id="email" type="email" /> 
+								<%
+								}
+								 %>
 								<input type="button" class="btn btn-secondary btn-sm" style="width: 20%;" value="중복확인" onclick="checkEmail();" />
 							</div>
 							<div class="form-group">
                             	<label>비밀번호</label>
-                            	<input class="form-control" placeholder="비밀번호" name="password" id="password" type="password" />
-                            </div>
+                            	<% if (password == null) {
+									%>
+									<input class="form-control" style="margin-bottom: 5px;" placeholder="비밀번호" name="password" id="password" type="password" /> 
+								<% } else {
+									%>
+									<input class="form-control" style="margin-bottom: 5px;" value="<%= password %>" name="password" id="password" type="password" /> 
+								<%
+								}
+								 %>
+							</div>
                             <div class="form-group">
                             	<label>비밀번호 확인</label>
-                            	<input class="form-control" placeholder="비밀번호 확인" name="passwordCheck" id="passwordCheck" type="password" />
+                            	<% if (passwordCheck == null) {
+									%>
+									<input class="form-control" style="margin-bottom: 5px;" placeholder="비밀번호 확인" name="passwordCheck" id="passwordCheck" type="password" /> 
+								<% } else {
+									%>
+									<input class="form-control" style="margin-bottom: 5px;" value="<%= passwordCheck %>" name="passwordCheck" id="passwordCheck" type="password" /> 
+								<%
+								}
+								 %>
                             </div>
                             <div class="form-group">
                             	<label>닉네임</label>
-                            	<input class="form-control" placeholder="닉네임을 입력해주세요" name="name" id="name" type="text" />
+                            	
+                            	<% if (name == null) {
+									%>
+									<input class="form-control" style="margin-bottom: 5px;" placeholder="닉네임" name="name" id="name" type="text" /> 
+								<% } else {
+									%>
+									<input class="form-control" style="margin-bottom: 5px;" value="<%= name %>" name="name" id="name" type="text" /> 
+								<%
+								}
+								 %>
                             </div>
-                            <button class="btn btn-lg btn-success btn-block">회원가입</button>
+                            <button type="submit" id="register" name="register" class="btn btn-lg btn-success btn-block">회원가입</button>
 						</form>
 				</div>
 			</div>
