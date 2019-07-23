@@ -32,7 +32,7 @@ public class RegisterController {
 	
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public void getRegister() throws Exception {
-		
+
 	}
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -54,6 +54,13 @@ public class RegisterController {
 			session.setAttribute("password", "");
 			session.setAttribute("passwordCheck", "");
 			writer.write("<script> alert(\"비밀번호를 확인해주세요.\"); location.href='register';</script>");
+		}
+		else if(vo.getPassword().length() < 8) {
+			session.setAttribute("email", vo.getEmail());
+			session.setAttribute("name", vo.getName());
+			session.setAttribute("password", "");
+			session.setAttribute("passwordCheck", "");
+			writer.write("<script> alert(\"비밀번호는 8자 이상이어야 합니다.\"); location.href='register';</script>");
 		}
 		else {
 			Date date = new Date();
