@@ -8,7 +8,7 @@
 	<insert id="register"
 		parameterType="kr.co.journalista.MemberVO">
 		insert into airfly.member(`email`, `password`, `name`, `leave`, `auth`, `Reg_date`)
-		values(#{email}, #{password}, #{name}, 0, 0, #{Reg_date})
+		values(#{email}, #{password}, #{name}, 0, 1, #{Reg_date})
 	</insert>
 	
 	<!-- 이메일 중복체크 -->
