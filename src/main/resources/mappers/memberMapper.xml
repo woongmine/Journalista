@@ -29,6 +29,11 @@
 	<update id="update_mypage" parameterType="kr.co.journalista.MemberVO">
 		update airfly.member set name = #{name}, password = #{password} where email = #{email}
 	</update>
+	
+	<!-- 회원이 탈퇴함 leave를 1로 바꾸고 탈퇴날짜가 찍힘 -->
+	<update id="mypage_withdrawal" parameterType="kr.co.journalista.MemberVO">
+		UPDATE `member` SET `leave`=1, `withdrawal_date` = #{withdrawal_date} where `email` = #{email}
+	</update>
 
 	<update id="createAuthKey" parameterType="kr.co.journalista.MemberVO">
 		update airfly.member set email_key = #{email_key} where email = #{email}

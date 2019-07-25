@@ -1,6 +1,9 @@
 package kr.co.journalista.member;
 
+import java.util.Date;
+
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import kr.co.journalista.MemberVO;
 import org.springframework.stereotype.Service;
@@ -27,5 +30,12 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void mypage_update(MemberVO vo) throws Exception {
 		dao.mypage_update(vo);
+	}
+	//마이페이지에서 회원탈퇴 vo에 지금 date날짜 넣고 db에 vo sql쿼리 실행하는 dao실행
+	@Override
+	public void mypage_withdrawal(MemberVO vo, HttpSession session) throws Exception {
+		Date date = new Date();
+		vo.setWithdrawal_date(date);
+		dao.mypage_withdrawal(vo);		
 	}
 }

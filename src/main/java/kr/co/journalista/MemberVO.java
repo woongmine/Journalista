@@ -11,7 +11,7 @@ public class MemberVO {
 	private int auth;
 	private String email_key;
 	private Date Reg_date;
-	
+	private Date withdrawal_date;
 	
 	public Date getReg_date() {
 		return Reg_date;
@@ -62,6 +62,11 @@ public class MemberVO {
 	public void setEmail_key(String email_key) {
 		this.email_key = email_key;
 	}
-	
+	public Date getWithdrawal_date() {
+		return withdrawal_date;
+	}
+	public void setWithdrawal_date(Date withdrawal_date) {
+		this.withdrawal_date = withdrawal_date;
+	}
 	
 }

@@ -33,12 +33,34 @@
                             	<label>닉네임</label>
                             	<input class="form-control" placeholder="닉네임을 입력해주세요" name="name" id="name" type="text" />
                             </div>
-                            <button class="btn btn-lg btn-success btn-block">수정</button>                        
-                            <button class="btn btn-lg btn-success btn-block">탈퇴</button>
+                            <button class="btn btn-success">수정</button>                                                   
 						</form>
+						<button type="button" class="btn btn-success" data-toggle="modal" data-target="#withdrawalCK">탈퇴</button>
 				</div>
 			</div>
 		</div>
 		<div class="col-sm-3"></div>
 	</div>
+</div>
+<div class="modal fade" id="withdrawalCK" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">탈퇴확인</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        정말로 탈퇴하시겠습니까?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">아니오</button>
+        <form method="post" action="/member/withdrawal">
+        <input type="hidden" readonly class="form-control-plaintext" name="email" id="email" value="${member.email}">
+       		<button type="submit" class="btn btn-primary">예</button>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>

@@ -10,4 +10,7 @@ public interface MemberDAO {
 	
 	//회원정보 수정
 	public int mypage_update(MemberVO vo) throws Exception;
+	
+	//회원탈퇴
+	public void mypage_withdrawal(MemberVO vo) throws Exception;
 }

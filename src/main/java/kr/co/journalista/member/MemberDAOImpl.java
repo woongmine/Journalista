@@ -34,4 +34,9 @@ public class MemberDAOImpl implements MemberDAO {
 	public int mypage_update(MemberVO vo) throws Exception {
 		return sql.update(namespace + ".update_mypage", vo);
 	}
+	//마이페이지에서 회원탈퇴 마이바티스 sql실행
+	@Override
+	public void mypage_withdrawal(MemberVO vo) throws Exception {
+		sql.update(namespace + ".mypage_withdrawal", vo);		
+	}
 }

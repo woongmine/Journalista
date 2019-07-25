@@ -65,7 +65,16 @@ public class MemberController {
 		session.invalidate();	 
 		return "redirect:/";
 	}
+	//마이페이지 회원 탈퇴
+	@RequestMapping(value = "/withdrawal", method = RequestMethod.POST)
+	public String postwithdrawal(HttpSession session, MemberVO vo) throws Exception {
+		logger.info("post withdrawal");
+		service.mypage_withdrawal(vo, session); 
+		session.invalidate();	 
+		return "redirect:/";
+	}
 	
+	//로그인 겟,포스트
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public void getLogin() throws Exception{
 		logger.info("get login");
