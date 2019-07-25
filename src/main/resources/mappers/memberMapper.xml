@@ -19,10 +19,10 @@
 	<!-- 로그인 -->
 	<select id="login" parameterType="kr.co.journalista.MemberVO" resultType="kr.co.journalista.MemberVO">
 		select
-		email, name
+		`email`, `name`, `leave`
 		from airfly.member
-		where email = #{email}
-		and password = #{password}	
+		where `email` = #{email}
+		and `password` = #{password}	
 	</select>
 	
 	<!-- 회원정보 수정 -->

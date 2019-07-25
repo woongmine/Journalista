@@ -3,6 +3,36 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="true" %>
 <% request.setCharacterEncoding("UTF-8"); %>
+<script>
+	function validate(){
+		
+	    if(update.password.value != update.passwordCheck.value) {
+		    alert("비밀번호를 확인해주세요");
+		    update.password.value = "";
+		    update.passwordCheck.value = "";
+			update.password.focus();
+			return false;
+		    }
+	    else if(update.password.value.length < 8) {
+			alert("비밀번호는 8자리 이상이어야 합니다.");
+		    update.password.value = "";
+		    update.passwordCheck.value = "";
+			update.password.focus();
+			return false;
+		    }
+	    else if(update.password.value == "" || update.name.value == "") {
+			alert("모든 항목을 채워주세요.")
+			if(update.password.value == "") {
+				update.password.focus();
+				}
+			else {
+				update.name.focus();
+				}
+			return false;
+		    }
+		}
+
+</script>
 
 <div class="container">
 	<div class="row">
@@ -12,7 +42,7 @@
 				<h4 class="card-header">회원정보 수정</h4>
 				<div class="card-body">
 					<p class="card-text">
-						<form role="form" action="/member/update" method="post">
+						<form role="form" name="update" onsubmit="return validate();" action="/member/update" method="post">
 							<div class="form-group row">
 							    <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
 							    <div class="col-sm-10">
@@ -23,12 +53,12 @@
                             	<label>비밀번호</label>
                             	<input class="form-control" placeholder="비밀번호" name="password" id="password" type="password" />
                             </div>
-                            <!-- 
+                             
                             <div class="form-group">
                             	<label>비밀번호 확인</label>
                             	<input class="form-control" placeholder="비밀번호 확인" name="passwordCheck" id="passwordCheck" type="password" />
                             </div>
-                            -->
+                            
                             <div class="form-group">
                             	<label>닉네임</label>
                             	<input class="form-control" placeholder="닉네임을 입력해주세요" name="name" id="name" type="text" />

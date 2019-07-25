@@ -1,8 +1,12 @@
 package kr.co.journalista.member;
 
 import kr.co.journalista.MemberVO;
+
+import java.io.PrintWriter;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -23,23 +27,7 @@ public class MemberController {
 	@Inject
 	MemberService service;
 	
-	 // 글 작성 get
-//	@RequestMapping(value = "/register", method = RequestMethod.GET)
-//	public void getRegister() throws Exception {
-//		logger.info("get register");
-//		
-//	}
-//	
-//	// 글 작성 post
-//	@RequestMapping(value = "/register", method = RequestMethod.POST)
-//	public String postRegister(MemberVO vo, Model model, RedirectAttributes rttr) throws Exception{
-//        System.out.println("regesterPost 진입 ");
-//		logger.info("post register");
-//		service.register(vo);
-//        rttr.addFlashAttribute("msg" , "가입시 사용한 이메일로 인증해주세요");
-//		
-//		return "redirect:/";
-//	}
+
 	//로그아웃 컨트롤러
 	@RequestMapping(value = "/member/logout", method = RequestMethod.GET)
 	public String logout(HttpSession session) {
@@ -67,11 +55,14 @@ public class MemberController {
 	}
 	//마이페이지 회원 탈퇴
 	@RequestMapping(value = "/withdrawal", method = RequestMethod.POST)
-	public String postwithdrawal(HttpSession session, MemberVO vo) throws Exception {
+	public void postwithdrawal(HttpSession session, MemberVO vo, HttpServletResponse response) throws Exception {
+		PrintWriter writer = response.getWriter();
+        response.setCharacterEncoding("utf-8");
+        response.setContentType("text/html; utf-8");
 		logger.info("post withdrawal");
 		service.mypage_withdrawal(vo, session); 
-		session.invalidate();	 
-		return "redirect:/";
+		writer.write("<script> alert(\"탈퇴 완료. 안녕히 가세요ㅠ\"); location.href='/';</script>");
+		session.invalidate();
 	}
 	
 	//로그인 겟,포스트
@@ -81,19 +72,21 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(MemberVO vo, HttpServletRequest req)throws Exception{
+	public void login(MemberVO vo, HttpServletRequest req, HttpServletResponse response)throws Exception{
 		logger.info("post login");
 		
-		HttpSession session = req.getSession();
+		HttpSession session = req.getSession();PrintWriter writer = response.getWriter();
+        response.setCharacterEncoding("utf-8");
+        response.setContentType("text/html; utf-8");
 		MemberVO login = service.login(vo);
-		
-		if(login == null) {
-			session.setAttribute("member", null);
-		} else {
+		if (login.getLeave() == 1) {
+			writer.write("<script> alert(\"탈퇴한 회원은 로그인 할 수 없습니다.\"); location.href='login';</script>");
+		} 
+		else {
 			session.setAttribute("member", login);
+			writer.write("<script>  location.href='/';</script>");
 		}
 		
-		return "redirect:/";
 	}
 	
 	@ResponseBody

@@ -1,5 +1,6 @@
 package kr.co.journalista.member;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import kr.co.journalista.MemberVO;
