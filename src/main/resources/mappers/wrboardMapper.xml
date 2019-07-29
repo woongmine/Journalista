@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.journalista.mappers.wrboardMapper">
+
+	<insert id="write" parameterType="kr.co.journalista.WrBoardVO">
+		insert into
+		wr_board(`wr_title`, `m_no`, `wr_contents`, `name`, `wr_datetime`, `wr_del`)
+		values(#{wr_title}, #{m_no}, #{wr_contents} , #{name}, #{wr_datetime}, 0)
+	</insert>
+
+	<update id="update" parameterType="kr.co.journalista.WrBoardVO">
+		update
+		wr_board
+		set
+		wr_title =
+		#{wr_title},
+		wr_contents = #{wr_contents}
+		where
+		wr_no = #{wr_no}
+	</update>
+
+	<delete id="delete" parameterType="int">
+		delete from
+		wr_board
+		where
+		wr_no =
+		#{wr_no}
+	</delete>
+
+	<select id="view" parameterType="int"
+		resultType="kr.co.journalista.WrBoardVO">
+		select
+		wr_no, wr_title, wr_contents, name, wr_datetime, wr_hit
+		from
+		wr_board
+		where
+		wr_no = #{wr_no}
+	</select>
+
+	<select id="updateReadcnt" resultType="int">
+		update wr_board 
+		set wr_hit = wr_hit +1 
+		where wr_no = #{wr_no}
+	</select>
+
+	<!-- 게시물 목록 -->
+	<select id="list" resultType="kr.co.journalista.WrBoardVO">
+		select
+		wr_no, wr_title, wr_contents, name,
+		wr_datetime, wr_hit
+		from wr_board
+	</select>
+
+	<!-- 게시물 총 갯수 구하기 -->
+	<select id="count" resultType="int">
+		select
+		count(wr_no)
+		from
+		wr_board
+	</select>
+
+	<!-- 페이징 1 -->
+	<select id="listPage" parameterType="hashMap"
+		resultType="kr.co.journalista.WrBoardVO">
+		select
+		wr_no, wr_title, wr_contents, name, wr_datetime, wr_hit
+		from
+		wr_board
+		limit #{displayPost}, #{postNum}
+
+	</select>
+</mapper>
