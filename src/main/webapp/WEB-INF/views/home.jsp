@@ -10,7 +10,7 @@
 <!-- 로그인을 했을 경우 사용자 이름이 나옴 -->
 <c:if test="${member.name!=null}">
 <p>${member.name}님 환영합니다.</p>
-<form role="form" method="get" autocomplete="off" action="../member/logout">	
-	<button type="submit" class="btn btn-dark">로그아웃</button>
+<form role="form" method="get" autocomplete="off" action="../member/login">	
+<a href="${path}/member/logout" class="btn btn-default btn-flat">로그아웃</a>
 </form>
 </c:if>

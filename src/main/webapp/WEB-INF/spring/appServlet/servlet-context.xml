@@ -33,6 +33,17 @@
 	<context:component-scan
 		base-package="kr.co.journalista.member" />
 
+	<!-- 자동로그인 인터셉터 -->
+	<beans:bean id="MemberInterceptor"
+		class="kr.co.journalista.member.MemberInterceptor" />
+	<interceptors>
+		<interceptor>
+			<mapping path="/member/login" />
+			<beans:ref bean="MemberInterceptor" />
+		</interceptor>
+	</interceptors>
+
+
 	<beans:bean id="tilesViewResolver"
 		class="org.springframework.web.servlet.view.tiles3.TilesViewResolver">
 		<beans:property name="order" value="1" />

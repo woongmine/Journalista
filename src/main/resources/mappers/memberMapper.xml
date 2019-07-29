@@ -25,6 +25,17 @@
 		and `password` = #{password}	
 	</select>
 	
+	<!-- 로그인 유지 -->
+	<update id="keepLogin">
+		update airfly.member set sessionKey=#{sessionId},
+		sessionLimit=#{sessionLimit} where email=#{email}
+	</update>
+	<!-- 로그인세션키 -->
+	<select id="checkUserWithSessionKey" resultType="kr.co.journalista.MemberVO">
+		select * from
+		airfly.member where sessionKey=#{value}
+
+	</select>
 	<!-- 회원정보 수정 -->
 	<update id="update_mypage" parameterType="kr.co.journalista.MemberVO">
 		update airfly.member set name = #{name}, password = #{password} where email = #{email}

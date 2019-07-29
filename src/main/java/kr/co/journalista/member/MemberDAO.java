@@ -1,16 +1,29 @@
 package kr.co.journalista.member;
 
+
+
+import java.util.Date;
+
+import kr.co.journalista.LoginDTO;
 import kr.co.journalista.MemberVO;
+
 public interface MemberDAO {
 
+	// 로그인(자동로그인을 위해 DTO로 받는다.)
+	public MemberVO login(LoginDTO dto) throws Exception;
 	
-	public MemberVO login(MemberVO vo) throws Exception;
-	
+	//로그인 체큰
 	public MemberVO idCheck(String userId) throws Exception;
-	
-	//회원정보 수정
+
+	// 자동로그인 로그인유지
+	public void keepLogin(String email, String sessionId, Date next) throws Exception;
+
+	// 자동로그인 세션키
+	public MemberVO checkUserWithSessionKey(String value);
+
+	// 회원정보 수정
 	public int mypage_update(MemberVO vo) throws Exception;
-	
-	//회원탈퇴
+
+	// 회원탈퇴
 	public void mypage_withdrawal(MemberVO vo) throws Exception;
 }
