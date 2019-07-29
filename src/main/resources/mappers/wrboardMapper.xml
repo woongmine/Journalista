@@ -67,7 +67,7 @@
 		select
 		wr_no, wr_title, wr_contents, name, wr_datetime, wr_hit
 		from
-		wr_board
+		wr_board  order by wr_no desc
 		limit #{displayPost}, #{postNum}
 
 	</select>
