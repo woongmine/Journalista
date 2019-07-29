@@ -1,12 +1,8 @@
 package kr.co.journalista.wrboard;
 
-import java.io.PrintWriter;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.mail.Session;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -15,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import kr.co.journalista.MemberVO;
 import kr.co.journalista.WrBoardVO;
-import kr.co.journalista.member.MemberController;
 
 @Controller
 @RequestMapping(value = "/wrboard")
@@ -49,10 +45,11 @@ public class WrBoardController {
 
 	// 게시물 조회
 	@RequestMapping(value = "/view", method = RequestMethod.GET)
-	public void getView(@RequestParam("wr_no") int wr_no, Model model) throws Exception {
+	public void getView(@RequestParam("wr_no") int wr_no, Model model, HttpSession session, MemberVO vo) throws Exception {
 		WrBoardVO view = null;
 		view = service.view(wr_no);
 		model.addAttribute("view", view);
+		//session.setAttribute("wr_no", view.getWr_no());
 	}
 
 	// 게시물 수정
@@ -66,7 +63,6 @@ public class WrBoardController {
 		session.setAttribute("wr_no", vo.getWr_no());
 		session.setAttribute("wr_title", vo.getWr_title());
 		session.setAttribute("wr_contents", vo.getWr_contents());
-		System.out.println(vo.getName());
 	}
 
 	// 게시물 수정
@@ -99,7 +95,7 @@ public class WrBoardController {
 	// 게시물 목록 - 페이징 구현
 	@RequestMapping(value = "/listPage", method = RequestMethod.GET)
 	public void listPage(Model model, int num) throws Exception {
-
+		
 		// 게시물 총 갯수
 		int count = service.count();
 

@@ -12,6 +12,12 @@
 
 <html>
 <head>
+<script>
+	function check(){
+		var value = $('#loginname').val();
+		alert(value);
+		}
+</script>
 <title>게시물 수정</title>
 </head>
 <body>
@@ -24,7 +30,7 @@
 		<div>
 			<label>작성자</label> <input type="text" name="name" value="<%= name%>" readonly />
 		</div>
- 
+ 		
 		<div>
 			<!-- <label>작성날짜</label> <fmt:formatDate value="${view.wr_datetime }" pattern="yy.MM.dd-hh.mm.ss"/>-->
 			

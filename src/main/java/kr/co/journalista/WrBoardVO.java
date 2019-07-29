@@ -5,6 +5,7 @@ import java.util.Date;
 public class WrBoardVO {
 	private int wr_no;
 	private int m_no;
+	private String email;
 	private String name;
 	private int wr_hit;
 	private Date wr_datetime;
@@ -16,7 +17,13 @@ public class WrBoardVO {
 	private String category_report;
 	private String category_etc;
 	
-	
+
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	public int getWr_no() {
 		return wr_no;
 	}

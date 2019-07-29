@@ -6,8 +6,8 @@
 
 	<insert id="write" parameterType="kr.co.journalista.WrBoardVO">
 		insert into
-		wr_board(`wr_title`, `m_no`, `wr_contents`, `name`, `wr_datetime`, `wr_del`)
-		values(#{wr_title}, #{m_no}, #{wr_contents} , #{name}, #{wr_datetime}, 0)
+		wr_board(`wr_title`, `m_no`, `wr_contents`, `name`, `wr_datetime`, `wr_del`, `email`)
+		values(#{wr_title}, #{m_no}, #{wr_contents} , #{name}, #{wr_datetime}, 0, #{email})
 	</insert>
 
 	<update id="update" parameterType="kr.co.journalista.WrBoardVO">
@@ -32,7 +32,7 @@
 	<select id="view" parameterType="int"
 		resultType="kr.co.journalista.WrBoardVO">
 		select
-		wr_no, wr_title, wr_contents, name, wr_datetime, wr_hit
+		wr_no, wr_title, wr_contents, name, wr_datetime, wr_hit, email
 		from
 		wr_board
 		where

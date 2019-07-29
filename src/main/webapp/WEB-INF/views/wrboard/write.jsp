@@ -17,6 +17,7 @@
 
 		<div>
 			<label>작성자</label> <input type="text" name="name" value="${member.name}" readonly/>
+			<input type="hidden" name="email" value="${member.email }"/>
 		</div>
 
 		  <div>

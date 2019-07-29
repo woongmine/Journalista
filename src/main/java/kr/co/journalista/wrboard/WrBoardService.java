@@ -2,6 +2,8 @@ package kr.co.journalista.wrboard;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import kr.co.journalista.WrBoardVO;
 
 public interface WrBoardService {
@@ -26,4 +28,5 @@ public interface WrBoardService {
 	
 	// 페이징
 	public List<WrBoardVO> listPage(int displayPost, int postNum) throws Exception;
+
 }

@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
 
@@ -33,7 +34,7 @@ public class WrBoardServiceImpl implements WrBoardService {
 
 	@Override
 	public WrBoardVO view(int wr_no) throws Exception {
-		dao.updateReadcnt(wr_no);
+		dao.updateReadcnt(wr_no); 
 		return dao.view(wr_no);
 	}
 
@@ -53,4 +54,5 @@ public class WrBoardServiceImpl implements WrBoardService {
 	public List<WrBoardVO> listPage(int displayPost, int postNum) throws Exception {
 		return dao.listPage(displayPost, postNum);
 	}
+
 }
