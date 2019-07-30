@@ -1,0 +1,46 @@
+package kr.co.journalista.admin;
+
+import javax.inject.Inject;
+
+import org.springframework.stereotype.Service;
+
+import kr.co.journalista.AdminVO;
+import kr.co.journalista.JournalVO;
+import kr.co.journalista.PressVO;
+
+@Service
+public class AdminServiceImpl implements AdminService {
+	@Inject
+	private AdminDAO dao;
+	
+	@Override
+	public void addAdmin(AdminVO vo) throws Exception{
+		dao.addAdmin(vo);		
+	}
+
+	@Override
+	public AdminVO getAdmin(AdminVO vo) throws Exception {
+		return dao.getAdmin(vo);
+	}
+
+	@Override
+	public void addJournal(JournalVO vo) throws Exception {
+		dao.addJournal(vo);		
+	}
+
+	@Override
+	public void addPress(PressVO vo) throws Exception {
+		dao.addPress(vo);		
+	}
+	//기자 이메일 중복확인 dao불러서 실행하는 서비스 메소드
+	@Override
+	public JournalVO getJournalEmail(JournalVO vo) throws Exception {
+		return dao.getJournalEmail(vo);
+	}
+	//언론사 이름 중복확인 dao불러서 실행하는 서비스 메소드
+	@Override
+	public PressVO getPress(PressVO vo) throws Exception {
+		return dao.getPress(vo);
+	}
+
+}

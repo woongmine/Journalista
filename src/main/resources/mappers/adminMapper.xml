@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="kr.co.journalista.mappers.adminMapper">
+   	<!-- 관리자 추가 -->
+ 	<insert id="admin_register" parameterType="kr.co.journalista.AdminVO">
+		insert into airfly.admin(admin_id, password, admin_name)
+		values(#{admin_id}, #{password}, #{admin_name})
+	</insert>
+	
+	<!-- 기자 추가 -->
+	<insert id="journal_register" parameterType="kr.co.journalista.JournalVO">
+		insert into airfly.journalistinfo(journal_email, journal_pass, journal_name, press, journal_part)
+		values(#{journal_email}, #{journal_pass}, #{journal_name}, #{press}, #{journal_part})
+	</insert>
+	
+	<!-- 언론사 추가 -->
+	<insert id="press_register" parameterType="kr.co.journalista.PressVO">
+		insert into airfly.press(press_name, press_pass, press_type)
+		values(#{press_name}, #{press_pass}, #{press_type})
+	</insert>
+	
+	<!-- 관리자 ID체크 -->
+	<select id="getAdmin" parameterType="kr.co.journalista.AdminVO" resultType="kr.co.journalista.AdminVO">
+		SELECT * FROM airfly.admin WHERE admin_id = #{admin_id}
+	</select>
+	
+	<!-- 기자 이메일체크 -->
+	<select id="getJournalEmail" parameterType="kr.co.journalista.JournalVO" resultType="kr.co.journalista.JournalVO">
+		SELECT * FROM airfly.journalistinfo WHERE journal_email = #{journal_email}
+	</select>
+	
+	<!-- 언론사 이름 체크 -->
+	<select id="getPressName" parameterType="kr.co.journalista.PressVO" resultType="kr.co.journalista.PressVO">
+		SELECT * FROM airfly.press WHERE press_name = #{press_name}
+	</select>
+ </mapper>
