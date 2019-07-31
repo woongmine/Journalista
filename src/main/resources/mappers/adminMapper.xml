@@ -35,4 +35,29 @@
 	<select id="getPressName" parameterType="kr.co.journalista.PressVO" resultType="kr.co.journalista.PressVO">
 		SELECT * FROM airfly.press WHERE press_name = #{press_name}
 	</select>
+	
+	<!-- 유저 목록 -->
+	<select id="allmember" resultType="kr.co.journalista.MemberVO">
+		select * from airfly.member where `leave` = 0 order by m_no desc
+	</select>
+
+	<!-- 회원정보 삭제 처리 -->
+	<update id="memberDelete" parameterType="java.util.List">
+		update airfly.member set `leave` = 1 
+		WHERE m_no IN
+		<foreach open="(" close=")" separator="," collection="list" item="m_no">
+			#{m_no}
+		</foreach>
+	</update>
+
+	<!-- 유저 정보수정 페이지 -->
+	<select id="updateView" parameterType="integer" resultType="kr.co.journalista.MemberVO">
+		select `name`, `email`, `auth`, `m_no` from airfly.member where `m_no` = #{m_no}
+	</select>
+	
+	<!-- 유저 정보수정 -->
+	<update id="userUpdate" parameterType="kr.co.journalista.MemberVO">
+		update airfly.member set `name`= #{name}, `auth`= #{auth} where m_no = #{m_no}
+	</update>
+	
  </mapper>

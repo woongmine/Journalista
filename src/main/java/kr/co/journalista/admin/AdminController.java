@@ -1,26 +1,35 @@
 package kr.co.journalista.admin;
 
+import java.util.List;
+
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.journalista.AdminVO;
 import kr.co.journalista.JournalVO;
+import kr.co.journalista.MemberVO;
 import kr.co.journalista.PressVO;
 import kr.co.journalista.member.MemberController;
 
 @Controller
 public class AdminController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
+	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
+	
 	@Inject
 	private AdminService service;
+	
 	//추가 컨트롤러들
 	//관리자 추가,기자추가,언론사추가 페이지 연결
 	@RequestMapping(value = "/admin/addmember", method = RequestMethod.GET)
@@ -82,5 +91,41 @@ public class AdminController {
     	else logger.info("언론사 이름 사용가능");
     	return result;
     }
+    
+	@RequestMapping(value = "/admin/userManage")
+	public String allmember(Model model) throws Exception{
+		logger.info("관리자모드 유저전체");
+		List<MemberVO> allmember= null;
+		allmember = service.allmember();
+		
+		model.addAttribute("allmember", allmember);
+		
+		return "admin/userManage";
+	}
+	
+	@RequestMapping(value = "/admin/memberDelete", method = RequestMethod.POST)
+	public String memberDelete(@RequestParam(value="m_noArray[]") List<Integer> m_noArray) throws Exception{
+		logger.info("관리자모드 유저삭제" + m_noArray);		
+		service.memberDelete(m_noArray);
+		return "admin/userManage";
+	}
+	
+	@RequestMapping(value = "/admin/updateView")
+	public String updateView(Model model, int m_no, HttpServletRequest httpServletRequest) throws Exception{
+		logger.info("관리자모드 유저정보수정 페이지 진입");
+		String temp = httpServletRequest.getParameter("m_no");
+		m_no = Integer.parseInt(temp);
+		model.addAttribute("member", service.updateView(m_no));
+		return "/admin/updateView";
+	}
+	
+	@RequestMapping(value = "/admin/userUpdate")
+	public String userUpdate(@ModelAttribute("member") MemberVO vo, Model model) throws Exception{
+		logger.info("관리자모드 유저정보수정 실행");
+		service.userUpdate(vo);
+		
+		return "redirect:userManage";
+		
+	}
     
 }

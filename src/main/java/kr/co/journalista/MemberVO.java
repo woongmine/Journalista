@@ -3,6 +3,7 @@ package kr.co.journalista;
 import java.util.Date;
 
 public class MemberVO {
+	private int m_no;
 	private String email;
 	private String name;
 	private String password;
@@ -13,19 +14,12 @@ public class MemberVO {
 	private Date Reg_date;
 	private Date withdrawal_date;
 	
-	public Date getReg_date() {
-		return Reg_date;
+	public int getM_no() {
+		return m_no;
 	}
-	public void setReg_date(Date reg_date) {
-		Reg_date = reg_date;
+	public void setM_no(int m_no) {
+		this.m_no = m_no;
 	}
-	public String getPasswordCheck() {
-		return passwordCheck;
-	}
-	public void setPasswordCheck(String passwordCheck) {
-		this.passwordCheck = passwordCheck;
-	}
-	
 	public String getEmail() {
 		return email;
 	}
@@ -43,6 +37,12 @@ public class MemberVO {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public String getPasswordCheck() {
+		return passwordCheck;
+	}
+	public void setPasswordCheck(String passwordCheck) {
+		this.passwordCheck = passwordCheck;
 	}
 	public int getLeave() {
 		return leave;
@@ -62,11 +62,19 @@ public class MemberVO {
 	public void setEmail_key(String email_key) {
 		this.email_key = email_key;
 	}
+	public Date getReg_date() {
+		return Reg_date;
+	}
+	public void setReg_date(Date reg_date) {
+		Reg_date = reg_date;
+	}
 	public Date getWithdrawal_date() {
 		return withdrawal_date;
 	}
 	public void setWithdrawal_date(Date withdrawal_date) {
 		this.withdrawal_date = withdrawal_date;
 	}
+	
+
 	
 }
