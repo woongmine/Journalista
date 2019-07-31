@@ -11,8 +11,13 @@
 function checkblank(){
 	var wr_title = $('#wr_title').val();
 	var wr_contents = $('#wr_contents').val();
+	var writer = $('#name').val();
 	if (wr_title == "" || wr_contents == ""){
 		alert("내용없음 올리지 마루여");
+		return false;
+		}
+	else if(writer == ""){
+		alert("않이 록으인 하세여;;");
 		return false;
 		}
 	}
@@ -26,7 +31,7 @@ function checkblank(){
 		</div>
 
 		<div>
-			<label>작성자</label> <input type="text" name="name" value="${member.name}" readonly/>
+			<label>작성자</label> <input type="text" id="name" name="name" value="${member.name}" readonly/>
 			<input type="hidden" name="email" value="${member.email }"/>
 		</div>
 
