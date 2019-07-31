@@ -78,7 +78,11 @@ public class MemberController {
 
 
 		MemberVO vo = service.login(dto);
-
+		session.setAttribute("userId", vo.getEmail());
+		session.setAttribute("userName", vo.getName());
+		logger.info("userId=="+vo.getEmail());
+		logger.info("userName=="+vo.getName());
+		
 		if (vo == null) {
 			rttr.addFlashAttribute("msg", "retry");
 			return "redirect:/member/login";

@@ -12,6 +12,66 @@
 <html>
 <head>
 <script>
+	$(document).ready(function(){
+		
+		listReply2();
+		
+		//댓글 쓰기 
+		$("#btnReply").click(function(){
+			var re_text=$("#re_text").val();
+			var wr_no="${view.wr_no}";
+			var param={
+					re_text : re_text,
+					wr_no : wr_no					
+			};
+			$.ajax({
+				type: "post",
+				url: "${path}/reply/insert",
+				data: param,
+				success: function(){
+					alert("댓글이 등록되었습니다.");
+					listReply2();
+				}
+			});
+		});
+	});
+	
+	
+	
+	//댓글 목록2
+	function listReply2(){
+		$.ajax({
+			type:"get",
+			url:"${path}/reply/listJson?wr_no=${view.wr_no}",
+					success: function(result){
+						console.log(result);
+						var output = "<table>";
+						for(var i in result){
+							output += "<tr>";
+							output += "<td>"+result[i].name;
+							output += "("+changeDate(result[i].regdate)+")<br>";
+							output +=	result[i].re_text+"</td>";
+							output += "<tr>";
+						}
+						output += "</table>";
+						$("#listReply").html(output);
+					}
+		});	
+	}
+	//날짜 변환 함수
+	function changeDate(date){
+		date = new Date(parseInt(date));
+		year = date.getFullYear();
+		month = date.getMonth()+1;
+		day = date.getDate();
+		hour = date.getHours();
+		minute = date.getMinutes();
+		second = date.getSeconds();
+		strDate = year+"-"+month+"-"+day+" "+hour+":"+minute+":"+second;
+		return strDate;
+	}
+</script>
+<script>
 	function checkmodify(){
 		var loginemail = $('#loginemail').val();
 		var writeremail = $('#writeremail').val();
@@ -121,5 +181,15 @@
 	    <a href="/wrboard/write" onclick="return idcheck();">게시물 작성</a>
 		<a href="/">홈으로</a>
 	</form>
+	
+	<div style="width:650px;" text=align: center;">
+			
+			<br>
+				<textarea rows="5" cols="80" id="re_text" placeholder="댓글을 입력하세요."></textarea>
+			<br>
+				<button type="button" id="btnReply">댓글 작성</button>
+		
+	</div>
+	<div id="listReply"></div>
 </body>
 </html>
