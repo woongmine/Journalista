@@ -34,7 +34,6 @@ public class WrBoardServiceImpl implements WrBoardService {
 
 	@Override
 	public WrBoardVO view(int wr_no) throws Exception {
-		dao.updateReadcnt(wr_no); 
 		return dao.view(wr_no);
 	}
 
@@ -53,6 +52,17 @@ public class WrBoardServiceImpl implements WrBoardService {
 	@Override
 	public List<WrBoardVO> listPage(int displayPost, int postNum) throws Exception {
 		return dao.listPage(displayPost, postNum);
+	}
+
+	@Override
+	public int viewafterwrite() throws Exception {
+		return dao.viewafterwrite();
+	}
+
+	@Override
+	public void updateReadcnt(int wr_no) throws Exception {
+		dao.updateReadcnt(wr_no);
+		
 	}
 
 }

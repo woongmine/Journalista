@@ -31,6 +31,8 @@ public class WrBoardDAOImpl implements WrBoardDAO {
 	@Override
 	public void delete(int wr_no) throws Exception {
 		sql.delete(namespace + ".delete", wr_no);
+//		sql.update(namespace + ".reload1");
+//		sql.update(namespace + ".reload2");
 	}
 
 	@Override
@@ -63,6 +65,11 @@ public class WrBoardDAOImpl implements WrBoardDAO {
 	@Override
 	public int updateReadcnt(int wr_no) throws Exception {
 		return sql.update(namespace + ".updateReadcnt", wr_no);
+	}
+
+	@Override
+	public int viewafterwrite() throws Exception {
+		return sql.selectOne(namespace + ".viewafterwrite");
 	}
 
 }

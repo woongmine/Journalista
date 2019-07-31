@@ -7,12 +7,22 @@
 
 <html>
 <head>
+<script>
+function checkblank(){
+	var wr_title = $('#wr_title').val();
+	var wr_contents = $('#wr_contents').val();
+	if (wr_title == "" || wr_contents == ""){
+		alert("내용없음 올리지 마루여");
+		return false;
+		}
+	}
+</script>
 <title>게시물 작성</title>
 </head>
 <body>
 	<form method="post" action="/wrboard/write">
 		<div>
-			<label>제목</label> <input type="text" name="wr_title" />
+			<label>제목</label> <input type="text" id="wr_title" name="wr_title" />
 		</div>
 
 		<div>
@@ -22,11 +32,11 @@
 
 		  <div>
 		    <label>내용</label>
-		    <textarea rows="5" cols="50" name="wr_contents"></textarea>
+		    <textarea rows="5" cols="50" id="wr_contents" name="wr_contents"></textarea>
 		  </div>
 
 		<div>
-			<button type="submit">작성</button>
+			<button type="submit" onclick="return checkblank();">작성</button>
 		</div>
 	</form>
 

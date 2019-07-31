@@ -8,6 +8,7 @@ import kr.co.journalista.WrBoardVO;
 
 public interface WrBoardService {
 
+	
 	// 게시물 입력
 	public void write(WrBoardVO vo) throws Exception;
 	
@@ -29,4 +30,8 @@ public interface WrBoardService {
 	// 페이징
 	public List<WrBoardVO> listPage(int displayPost, int postNum) throws Exception;
 
+	public int viewafterwrite() throws Exception;
+	
+	public void updateReadcnt(int wr_no) throws Exception;
+	
 }

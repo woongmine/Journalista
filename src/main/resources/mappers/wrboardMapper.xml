@@ -71,4 +71,14 @@
 		limit #{displayPost}, #{postNum}
 
 	</select>
+
+	<!-- 글쓰기 후 뷰 -->
+	<select id="viewafterwrite" resultType="int">
+		select
+		wr_no
+		from
+		wr_board  order by wr_no desc limit 1
+	</select>
+
+
 </mapper>

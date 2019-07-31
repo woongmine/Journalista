@@ -28,5 +28,7 @@ public interface WrBoardDAO {
 	
 	// 페이징
 	public List<WrBoardVO> listPage(int displayPost, int postNum) throws Exception;
+
+	public int viewafterwrite() throws Exception;
 	
 }

@@ -17,12 +17,23 @@
 		var value = $('#loginname').val();
 		alert(value);
 		}
+
+	function checkmodify(){
+		var loginemail = $('#loginemail').val();
+		var writeremail = $('#writeremail').val();
+		if (loginemail != writeremail){
+			alert("덤벼라 감히 나를 건드리다니.");
+			return false;
+			}
+		}
 </script>
 <title>게시물 수정</title>
 </head>
 <body>
 	<form method="post">
 		<input type="hidden" name="wr_no" value="<%= wr_no%>">
+		<input type="hidden" id="loginemail" value="${member.email }"/>
+		<input type="hidden" id="writeremail" value="${view.email }"/>
 		<div>
 			<label>제목</label> <input type="text" name="wr_title" value="<%= wr_title%>" />
 		</div>
@@ -44,7 +55,7 @@
 			<textarea rows="5" cols="50" name="wr_contents"><%= wr_contents%></textarea>
 		</div>
 		<div>
-		    <button type="submit">수정</button>
+		    <button type="submit" onclick="return checkmodify();">수정</button>
 		</div>
 	</form>
 </body>

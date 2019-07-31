@@ -16,8 +16,15 @@ public class WrBoardVO {
 	private String category_request;
 	private String category_report;
 	private String category_etc;
+	private int num;
 	
 
+	public int getNum() {
+		return num;
+	}
+	public void setNum(int num) {
+		this.num = num;
+	}
 	public String getEmail() {
 		return email;
 	}
