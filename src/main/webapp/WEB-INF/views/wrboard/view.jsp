@@ -146,6 +146,16 @@
 			<a href="/wrboard/view?wr_no=${view.wr_no + 1}" onclick="return CheckNextPage();">${next.wr_title }</a>
 		</div>
 	</form>
+	
+	<div style="width:650px;" text=align: center;">
+			
+			<br>
+				<textarea rows="5" cols="80" id="re_text" placeholder="댓글을 입력하세요."></textarea>
+			<br>
+				<button type="button" id="btnReply">댓글 작성</button>
+		
+	</div>
+	<div id="listReply"></div>
 	<form align="center" name="check">
 	<table class="table" style="width: 60%" align="center">
 		<thead class="thead-dark">
@@ -182,14 +192,5 @@
 		<a href="/">홈으로</a>
 	</form>
 	
-	<div style="width:650px;" text=align: center;">
-			
-			<br>
-				<textarea rows="5" cols="80" id="re_text" placeholder="댓글을 입력하세요."></textarea>
-			<br>
-				<button type="button" id="btnReply">댓글 작성</button>
-		
-	</div>
-	<div id="listReply"></div>
 </body>
 </html>
