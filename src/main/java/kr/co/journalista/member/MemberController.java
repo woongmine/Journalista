@@ -78,10 +78,7 @@ public class MemberController {
 
 
 		MemberVO vo = service.login(dto);
-		session.setAttribute("userId", vo.getEmail());
-		session.setAttribute("userName", vo.getName());
-		logger.info("userId=="+vo.getEmail());
-		logger.info("userName=="+vo.getName());
+	
 		
 		if (vo == null) {
 			rttr.addFlashAttribute("msg", "retry");
@@ -91,7 +88,12 @@ public class MemberController {
 			rttr.addFlashAttribute("mag","retry");
 			return "redirect:/member/login";
 		}
-
+		
+		session.setAttribute("userId", vo.getEmail());
+		session.setAttribute("userName", vo.getName());
+		logger.info("userId=="+vo.getEmail());
+		logger.info("userName=="+vo.getName());
+		
 		model.addAttribute("member", vo);
 
 		// 로그인 유지를 선택할 경우
