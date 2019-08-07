@@ -3,6 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="kr.co.journalista.mappers.adminMapper">
+ 
    	<!-- 관리자 추가 -->
  	<insert id="admin_register" parameterType="kr.co.journalista.AdminVO">
 		insert into airfly.admin(admin_id, password, admin_name)
@@ -59,5 +60,31 @@
 	<update id="userUpdate" parameterType="kr.co.journalista.MemberVO">
 		update airfly.member set `name`= #{name}, `auth`= #{auth} where m_no = #{m_no}
 	</update>
+	
+	<sql id="searchCondition">
+		<if test="searchType != null">
+			<if test="searchType == 'n'.toString()">
+				and `name` like CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType == 'e'.toString()">
+				and `email` like CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType == 'a'.toString()">
+				and `auth` like CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType == 'n_e'.toString()">
+				and (`name` like CONCAT('%', #{keyword}, '%') or `email` like CONCAT('%', #{keyword}, '%'))
+			</if>
+		</if>
+	</sql>
+	
+	<!-- 유저정보페이지 페이징 -->
+	<select id="memberPage" resultType="kr.co.journalista.MemberVO">
+		select * from airfly.member where `leave` = 0 <include refid="searchCondition"></include> order by `m_no` desc limit #{pageStart}, #{perPageNum}
+	</select>
+	
+	<select id="gettotalcount" resultType="int">
+		select count(m_no) from airfly.member where `leave` = 0 <include refid="searchCondition"></include>
+	</select>
 	
  </mapper>

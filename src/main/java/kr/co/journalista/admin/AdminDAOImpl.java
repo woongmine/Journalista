@@ -67,4 +67,14 @@ public class AdminDAOImpl implements AdminDAO {
 		return sql.update(namespace+".userUpdate", vo);
 	}
 	
+    //memberPage 구현
+	@Override
+	public List<MemberVO> memberPage(Criteria cri) throws Exception {
+		return sql.selectList(namespace+".memberPage", cri);
+	}
+	
+	@Override
+	public int getTotalCount(Criteria cri) throws Exception {
+		return sql.selectOne(namespace+".gettotalcount", cri);
+	}
 }

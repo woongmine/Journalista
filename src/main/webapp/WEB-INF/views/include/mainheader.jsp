@@ -20,7 +20,7 @@
       <c:if test="${member.name!=null}">
      	 <a class="nav-item nav-link" href="/member/mypage">회원정보</a>
 	  </c:if>
-	  <a class="nav-item nav-link" href="/admin/userManage">회원관리</a>
+	  <a class="nav-item nav-link" href="/admin/memberPage">회원관리</a>
     </div>
   </div>
 </nav>

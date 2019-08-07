@@ -38,4 +38,9 @@ public interface AdminDAO {
 	
 	// 회원 정보 수정
 	public int userUpdate(MemberVO vo) throws Exception;
+	
+    //memberPage 메소드 추가
+	List<MemberVO> memberPage(Criteria cri) throws Exception;
+	int getTotalCount(Criteria cri) throws Exception; 
+
 }

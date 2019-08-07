@@ -38,4 +38,9 @@ public interface AdminService {
 	
 	// 회원 정보 수정
 	public void userUpdate(MemberVO vo) throws Exception;
+	
+	//memberPage 메소드 추가
+	List<MemberVO> memberPage(Criteria cri) throws Exception;
+	int getTotalCount(Criteria cri) throws Exception;
+
 }

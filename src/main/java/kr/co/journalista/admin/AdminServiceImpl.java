@@ -69,5 +69,16 @@ public class AdminServiceImpl implements AdminService {
 	public void userUpdate(MemberVO vo) throws Exception {
 		dao.userUpdate(vo);
 	}
+	
+	//memberPage 메소드 추가
+	@Override
+	public List<MemberVO> memberPage(Criteria cri) throws Exception {
+		return dao.memberPage(cri);
+	}
+	
+	@Override
+	public int getTotalCount(Criteria cri) throws Exception {
+		return dao.getTotalCount(cri);
+	}
 
 }

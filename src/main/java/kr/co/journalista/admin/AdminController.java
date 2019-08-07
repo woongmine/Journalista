@@ -20,7 +20,6 @@ import kr.co.journalista.AdminVO;
 import kr.co.journalista.JournalVO;
 import kr.co.journalista.MemberVO;
 import kr.co.journalista.PressVO;
-import kr.co.journalista.member.MemberController;
 
 @Controller
 public class AdminController {
@@ -124,8 +123,24 @@ public class AdminController {
 		logger.info("관리자모드 유저정보수정 실행");
 		service.userUpdate(vo);
 		
-		return "redirect:userManage";
-		
+		return "redirect:memberPage";
+	}
+	
+	@RequestMapping(value = "/admin/memberPage")
+	public void memberPage(Criteria cri, Model model) throws Exception{
+		logger.info("memberPage");
+        //현재 페이지에 해당하는 게시물을 조회해 옴 
+		List<MemberVO> allmember = service.memberPage(cri);
+        //모델에 추가
+		model.addAttribute("allmember", allmember);
+        //PageMaker 객체 생성
+		PageMaker pageMaker = new PageMaker(cri);
+        //전체 게시물 수를 구함
+		int totalCount = service.getTotalCount(cri);
+        //pageMaker로 전달 -> pageMaker는 startPage, endPage, prev, next를 계산함
+		pageMaker.setTotalCount(totalCount);
+        //모델에 추가
+		model.addAttribute("pageMaker", pageMaker);
 	}
     
 }
