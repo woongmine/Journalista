@@ -33,5 +33,14 @@ public interface WrBoardService {
 	public int viewafterwrite() throws Exception;
 	
 	public void updateReadcnt(int wr_no) throws Exception;
+
+	public int minpage() throws Exception;
+	
+	//총 게시글 개수 확인
+
+	public List<WrBoardVO> getBoardList(Search search) throws Exception;
+
+	public int getBoardListCnt(Search search) throws Exception;
+
 	
 }

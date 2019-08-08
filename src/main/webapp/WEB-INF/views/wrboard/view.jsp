@@ -4,11 +4,8 @@
 <% request.setCharacterEncoding("UTF-8"); %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<c:import url="listPage">
-	<c:param name="num" value="num"></c:param>
-</c:import>
 <% int max = (int)session.getAttribute("max"); %>
-
+<% int min = (int)session.getAttribute("min"); %>
 <html>
 <head>
 <script>
@@ -70,8 +67,15 @@
 		strDate = year+"-"+month+"-"+day+" "+hour+":"+minute+":"+second;
 		return strDate;
 	}
-</script>
-<script>
+
+	function delpageCheck() {
+		var del = $('#delcheck').val();
+		if(del == 1){
+		    alert("삭제된 글입니다.");
+		    location.href='/wrboard/listPage?num=1';
+			}
+	  }
+
 	function checkmodify(){
 		var loginemail = $('#loginemail').val();
 		var writeremail = $('#writeremail').val();
@@ -79,16 +83,16 @@
 			alert("본인만 게시물을 수정할 수 있습니다.");
 			return false;
 			}
-		}
+	}
 
-	function checkdrop(){
-		var loginemail = $('#loginemail').val();
-		var writeremail = $('#writeremail').val();
-		if (loginemail != writeremail){
-			alert("본인만 게시물을 삭제할 수 있습니다.");
-			return false;
-			}
-		}
+	//function checkdrop(){
+	//	var loginemail = $('#loginemail').val();
+	//	var writeremail = $('#writeremail').val();
+	//	if (loginemail != writeremail){
+	//		alert("본인만 게시물을 삭제할 수 있습니다.");
+	//		return false;
+	//		}
+	//	}
 
 	function CheckNextPage(){
 		var wr_no = $('#wr_no').val();
@@ -101,17 +105,20 @@
 	
 	function CheckPrePage(){
 		var wr_no = $('#wr_no').val();
-		if (wr_no == 1){
+		var min = $('#min').val();
+		if (wr_no == min){
 			alert("이전 글이 없습니다.");
 			return false;
 			}
 		}
+	
 
 </script>
 <title>게시물 보기</title>
 </head>
-<body>
+<body onload = "delpageCheck();">
 	<form method="post">
+		<input type="hidden" id="delcheck" value="${view.wr_del }"/>
 		<div>
 			<label>제목</label> <input type="text" name="wr_title"
 				value="${view.wr_title }" readonly="readonly" />
@@ -137,13 +144,12 @@
 			<input type="hidden" id="writeremail" value="${view.email }"/>
 			<input type="hidden" id="wr_no" value="${view.wr_no }"/>
 			<input type="hidden" id="max" value="<%= max %>"/>
-			<a href="/wrboard/view?wr_no=${view.wr_no - 1}" onclick="return CheckPrePage();">이전글</a>
-			<a href="/wrboard/view?wr_no=${view.wr_no - 1}" onclick="return CheckPrePage();">${pre.wr_title }</a>
+			<input type="hidden" id="min" value="<%= min %>"/>
+			<a href="/wrboard/past?wr_no=${view.wr_no}" onclick="return CheckPrePage();">이전글</a>
 			<a href="/wrboard/update?wr_no=${view.wr_no}" onclick="return checkmodify();">수정</a>
 			<a href="/wrboard/delete?wr_no=${view.wr_no}" onclick="return checkdrop();">삭제</a>
 			<a href="/wrboard/listPage?num=1"> 목록보기</a>
-			<a href="/wrboard/view?wr_no=${view.wr_no + 1}" onclick="return CheckNextPage();">다음글</a>
-			<a href="/wrboard/view?wr_no=${view.wr_no + 1}" onclick="return CheckNextPage();">${next.wr_title }</a>
+			<a href="/wrboard/next?wr_no=${view.wr_no}" onclick="return CheckNextPage();">다음글</a>
 		</div>
 	</form>
 	
@@ -157,7 +163,7 @@
 	</div>
 	<div id="listReply"></div>
 	<form align="center" name="check">
-	<table class="table" style="width: 60%" align="center">
+<!-- 	<table class="table" style="width: 60%" align="center">
 		<thead class="thead-dark">
 			<tr>
 				<th scope="col">번호</th>
@@ -175,22 +181,19 @@
 					<td><a href="/wrboard/view?wr_no=${list.wr_no}">${list.wr_title}</a></td>
 					<td>${list.name}</td>
 					<td><fmt:formatDate value="${list.wr_datetime}"
-							pattern="yy.MM.dd-hh.mm.ss" /></td>
+							pattern="yy.MM.dd-hh:mm:ss" /></td>
 					<td>${list.wr_hit}</td>
 					<td><input type="hidden" name="name" id="name" value="${member.name}"></td>
 				</tr>
 			</c:forEach>
 		</tbody>
 	</table>
-
-		<c:forEach begin="1" end="${pageNum}" var="num">
-			<span> <a href="/wrboard/listPage?num=${num}">${num}</a>
-			</span>
-		</c:forEach>
+ -->
+		
 		<br/>
-	    <a href="/wrboard/write" onclick="return idcheck();">게시물 작성</a>
 		<a href="/">홈으로</a>
 	</form>
+	
 	
 </body>
 </html>

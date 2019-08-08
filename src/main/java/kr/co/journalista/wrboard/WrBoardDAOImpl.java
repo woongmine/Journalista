@@ -30,9 +30,7 @@ public class WrBoardDAOImpl implements WrBoardDAO {
 
 	@Override
 	public void delete(int wr_no) throws Exception {
-		sql.delete(namespace + ".delete", wr_no);
-//		sql.update(namespace + ".reload1");
-//		sql.update(namespace + ".reload2");
+		sql.update(namespace + ".delete", wr_no);
 	}
 
 	@Override
@@ -71,5 +69,22 @@ public class WrBoardDAOImpl implements WrBoardDAO {
 	public int viewafterwrite() throws Exception {
 		return sql.selectOne(namespace + ".viewafterwrite");
 	}
+
+	@Override
+	public int minpage() throws Exception {
+		return sql.selectOne(namespace + ".minpage");
+	}
+
+	@Override
+	public List<WrBoardVO> getBoardList(Search search) {
+		return sql.selectList(namespace + ".getBoardList", search);
+	}
+
+	@Override
+
+	public int getBoardListCnt(Search search) throws Exception {
+		return sql.selectOne(namespace + ".getBoardListCnt", search);
+	}
+
 
 }

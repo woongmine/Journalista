@@ -22,8 +22,11 @@
 	</update>
 
 	<delete id="delete" parameterType="int">
-		delete from
+		update 
 		wr_board
+		set
+		wr_del = 
+		1
 		where
 		wr_no =
 		#{wr_no}
@@ -32,7 +35,7 @@
 	<select id="view" parameterType="int"
 		resultType="kr.co.journalista.WrBoardVO">
 		select
-		wr_no, wr_title, wr_contents, name, wr_datetime, wr_hit, email
+		wr_no, wr_title, wr_contents, name, wr_datetime, wr_hit, email, wr_del
 		from
 		wr_board
 		where
@@ -50,7 +53,7 @@
 		select
 		wr_no, wr_title, wr_contents, name,
 		wr_datetime, wr_hit
-		from wr_board
+		from wr_board where wr_del = 0
 	</select>
 
 	<!-- 게시물 총 갯수 구하기 -->
@@ -60,6 +63,9 @@
 		from
 		wr_board
 	</select>
+	
+	
+ 
 
 	<!-- 페이징 1 -->
 	<select id="listPage" parameterType="hashMap"
@@ -67,18 +73,93 @@
 		select
 		wr_no, wr_title, wr_contents, name, wr_datetime, wr_hit
 		from
-		wr_board  order by wr_no desc
+		wr_board where wr_del = 0 order by wr_no desc
 		limit #{displayPost}, #{postNum}
 
 	</select>
+	
+	
+	
+	<select id="getBoardListCnt" resultType="int">
+
+		SELECT
+			count(*) as listCnt
+		FROM
+			wr_board
+			<trim prefix="WHERE" prefixOverrides="AND|OR">
+
+			<if test="keyword != null and keyword != '' ">
+
+			<if test="searchType=='wr_title'">
+
+				AND `WR_TITLE` like CONCAT('%', #{keyword}, '%')
+
+			</if>
+
+			<if test="searchType=='wr_contents'">
+
+				AND `WR_CONTENTS` like CONCAT('%', #{keyword}, '%')
+
+			</if>
+
+			<if test="searchType=='name'">
+
+				AND `NAME` like CONCAT('%', #{keyword}, '%')
+
+			</if>
+
+      </if>
+
+	</trim>
+
+	</select>
+	 
+	<select id="getBoardList" parameterType="hashMap"
+		resultType="kr.co.journalista.WrBoardVO">
+		select
+		wr_no, wr_title, wr_contents, name, wr_datetime, wr_hit
+		from
+		wr_board
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+
+			<if test="searchType=='wr_title' and keyword != null and keyword != '' ">
+
+				AND `WR_TITLE` like CONCAT('%', #{keyword}, '%') and wr_del = 0
+
+			</if>
+
+			<if test="searchType=='wr_contents' and keyword != null and keyword != '' ">
+
+				AND `WR_CONTENTS` like CONCAT('%', #{keyword}, '%') and wr_del = 0
+
+			</if>
+
+			<if test="searchType=='name' and keyword != null and keyword != '' ">
+
+				AND `NAME` like CONCAT('%', #{keyword}, '%') and wr_del = 0
+
+			</if>	
+
+		</trim>
+ 		order by wr_no desc
+		LIMIT #{startList}, #{listSize}
+
+	</select>
+ 
 
 	<!-- 글쓰기 후 뷰 -->
 	<select id="viewafterwrite" resultType="int">
 		select
 		wr_no
 		from
-		wr_board  order by wr_no desc limit 1
+		wr_board where wr_del = 0 order by wr_no desc limit 1
 	</select>
-
-
+	
+	<!-- 이전글 최소페이지 -->
+	<select id="minpage" resultType="int">
+		select
+		wr_no
+		from
+		wr_board where wr_del = 0 order by wr_no limit 1
+	</select>
 </mapper>

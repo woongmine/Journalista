@@ -30,5 +30,13 @@ public interface WrBoardDAO {
 	public List<WrBoardVO> listPage(int displayPost, int postNum) throws Exception;
 
 	public int viewafterwrite() throws Exception;
+
+	public int minpage() throws Exception;
 	
+	//총 게시글 개수 확인
+
+	public List<WrBoardVO> getBoardList(Search search);
+	public int getBoardListCnt(Search search) throws Exception;
+
+
 }

@@ -65,4 +65,25 @@ public class WrBoardServiceImpl implements WrBoardService {
 		
 	}
 
+	@Override
+	public int minpage() throws Exception {
+		return dao.minpage();
+	}
+
+	//총 게시글 개수 확인
+
+	@Override
+
+	public int getBoardListCnt(Search search) throws Exception {
+
+		return dao.getBoardListCnt(search);
+	}
+
+	@Override
+	public List<WrBoardVO> getBoardList(Search search) throws Exception {
+
+		return dao.getBoardList(search);
+
+	}
+
 }

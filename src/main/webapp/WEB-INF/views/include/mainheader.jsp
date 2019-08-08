@@ -12,7 +12,7 @@
     <div class="navbar-nav">
       <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
       <a class="nav-item nav-link" href="/board/listPage?num=1">게시판</a>
-      <a class="nav-item nav-link" href="/wrboard/listPage?num=1">기타게시판</a>
+      <a class="nav-item nav-link" href="/wrboard/listPage">기타게시판</a>
       <c:if test="${member.name == null }">
 	      <a class="nav-item nav-link" href="/member/login">로그인</a>
 	      <a class="nav-item nav-link" href="/member/register">회원가입</a>
