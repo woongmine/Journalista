@@ -82,7 +82,7 @@
 </script>
 	<form align="center" name="check">
 	<div class="w100" style="padding-right:10px">
-		<select class="form-control form-control-sm" name="searchType" id="searchType">
+		<select class="form-control form-control-sm">
 			<option value="request">요청</option>
 
 			<option value="report">신고</option>
