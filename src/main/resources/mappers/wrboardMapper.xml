@@ -64,8 +64,6 @@
 		wr_board
 	</select>
 	
-	
- 
 
 	<!-- 페이징 1 -->
 	<select id="listPage" parameterType="hashMap"
@@ -79,38 +77,62 @@
 	</select>
 	
 	
-	
+	<!-- 
 	<select id="getBoardListCnt" resultType="int">
 
 		SELECT
 			count(*) as listCnt
 		FROM
 			wr_board
-			<trim prefix="WHERE" prefixOverrides="AND|OR">
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
 
 			<if test="keyword != null and keyword != '' ">
-
+	
 			<if test="searchType=='wr_title'">
-
+	
 				AND `WR_TITLE` like CONCAT('%', #{keyword}, '%')
-
+	
 			</if>
-
+	
 			<if test="searchType=='wr_contents'">
-
+	
 				AND `WR_CONTENTS` like CONCAT('%', #{keyword}, '%')
-
+	
 			</if>
-
+	
 			<if test="searchType=='name'">
-
+	
 				AND `NAME` like CONCAT('%', #{keyword}, '%')
-
+	
 			</if>
+			
+			<if test="category == 'all'">
+			
+				or `category_request` = 0 or `category_report` = 0 or `category_etc` = 0
+			
+			</if>
+			
+			<if test="category == 'request'">
+				
+				`category_request` = 1
+			
+			</if>
+			
+			<if test="category == 'report'">
+				
+				`category_report` = 1
+			
+			</if>
+			
+			<if test="category == 'etc'">
+				
+				`category_etc` = 1
+			
+			</if>
+	
+	      	</if>
 
-      </if>
-
-	</trim>
+		</trim>
 
 	</select>
 	 
@@ -121,31 +143,77 @@
 		from
 		wr_board
 		<trim prefix="WHERE" prefixOverrides="AND|OR">
-
 			<if test="searchType=='wr_title' and keyword != null and keyword != '' ">
-
 				AND `WR_TITLE` like CONCAT('%', #{keyword}, '%') and wr_del = 0
-
 			</if>
 
 			<if test="searchType=='wr_contents' and keyword != null and keyword != '' ">
-
 				AND `WR_CONTENTS` like CONCAT('%', #{keyword}, '%') and wr_del = 0
-
 			</if>
 
 			<if test="searchType=='name' and keyword != null and keyword != '' ">
-
 				AND `NAME` like CONCAT('%', #{keyword}, '%') and wr_del = 0
-
-			</if>	
-
+			</if>
+			
+			<if test="category=='request'">
+				AND `category_request` = 1 and wr_del = 0
+			</if>
+			
+			<if test="category=='report'">
+				AND `category_report` = 1 and wr_del = 0
+			</if>
+			
+			<if test="category=='etc'">
+				AND `category_etc` = 1 and wr_del = 0
+			</if>
+			
+			<if test="category=='all'">
+				and wr_del = 0
+			</if>
 		</trim>
  		order by wr_no desc
-		LIMIT #{startList}, #{listSize}
-
 	</select>
- 
+  -->
+  
+  	<sql id="searchCondition">
+  		<trim prefix="WHERE" prefixOverrides="AND|OR">
+		<if test="searchType != null">
+			<if test="searchType == 'wr_title'.toString()">
+				and `wr_title` like CONCAT('%', #{keyword}, '%') and wr_del = 0
+			</if>
+			<if test="searchType == 'wr_contents'.toString()">
+				and `wr_contents` like CONCAT('%', #{keyword}, '%') and wr_del = 0
+			</if>
+			<if test="searchType == 'name'.toString()">
+				and `name` like CONCAT('%', #{keyword}, '%') and wr_del = 0
+			</if>	
+		</if>
+		<if test="category != null">	
+			<if test="category=='request'">
+				and `category_request` = 1 and wr_del = 0
+			</if>
+			<if test="category=='report'">
+				and `category_report` = 1 and wr_del = 0
+			</if>
+			<if test="category=='etc'">
+				and `category_etc` = 1 and wr_del = 0
+			</if>
+			<if test="category=='all'">
+				and wr_del = 0
+			</if>
+		</if>
+		</trim>
+	</sql>
+	
+	<!-- 페이징 -->
+	<select id="getBoardList" resultType="kr.co.journalista.WrBoardVO">
+		select * from wr_board <include refid="searchCondition"></include> order by wr_no desc limit #{pageStart}, #{perPageNum}
+	</select>
+	
+	<select id="getBoardListCnt" resultType="int">
+		select count(wr_no) from wr_board <include refid="searchCondition"></include>
+	</select>
+  
 
 	<!-- 글쓰기 후 뷰 -->
 	<select id="viewafterwrite" resultType="int">

@@ -72,18 +72,28 @@ public class WrBoardServiceImpl implements WrBoardService {
 
 	//총 게시글 개수 확인
 
+//	@Override
+//
+//	public int getBoardListCnt(Search search) throws Exception {
+//
+//		return dao.getBoardListCnt(search);
+//	}
+//
+//	@Override
+//	public List<WrBoardVO> getBoardList(Search search) throws Exception {
+//
+//		return dao.getBoardList(search);
+//
+//	}
+
 	@Override
-
-	public int getBoardListCnt(Search search) throws Exception {
-
-		return dao.getBoardListCnt(search);
+	public int getBoardListCnt(Criteria cri) throws Exception {
+		return dao.getBoardListCnt(cri);
 	}
-
+	
 	@Override
-	public List<WrBoardVO> getBoardList(Search search) throws Exception {
-
-		return dao.getBoardList(search);
-
+	public List<WrBoardVO> getBoardList(Criteria cri) throws Exception {
+		return dao.getBoardList(cri);
 	}
 
 }

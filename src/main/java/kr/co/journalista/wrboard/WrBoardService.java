@@ -2,7 +2,6 @@ package kr.co.journalista.wrboard;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
 
 import kr.co.journalista.WrBoardVO;
 
@@ -38,9 +37,11 @@ public interface WrBoardService {
 	
 	//총 게시글 개수 확인
 
-	public List<WrBoardVO> getBoardList(Search search) throws Exception;
+//	public List<WrBoardVO> getBoardList(Search search) throws Exception;
+//
+//	public int getBoardListCnt(Search search) throws Exception;
 
-	public int getBoardListCnt(Search search) throws Exception;
+	int getBoardListCnt(Criteria cri) throws Exception;
+	List<WrBoardVO> getBoardList(Criteria cri) throws Exception;
 
-	
 }

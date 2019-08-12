@@ -35,8 +35,12 @@ public interface WrBoardDAO {
 	
 	//총 게시글 개수 확인
 
-	public List<WrBoardVO> getBoardList(Search search);
-	public int getBoardListCnt(Search search) throws Exception;
+//	public List<WrBoardVO> getBoardList(Search search);
+//	public int getBoardListCnt(Search search) throws Exception;
+	
+
+	public List<WrBoardVO> getBoardList(Criteria cri);
+	public int getBoardListCnt(Criteria cri) throws Exception;
 
 
 }

@@ -75,16 +75,26 @@ public class WrBoardDAOImpl implements WrBoardDAO {
 		return sql.selectOne(namespace + ".minpage");
 	}
 
+//	@Override
+//	public List<WrBoardVO> getBoardList(Search search) {
+//		return sql.selectList(namespace + ".getBoardList", search);
+//	}
+//
+//	@Override
+//
+//	public int getBoardListCnt(Search search) throws Exception {
+//		return sql.selectOne(namespace + ".getBoardListCnt", search);
+//	}
+
 	@Override
-	public List<WrBoardVO> getBoardList(Search search) {
-		return sql.selectList(namespace + ".getBoardList", search);
+	public List<WrBoardVO> getBoardList(Criteria cri) {
+		return sql.selectList(namespace + ".getBoardList", cri);
 	}
 
 	@Override
 
-	public int getBoardListCnt(Search search) throws Exception {
-		return sql.selectOne(namespace + ".getBoardListCnt", search);
+	public int getBoardListCnt(Criteria cri) throws Exception {
+		return sql.selectOne(namespace + ".getBoardListCnt", cri);
 	}
-
 
 }

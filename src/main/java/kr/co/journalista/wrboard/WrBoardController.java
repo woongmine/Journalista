@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import kr.co.journalista.MemberVO;
 import kr.co.journalista.WrBoardVO;
 
 @Controller
@@ -159,7 +160,6 @@ public class WrBoardController {
 		session.setAttribute("wr_contents", vo.getWr_contents());
 		session.setAttribute("writeremail", vo.getEmail());
 		
-
 	}
 
 	// 게시물 수정
@@ -251,41 +251,60 @@ public class WrBoardController {
 
 
 	
-	@RequestMapping(value = "/listPage", method = RequestMethod.GET)
-
-	public String getBoardList(Model model, @RequestParam(required = false, defaultValue = "1") int page, @RequestParam(required = false, defaultValue = "1") int range, @RequestParam(required = false, defaultValue = "title") String searchType
-
-			, @RequestParam(required = false) String keyword) throws Exception {
-
-		Search search = new Search();
-
-		search.setSearchType(searchType);
-
-		search.setKeyword(keyword);
-
-		
-		//전체 게시글 개수
-
-		int listCnt = service.getBoardListCnt(search);
-
-		//Pagination 객체생성
-
-		Pagination pagination = new Pagination();
-
-//		pagination.pageInfo(page, range, listCnt);
-		search.pageInfo(page, range, listCnt);
-
-//		model.addAttribute("pagination", pagination);
-		model.addAttribute("pagination", search);
-
-//		model.addAttribute("list", service.getBoardList(pagination));
-		model.addAttribute("list", service.getBoardList(search));
-
-		return "wrboard/listPage";
-
+//	@RequestMapping(value = "/listPage", method = RequestMethod.GET)
+//
+//	public String getBoardList(Model model, HttpSession session, 
+//			@RequestParam(required = false, defaultValue = "1") int page, 
+//			@RequestParam(required = false, defaultValue = "1") int range, 
+//			@RequestParam(required = false, defaultValue = "wr_title") String searchType, 
+//			@RequestParam(required = false, defaultValue = "all") String category,
+//			@RequestParam(required = false) String keyword) throws Exception {
+//
+//		Search search = new Search();
+//
+//		search.setSearchType(searchType);
+//
+//		search.setKeyword(keyword);
+//		
+//		search.setCategory(category);
+//		
+//		//전체 게시글 개수
+//
+//		int listCnt = service.getBoardListCnt(search);
+//
+//		//Pagination 객체생성
+//
+//		Pagination pagination = new Pagination();
+//
+//		search.pageInfo(page, range, listCnt);
+//
+//		model.addAttribute("pagination", search);
+//
+//		model.addAttribute("list", service.getBoardList(search));
+//		
+//		session.setAttribute("searchType", searchType);
+//		session.setAttribute("keyword", keyword);
+//		System.out.println("searchType : " + searchType);
+//		System.out.println("keyword : " + keyword);
+//		
+//		return "wrboard/listPage";
+//
+//	}
+	
+	@RequestMapping(value = "/listPage")
+	public void getBoardList(Criteria cri, Model model) throws Exception{
+        //현재 페이지에 해당하는 게시물을 조회해 옴 
+		List<WrBoardVO> allboard = service.getBoardList(cri);
+        //모델에 추가
+		model.addAttribute("list", allboard);
+        //PageMaker 객체 생성
+		PageMaker pageMaker = new PageMaker(cri);
+        //전체 게시물 수를 구함
+		int totalCount = service.getBoardListCnt(cri);
+        //pageMaker로 전달 -> pageMaker는 startPage, endPage, prev, next를 계산함
+		pageMaker.setTotalCount(totalCount);
+        //모델에 추가
+		model.addAttribute("pageMaker", pageMaker);
 	}
-	
-	
-
-
+    
 }
