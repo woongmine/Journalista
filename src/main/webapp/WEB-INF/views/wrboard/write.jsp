@@ -7,22 +7,10 @@
 
 <html>
 <head>
-<script>
-function checkblank(){
-	var wr_title = $('#wr_title').val();
-	var wr_contents = $('#wr_contents').val();
-	var writer = $('#name').val();
-	if (wr_title == "" || wr_contents == ""){
-		alert("내용없음 올리지 마루여");
-		return false;
-		}
-	else if(writer == ""){
-		alert("않이 록으인 하세여;;");
-		return false;
-		}
-	}
-</script>
 <title>게시물 작성</title>
+<link href="/resources/summernote/summernote-bs4.css" rel="stylesheet">
+<script src="/resources/summernote/summernote-bs4.js"></script>
+<script src="/resources/summernote/lang/summernote-ko-KR.js"></script>
 </head>
 <body>
 	<form method="post" action="/wrboard/write">
@@ -46,13 +34,13 @@ function checkblank(){
 
 		  <div>
 		    <label>내용</label>
-		    <textarea rows="5" cols="50" id="wr_contents" name="wr_contents"></textarea>
+		    <textarea rows="5" cols="50" id="summernote" name="wr_contents"></textarea>
 		  </div>
 
 		<div>
-			<button type="submit" onclick="return checkblank();">작성</button>
+			<button type="submit" id="submit" onclick="return checkblank();" name="submit" class="btn btn-primary pull-right">글쓰기</button>
 		</div>
 	</form>
-
+<script src="/resources/js/editor.js"></script>
 </body>
 </html>
