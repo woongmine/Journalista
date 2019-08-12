@@ -29,6 +29,8 @@
 			</select>
 		</div>
 		<div>
+			<input type="hidden" id="name" name="name" value="${member.name}" readonly/>
+
 			<input type="hidden" name="email" value="${member.email }"/>
 		</div>
 
