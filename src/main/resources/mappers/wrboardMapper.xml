@@ -6,8 +6,8 @@
 
 	<insert id="write" parameterType="kr.co.journalista.WrBoardVO">
 		insert into
-		wr_board(`wr_title`, `m_no`, `wr_contents`, `name`, `wr_datetime`, `wr_del`, `email`)
-		values(#{wr_title}, #{m_no}, #{wr_contents} , #{name}, #{wr_datetime}, 0, #{email})
+		wr_board(`wr_title`, `m_no`, `wr_contents`, `name`, `wr_datetime`, `wr_del`, `email`, `category`)
+		values(#{wr_title}, #{m_no}, #{wr_contents} , #{name}, #{wr_datetime}, 0, #{email}, #{category})
 	</insert>
 
 	<update id="update" parameterType="kr.co.journalista.WrBoardVO">
@@ -190,16 +190,13 @@
 		</if>
 		<if test="category != null">	
 			<if test="category=='request'">
-				and `category_request` = 1 and wr_del = 0
+				and `category` = "요청" and wr_del = 0
 			</if>
 			<if test="category=='report'">
-				and `category_report` = 1 and wr_del = 0
+				and `category` = "신고" and wr_del = 0
 			</if>
 			<if test="category=='etc'">
-				and `category_etc` = 1 and wr_del = 0
-			</if>
-			<if test="category=='all'">
-				and wr_del = 0
+				and `category` = "기타" and wr_del = 0
 			</if>
 		</if>
 		</trim>

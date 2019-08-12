@@ -81,6 +81,26 @@
 	}
 	
 	//카테고리
+	
+	function category_request(){
+		var url = "listPage?page=1" + "&perPageNum=" + "${pageMaker.cri.perPageNum}";
+		url = url + "&category=request";
+		location.href = url;
+		
+	}
+	function category_report(){
+		var url = "listPage?page=1" + "&perPageNum=" + "${pageMaker.cri.perPageNum}";
+		url = url + "&category=report";
+		location.href = url;
+		
+	}
+	function category_etc(){
+		var url = "listPage?page=1" + "&perPageNum=" + "${pageMaker.cri.perPageNum}";
+		url = url + "&category=etc";
+		location.href = url;
+		
+	}
+	
 	$(document).on('click', '#btnCategory', function(e){
 
 		e.preventDefault();
@@ -93,24 +113,21 @@
 	});
 </script>
 
-<div class="w100" style="padding-right:10px; float:left;">
-	<select class="form-control form-control-sm" name="category" id="category">
-		<option value="all">전체게시판</option>
-		
-		<option value="request">요청게시판</option>
-
-		<option value="report">신고게시판</option>
-
-		<option value="etc">기타게시판</option>
-	</select>
+<div class="w100" style="padding-right:10px; float:center;">
+	<table class="table" style="width: 50%" align="center">
+		<tr>
+		<td><button class="btn btn-primary" onclick="location.href='listPage'">전체</button></td>
+		<td><button class="btn btn-primary" onClick="return category_request();">요청</button></td>
+		<td><button class="btn btn-primary" onClick="return category_report();">신고</button></td>
+		<td><button class="btn btn-primary" onClick="return category_etc();">기타</button></td>
+		</tr>	
+	</table>
 </div>
-<div style="float:left;">
-	<button class="btn btn-sm btn-primary" name="btnCategory" id="btnCategory">Go!</button></div>
-
 <table class="table" style="width: 50%" align="center" id="maintable">
 	<thead class="thead-dark">
 		<tr>
 			<th scope="col">번호</th>
+			<th scope="col">카테고리</th>
 			<th scope="col">제목</th>
 			<th scope="col">작성자</th>
 			<th scope="col">작성일</th>
@@ -120,6 +137,7 @@
 			<c:forEach items="${list}" var="list">
 				<tr scope="row">
 					<td>${list.wr_no}</td>
+					<td>${list.category }</td>
 					<td><a href="/wrboard/view?wr_no=${list.wr_no}">${list.wr_title}</a></td>
 					<td>${list.name}</td>
 					<td><fmt:formatDate value="${list.wr_datetime}" pattern="yy.MM.dd-hh.mm.ss" /></td>
@@ -169,6 +187,7 @@
 	<div class="col-md-6">
 		<div class="form-inline">
 			<select id="searchTypeSel" name="searchType">
+				<option value="" selected disabled hidden>=선택하세요=</option>
 				<option value="wr_title">제목</option>
 				<option value="wr_contents">내용</option>
 				<option value="name">닉네임</option>

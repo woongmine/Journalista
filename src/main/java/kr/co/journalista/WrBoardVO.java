@@ -13,9 +13,15 @@ public class WrBoardVO {
 	private String wr_contents;
 	private String wr_ip;
 	private int wr_del;
-	private String category_request;
-	private String category_report;
-	private String category_etc;
+	private String category;
+	
+	
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
 	private int num;
 	
 
@@ -84,24 +90,6 @@ public class WrBoardVO {
 	}
 	public void setWr_del(int wr_del) {
 		this.wr_del = wr_del;
-	}
-	public String getCategory_request() {
-		return category_request;
-	}
-	public void setCategory_request(String category_request) {
-		this.category_request = category_request;
-	}
-	public String getCategory_report() {
-		return category_report;
-	}
-	public void setCategory_report(String category_report) {
-		this.category_report = category_report;
-	}
-	public String getCategory_etc() {
-		return category_etc;
-	}
-	public void setCategory_etc(String category_etc) {
-		this.category_etc = category_etc;
 	}
 	 
 	 

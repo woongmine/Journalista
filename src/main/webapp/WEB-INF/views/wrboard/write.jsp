@@ -29,7 +29,17 @@ function checkblank(){
 		<div>
 			<label>제목</label> <input type="text" id="wr_title" name="wr_title" />
 		</div>
-
+		<div>
+			<label>카테고리</label>
+			<select name="category" id="category">
+			
+			<option value="요청">요청</option>
+	
+			<option value="신고">신고</option>
+	
+			<option value="기타">기타</option>
+			</select>
+		</div>
 		<div>
 			<label>작성자</label> <input type="text" id="name" name="name" value="${member.name}" readonly/>
 			<input type="hidden" name="email" value="${member.email }"/>

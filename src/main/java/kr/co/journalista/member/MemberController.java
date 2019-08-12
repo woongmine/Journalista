@@ -93,7 +93,7 @@ public class MemberController {
 		session.setAttribute("userName", vo.getName());
 		logger.info("userId=="+vo.getEmail());
 		logger.info("userName=="+vo.getName());
-		
+		session.setAttribute("login_email", vo.getEmail());
 		model.addAttribute("member", vo);
 
 		// 로그인 유지를 선택할 경우
@@ -107,7 +107,6 @@ public class MemberController {
 
 		return "home";
 	}
-
 
 	@ResponseBody
 	@RequestMapping(value = "/idCheck", method = RequestMethod.POST)
