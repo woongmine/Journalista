@@ -37,20 +37,21 @@ public class ReplyController {
 		service.create(replyVO);
 	}
 	
-//	// 댓글 목록
-//	@RequestMapping("/list")
-//	public ModelAndView list(@RequestParam int wr_no, ModelAndView mav) throws Exception{
-//		List<ReplyVO>list = service.list(wr_no);
-//		mav.setViewName("reply/replyList");
-//		mav.addObject("list",list);
-//		return mav;
-//	}
-	
-	//댓글 목록
-	@RequestMapping("/listJson")
-	@ResponseBody
-	public List<ReplyVO>listJson(@RequestParam int wr_no) throws Exception{
-		List<ReplyVO>list = service.list(wr_no);
-		return list;
-	}
+	  //댓글 목록	  
+	  @RequestMapping("/listJson")	  
+	  @ResponseBody 
+	  public List<ReplyVO>listJson(@RequestParam int wr_no) throws Exception{ 
+		logger.info("go replylist"); 
+		  List<ReplyVO>list = service.list(wr_no); 
+	  
+	  return list;   
+	  }
+	  
+	  //댓글 삭제
+	  @RequestMapping("/replydelete")
+	  public void delete(@RequestParam int re_no) throws Exception {
+		  logger.info("delete ajax@@@@@@@@@@@@@@@@@@@");
+		  service.delete(re_no);
+	  }
+	  	
 }

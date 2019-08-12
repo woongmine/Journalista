@@ -30,15 +30,13 @@ public class ReplyServiceImpl implements ReplyService {
 	//댓글 수정
 	@Override
 	public void update(ReplyVO vo) throws Exception {
-		// TODO Auto-generated method stub
-		
+		dao.update(vo);
 	}
 	
 	//댓글 삭제
 	@Override
 	public void delete(Integer re_no) throws Exception {
-		// TODO Auto-generated method stub
-		
+		dao.delete(re_no);
 	}
 
 }

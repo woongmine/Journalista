@@ -29,14 +29,13 @@ public class ReplyDAOImpl implements ReplyDAO {
 
 	@Override
 	public void update(ReplyVO vo) throws Exception {
-		// TODO Auto-generated method stub
+		sql.update("reply.updateReply", vo);
 		
 	}
 
 	@Override
 	public void delete(Integer re_no) throws Exception {
-		// TODO Auto-generated method stub
-		
+		sql.delete("reply.deleteReply", re_no);
 	}
 
 }
