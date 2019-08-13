@@ -87,4 +87,43 @@
 		select count(m_no) from airfly.member where `leave` = 0 <include refid="searchCondition"></include>
 	</select>
 	
+		<!-- 기타게시판 관리 -->
+	<sql id="wrsearchCondition">
+		<if test="searchType != null">
+			<if test="searchType == 'wrn'.toString()">
+				and `wr_no` like CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType == 't'.toString()">
+				and `wr_title` like CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType == 'n'.toString()">
+				and `name` like CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType == 'c'.toString()">
+				and `wr_contents` like CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType == 'all'.toString()">
+				and (`wr_title` like CONCAT('%', #{keyword}, '%') or `name` like CONCAT('%', #{keyword}, '%') or `wr_contents` like CONCAT('%', #{keyword}, '%'))
+			</if>
+		</if>
+	</sql>
+	
+	<!-- 관리자 기타게시판 페이지 페이징 -->
+	<select id="wrboardPage" resultType="kr.co.journalista.WrBoardVO">
+		select * from airfly.wr_board where `wr_del` = 0 <include refid="wrsearchCondition"></include> order by `wr_no` desc limit #{pageStart}, #{perPageNum}
+	</select>
+	
+	<select id="wrgettotalcount" resultType="int">
+		select count(wr_no) from airfly.wr_board where `wr_del` = 0 <include refid="wrsearchCondition"></include>
+	</select>
+	
+	<!-- 관리자 기타게시판 삭제 처리 -->
+	<update id="wrboardDelete" parameterType="java.util.List">
+		update airfly.wr_board set `wr_del` = 1 
+		WHERE wr_no IN
+		<foreach open="(" close=")" separator="," collection="list" item="wr_no">
+			#{wr_no}
+		</foreach>
+	</update>
+	
  </mapper>

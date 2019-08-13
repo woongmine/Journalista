@@ -20,6 +20,7 @@ import kr.co.journalista.AdminVO;
 import kr.co.journalista.JournalVO;
 import kr.co.journalista.MemberVO;
 import kr.co.journalista.PressVO;
+import kr.co.journalista.WrBoardVO;
 
 @Controller
 public class AdminController {
@@ -141,6 +142,30 @@ public class AdminController {
 		pageMaker.setTotalCount(totalCount);
         //모델에 추가
 		model.addAttribute("pageMaker", pageMaker);
+	}
+	
+	@RequestMapping(value = "/admin/wrboardPage")
+	public void wrboardPage(Criteria cri, Model model) throws Exception{
+		logger.info("wrboardPage");
+        //현재 페이지에 해당하는 게시물을 조회해 옴 
+		List<WrBoardVO> allWrboard = service.wrboardPage(cri);
+        //모델에 추가
+		model.addAttribute("allWrboard", allWrboard);
+        //PageMaker 객체 생성
+		PageMaker pageMaker = new PageMaker(cri);
+        //전체 게시물 수를 구함
+		int totalCount = service.wrgetTotalCount(cri);
+        //pageMaker로 전달 -> pageMaker는 startPage, endPage, prev, next를 계산함
+		pageMaker.setTotalCount(totalCount);
+        //모델에 추가
+		model.addAttribute("pageMaker", pageMaker);
+	}
+	
+	@RequestMapping(value = "/admin/wrboardDelete", method = RequestMethod.POST)
+	public String wrboardDelete(@RequestParam(value="wr_noArray[]") List<Integer> wr_noArray) throws Exception{
+		logger.info("관리자모드 기타게시물삭제" + wr_noArray);
+		service.wrboardDelete(wr_noArray);
+		return "admin/wrboardPage";
 	}
     
 }

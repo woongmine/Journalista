@@ -6,6 +6,7 @@ import kr.co.journalista.AdminVO;
 import kr.co.journalista.JournalVO;
 import kr.co.journalista.MemberVO;
 import kr.co.journalista.PressVO;
+import kr.co.journalista.WrBoardVO;
 
 public interface AdminDAO {
 	
@@ -42,5 +43,12 @@ public interface AdminDAO {
     //memberPage 메소드 추가
 	List<MemberVO> memberPage(Criteria cri) throws Exception;
 	int getTotalCount(Criteria cri) throws Exception; 
+	
+    //wrboard 관리자 메소드 추가
+	List<WrBoardVO> wrboardPage(Criteria cri) throws Exception;
+	int wrgetTotalCount(Criteria cri) throws Exception; 
+
+	// 게시물 삭제(leave 0을 1로)
+	public int wrboardDelete(List<Integer> wr_noArray) throws Exception;
 
 }

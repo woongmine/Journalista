@@ -21,6 +21,7 @@
      	 <a class="nav-item nav-link" href="/member/mypage">회원정보</a>
 	  </c:if>
 	  <a class="nav-item nav-link" href="/admin/memberPage">회원관리</a>
+	  <a class="nav-item nav-link" href="/admin/wrboardPage">기타게시판관리</a>
     </div>
   </div>
 </nav>

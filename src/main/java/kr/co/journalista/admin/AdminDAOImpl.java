@@ -11,6 +11,7 @@ import kr.co.journalista.AdminVO;
 import kr.co.journalista.JournalVO;
 import kr.co.journalista.MemberVO;
 import kr.co.journalista.PressVO;
+import kr.co.journalista.WrBoardVO;
 
 @Repository
 public class AdminDAOImpl implements AdminDAO {
@@ -76,5 +77,18 @@ public class AdminDAOImpl implements AdminDAO {
 	@Override
 	public int getTotalCount(Criteria cri) throws Exception {
 		return sql.selectOne(namespace+".gettotalcount", cri);
+	}
+	
+	@Override
+	public List<WrBoardVO> wrboardPage(Criteria cri) throws Exception {
+		return sql.selectList(namespace+".wrboardPage", cri);
+	}
+	@Override
+	public int wrgetTotalCount(Criteria cri) throws Exception {
+		return sql.selectOne(namespace+".wrgettotalcount", cri);
+	}
+	@Override
+	public int wrboardDelete(List<Integer> wr_noArray) throws Exception {
+		return sql.update(namespace+".wrboardDelete", wr_noArray);
 	}
 }
