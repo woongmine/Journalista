@@ -1,11 +1,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ page session="true" %>
-<% request.setCharacterEncoding("UTF-8"); %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<% int max = (int)session.getAttribute("max"); %>
-<% int min = (int)session.getAttribute("min"); %>
+<%@ page session="true"%>
+<%	request.setCharacterEncoding("UTF-8");%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<% int max = (int) session.getAttribute("max");%>
+<% int min = (int) session.getAttribute("min");%>
 <html>
 <head>
 <script>
@@ -20,7 +19,7 @@
 			var param={
 					re_text : re_text,
 					wr_no : wr_no					
-			};
+			};			
 			$.ajax({
 				type: "post",
 				url: "${path}/reply/insert",
@@ -29,88 +28,151 @@
 					alert("댓글이 등록되었습니다.");
 					listReply2();
 				}
-			});
+			});			
+		});
+	});
+	$(document).ready(function(){
+		$("#spreadBtn").click(function(){
+			if($("#replytext").is(":visible")){
+				$("#replytext").slideUp('fast');
+				$("#listReply").slideUp('fast');
+			}else{
+				$("#replytext").slideDown('fast');
+				$("#listReply").slideDown('fast');
+			}
 		});
 	});
 	
-	
-	
-	//댓글 목록2
+	 //댓글 목록2
 	function listReply2(){
+		var userId= "<%=session.getAttribute("userId")%>";
+		console.log(userId);
 		$.ajax({
-			type:"get",
-			url:"${path}/reply/listJson?wr_no=${view.wr_no}",
-					success: function(result){
-						console.log(result);
+					type : "get",
+					url : "${path}/reply/listJson?wr_no=${view.wr_no}",
+					success : function(result) {
 						var output = "<table>";
-						for(var i in result){
-							output += "<tr>";
-							output += "<td>"+result[i].name;
-							output += "("+changeDate(result[i].regdate)+")<br>";
-							output +=	result[i].re_text+"</td>";
-							output += "<tr>";
+						for ( var i in result) {
+							if (result[i].email == userId) {
+								console.log(userId);
+								console.log(result[i].email);
+								output += "<tr>";
+								output += "<td>" + result[i].name + "("
+										+ result[i].email + ")";
+								output += " / " + changeDate(result[i].regdate)
+										+ "<br>";
+								output += result[i].re_text + "</td>"
+								output += "<td><a style='color:#0080FF' onClick='javascript:replydelete("
+										+ result[i].re_no
+										+ ")'>삭제</a></td>";
+								output += "<tr>";
+								
+
+							} else {
+								output += "<tr>";
+								output += "<td>" + result[i].name + "("
+										+ result[i].email + ")";
+								output += " / " + changeDate(result[i].regdate)
+										+ "<br>";
+								output += result[i].re_text + "<br></td>"
+								output += "<tr>";
+								
+							}
 						}
 						output += "</table>";
 						$("#listReply").html(output);
 					}
-		});	
+				});
+
 	}
+
+	//댓글 수정
+	function replyupdate(re_no) {
+		console.log(re_no);
+		location.href = "${path}/reply/replyupdate?re_no=" + re_no;
+	}
+
+	//댓글 삭제
+	function replydelete(re_no) {
+		var param = {
+			re_no : re_no
+		};
+		if (confirm("삭제하시겠습니까?")) {
+			$.ajax({
+				type : "post",
+				url : "${path}/reply/replydelete",
+				data : param,
+				success : function() {
+					alert("댓글을 삭제하였습니다.");
+					listReply2();
+				}
+			});
+		}
+	}
+
 	//날짜 변환 함수
-	function changeDate(date){
+	function changeDate(date) {
 		date = new Date(parseInt(date));
 		year = date.getFullYear();
-		month = date.getMonth()+1;
+		month = date.getMonth() + 1;
 		day = date.getDate();
 		hour = date.getHours();
 		minute = date.getMinutes();
 		second = date.getSeconds();
-		strDate = year+"-"+month+"-"+day+" "+hour+":"+minute+":"+second;
+		strDate = (year-2000)+"."+month+"."+day+"  "+hour+":"+minute+":"+second;
+
 		return strDate;
 	}
 
 	function delpageCheck() {
 		var del = $('#delcheck').val();
-		if(del == 1){
-		    alert("삭제된 글입니다.");
-		    location.href='/wrboard/listPage?num=1';
-			}
-	  }
-
-	function checkmodify(){
-		var loginemail = $('#loginemail').val();
-		var writeremail = $('#writeremail').val();
-		if (loginemail != writeremail){
-			alert("본인만 게시물을 수정할 수 있습니다.");
-			return false;
-			}
+		if (del == 1) {
+			alert("삭제된 글입니다.");
+			location.href = '/wrboard/listPage?num=1';
+		}
 	}
 
+	function checkmodify() {
+		var loginemail = $('#loginemail').val();
+		var writeremail = $('#writeremail').val();
+		if (loginemail != writeremail) {
+			alert("본인만 게시물을 수정할 수 있습니다.");
+			return false;
+		}
+	}
 
-	function CheckNextPage(){
+	//function checkdrop(){
+	//	var loginemail = $('#loginemail').val();
+	//	var writeremail = $('#writeremail').val();
+	//	if (loginemail != writeremail){
+	//		alert("본인만 게시물을 삭제할 수 있습니다.");
+	//		return false;
+	//		}
+	//	}
+
+	function CheckNextPage() {
 		var wr_no = $('#wr_no').val();
 		var max = $('#max').val();
-		if (wr_no == max){
+		if (wr_no == max) {
 			alert("다음 글이 없습니다.");
 			return false;
-			}
 		}
-	
-	function CheckPrePage(){
+	}
+
+	function CheckPrePage() {
 		var wr_no = $('#wr_no').val();
 		var min = $('#min').val();
-		if (wr_no == min){
+		if (wr_no == min) {
 			alert("이전 글이 없습니다.");
 			return false;
-			}
 		}
-	
-
+	}
 </script>
 <title>게시물 보기</title>
 </head>
-<body onload = "delpageCheck();">
+<body onload="delpageCheck();">
 	<form method="post">
-		<input type="hidden" id="delcheck" value="${view.wr_del }"/>
+		<input type="hidden" id="delcheck" value="${view.wr_del }" />
 		<div>
 			<label>제목</label> <input type="text" name="wr_title"
 				value="${view.wr_title }" readonly="readonly" />
@@ -129,33 +191,32 @@
 
 		<div>
 			<label>내용</label>
-			<div style="height:300px; margin-top:10px;">${view.wr_contents}</div>
+			<textarea rows="5" cols="50" name="wr_contents" readonly="readonly">${view.wr_contents}</textarea>
 		</div>
 		<div>
-			<input type="hidden" id="loginemail" value="${member.email }" />
-			<input type="hidden" id="writeremail" value="${view.email }"/>
-			<input type="hidden" id="wr_no" value="${view.wr_no }"/>
-			<input type="hidden" id="max" value="<%= max %>"/>
-			<input type="hidden" id="min" value="<%= min %>"/>
-			<a href="/wrboard/past?wr_no=${view.wr_no}" onclick="return CheckPrePage();">이전글</a>
-			<a href="/wrboard/update?wr_no=${view.wr_no}" onclick="return checkmodify();">수정</a>
-			<a href="/wrboard/delete?wr_no=${view.wr_no}" onclick="return checkdrop();">삭제</a>
-			<a href="/wrboard/listPage?num=1"> 목록보기</a>
-			<a href="/wrboard/next?wr_no=${view.wr_no}" onclick="return CheckNextPage();">다음글</a>
+			<input type="hidden" id="loginemail" value="${member.email }" /> <input
+				type="hidden" id="writeremail" value="${view.email }" /> <input
+				type="hidden" id="wr_no" value="${view.wr_no }" /> <input
+				type="hidden" id="max" value="<%=max%>" /> <input type="hidden"
+				id="min" value="<%=min%>" /> <a
+				href="/wrboard/past?wr_no=${view.wr_no}"
+				onclick="return CheckPrePage();">이전글</a> <a
+				href="/wrboard/update?wr_no=${view.wr_no}"
+				onclick="return checkmodify();">수정</a> <a
+				href="/wrboard/delete?wr_no=${view.wr_no}"
+				onclick="return checkdrop();">삭제</a> <a
+				href="/wrboard/listPage?num=1"> 목록보기</a> <a
+				href="/wrboard/next?wr_no=${view.wr_no}"
+				onclick="return CheckNextPage();">다음글</a>
 		</div>
 	</form>
+
 	
-	<div style="width:650px;" text=align: center;">
-			
-			<br>
-				<textarea rows="5" cols="80" id="re_text" placeholder="댓글을 입력하세요."></textarea>
-			<br>
-				<button type="button" id="btnReply">댓글 작성</button>
 		
 	</div>
-	<div id="listReply"></div>
+	<!-- <div id="listReply"></div> -->
 	<form align="center" name="check">
-<!-- 	<table class="table" style="width: 60%" align="center">
+		<!-- 	<table class="table" style="width: 60%" align="center">
 		<thead class="thead-dark">
 			<tr>
 				<th scope="col">번호</th>
@@ -181,11 +242,17 @@
 		</tbody>
 	</table>
  -->
-		
-		<br/>
-		<a href="/">홈으로</a>
+
+		<br /> <a href="/">홈으로</a>
 	</form>
-	
+	<a id="spreadBtn" class="btn01" style="color:#0080FF">댓글보기</a>
+	<div id="replytext" style="width: 650px; display: none;" text=align:center;">
+			
+			<br>
+				<textarea rows="2" cols="60" id="re_text" placeholder="댓글을 입력하세요."></textarea>
+			<br>
+				<button type="button" id="btnReply">댓글 작성</button>
+	<div id="listReply" class="example01" style="display: none;"></div>
 	
 </body>
 </html>
