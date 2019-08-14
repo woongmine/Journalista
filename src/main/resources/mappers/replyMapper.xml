@@ -8,14 +8,14 @@
 	<!-- 댓글 입력 -->
 	<insert id="insertReply"
 		parameterType="kr.co.journalista.ReplyVO">
-		INSERT INTO re_boardrep ( wr_no, re_text, email, name)
+		INSERT INTO wr_boardrep ( wr_no, re_text, email, name)
 		VALUES ( #{wr_no}, #{re_text}, #{email}, #{name})
 	</insert>
 
 	<!-- 댓글 목록 -->
 	<select id="listReply" resultType="kr.co.journalista.ReplyVO">
 		SELECT re_no, wr_no, re_text, email, name, regdate, updatedate
-		FROM re_boardrep
+		FROM wr_boardrep
 		WHERE wr_no=#{wr_no}
 		ORDER BY re_no
 	</select>
@@ -23,14 +23,14 @@
 	<!-- 댓글 수정 -->
 	<select id="updateReply"
 		parameterType="kr.co.journalista.ReplyVO">
-		UPDATE re_boardrep
+		UPDATE wr_boardrep
 		SET re_text = #{re_text}
 		WHERE re_no=#{re_no}
 	</select>
 
 	<!-- 댓글 삭제 -->
 	<delete id="deleteReply">
-		DELETE FROM re_boardrep
+		DELETE FROM wr_boardrep
 		WHERE re_no=#{re_no}
 	</delete>
 
