@@ -72,7 +72,7 @@ public class MemberController {
 
 	// 로그인 처리(자동로그인포함)
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(LoginDTO dto, Model model,HttpSession session, RedirectAttributes rttr
+	public String login(LoginDTO dto, Model model,HttpSession session,HttpServletRequest request, RedirectAttributes rttr
 			) throws Exception {
 		logger.info("post login");
 
@@ -88,11 +88,13 @@ public class MemberController {
 			rttr.addFlashAttribute("mag","retry");
 			return "redirect:/member/login";
 		}
-		
+		vo.setIp(ClientUtils.getRemoteIP(request));	
 		session.setAttribute("userId", vo.getEmail());
 		session.setAttribute("userName", vo.getName());
+		session.setAttribute("ip",vo.getIp());
 		logger.info("userId=="+vo.getEmail());
 		logger.info("userName=="+vo.getName());
+		logger.info("ip== "+vo.getIp());
 		session.setAttribute("login_email", vo.getEmail());
 		model.addAttribute("member", vo);
 

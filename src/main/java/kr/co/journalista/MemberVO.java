@@ -8,11 +8,14 @@ public class MemberVO {
 	private String name;
 	private String password;
 	private String passwordCheck;
+	private String ip;
 	private int leave;
 	private int auth;
 	private String email_key;
 	private Date Reg_date;
 	private Date withdrawal_date;
+	
+	
 	
 	public int getM_no() {
 		return m_no;
@@ -43,6 +46,12 @@ public class MemberVO {
 	}
 	public void setPasswordCheck(String passwordCheck) {
 		this.passwordCheck = passwordCheck;
+	}
+	public String getIp() {
+		return ip;
+	}
+	public void setIp(String ip) {
+		this.ip = ip;
 	}
 	public int getLeave() {
 		return leave;
@@ -75,6 +84,17 @@ public class MemberVO {
 		this.withdrawal_date = withdrawal_date;
 	}
 	
+	
+	@Override
+	public String toString() {
+		return "MemberVO [m_no=" + m_no + ", email=" + email + ", name=" + name + ", password=" + password
+				+ ", passwordCheck=" + passwordCheck + ", ip=" + ip + ", leave=" + leave + ", auth=" + auth
+				+ ", email_key=" + email_key + ", Reg_date=" + Reg_date + ", withdrawal_date=" + withdrawal_date + "]";
+	}
+	
+	
+	
+
 
 	
 }
