@@ -6,8 +6,8 @@
 
 	<insert id="write" parameterType="kr.co.journalista.WrBoardVO">
 		insert into
-		wr_board(`wr_title`, `m_no`, `wr_contents`, `name`, `wr_datetime`, `wr_del`, `email`, `category`)
-		values(#{wr_title}, #{m_no}, #{wr_contents} , #{name}, #{wr_datetime}, 0, #{email}, #{category})
+		wr_board(`wr_title`, `m_no`, `wr_contents`, `name`, `wr_datetime`, `wr_del`, `email`, `category`, `wr_ip`)
+		values(#{wr_title}, #{m_no}, #{wr_contents} , #{name}, #{wr_datetime}, 0, #{email}, #{category}, #{wr_ip})
 	</insert>
 
 	<update id="update" parameterType="kr.co.journalista.WrBoardVO">

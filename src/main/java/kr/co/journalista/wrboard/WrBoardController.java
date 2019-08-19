@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.journalista.MemberVO;
 import kr.co.journalista.WrBoardVO;
+import kr.co.journalista.member.ClientUtils;
 
 @Controller
 @RequestMapping(value = "/wrboard")
@@ -41,7 +42,7 @@ public class WrBoardController {
 
 	// 게시물 작성
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
-	public void postWrite(WrBoardVO vo, HttpSession session, HttpServletResponse response) throws Exception {
+	public void postWrite(WrBoardVO vo, HttpSession session, HttpServletResponse response,HttpServletRequest request) throws Exception {
 		
 		int num = 0;
 		
@@ -50,6 +51,7 @@ public class WrBoardController {
         response.setContentType("text/html; utf-8");
         String login_email = (String) session.getAttribute("login_email");
 		System.out.println("sessionemail : " + login_email);
+		vo.setWr_ip(ClientUtils.getRemoteIP(request));	
 		
 		if(login_email != null) {
 			service.write(vo);
