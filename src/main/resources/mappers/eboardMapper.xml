@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.journalista.mappers.eboardMapper">
+
+	<insert id="first_score" parameterType="kr.co.journalista.eBoardVO">
+		insert into
+		e_board(`score`)
+		values(#{score})
+	</insert>
+	
+	<update id="update_score" parameterType="kr.co.journalista.eBoardVO">
+		update
+		e_board
+		set
+		score =
+		#{score}
+		where
+		e_no = #{e_no}
+	</update>
+	
+	<insert id="write" parameterType="kr.co.journalista.eBoardVO">
+		insert into
+		e_board(`wr_title`, `m_no`, `wr_contents`, `name`, `wr_datetime`, `wr_del`, `email`, `category`)
+		values(#{wr_title}, #{m_no}, #{wr_contents} , #{name}, #{wr_datetime}, 0, #{email}, #{category})
+	</insert>
+
+	<update id="update" parameterType="kr.co.journalista.eBoardVO">
+		update
+		e_board
+		set
+		wr_title =
+		#{wr_title},
+		wr_contents = #{wr_contents}
+		where
+		wr_no = #{wr_no}
+	</update>
+
+	<delete id="delete" parameterType="int">
+		update 
+		wr_board
+		set
+		wr_del = 
+		1
+		where
+		wr_no =
+		#{wr_no}
+	</delete>
+
+	<select id="view" parameterType="int"
+		resultType="kr.co.journalista.eBoardVO">
+		select
+		wr_no, wr_title, wr_contents, name, wr_datetime, wr_hit, email, wr_del
+		from
+		wr_board
+		where
+		wr_no = #{wr_no}
+	</select>
+
+	<select id="updateReadcnt" resultType="int">
+		update wr_board 
+		set wr_hit = wr_hit +1 
+		where wr_no = #{wr_no}
+	</select>
+
+	<!-- 게시물 목록 -->
+	<select id="list" resultType="kr.co.journalista.eBoardVO">
+		select
+		wr_no, wr_title, wr_contents, name,
+		wr_datetime, wr_hit
+		from wr_board where wr_del = 0
+	</select>
+
+	<!-- 게시물 총 갯수 구하기 -->
+	<select id="count" resultType="int">
+		select
+		count(wr_no)
+		from
+		wr_board
+	</select>
+	
+
+	<!-- 페이징 1 -->
+	<select id="listPage" parameterType="hashMap"
+		resultType="kr.co.journalista.eBoardVO">
+		select
+		wr_no, wr_title, wr_contents, name, wr_datetime, wr_hit
+		from
+		wr_board where wr_del = 0 order by wr_no desc
+		limit #{displayPost}, #{postNum}
+
+	</select>
+	
+  
+  	<sql id="searchCondition">
+  		<trim prefix="WHERE" prefixOverrides="AND|OR">
+		<if test="searchType != null">
+			<if test="searchType == 'wr_title'.toString()">
+				and `wr_title` like CONCAT('%', #{keyword}, '%') and wr_del = 0
+			</if>
+			<if test="searchType == 'wr_contents'.toString()">
+				and `wr_contents` like CONCAT('%', #{keyword}, '%') and wr_del = 0
+			</if>
+			<if test="searchType == 'name'.toString()">
+				and `name` like CONCAT('%', #{keyword}, '%') and wr_del = 0
+			</if>	
+		</if>
+		<if test="category != null">	
+			<if test="category=='request'">
+				and `category` = "요청" and wr_del = 0
+			</if>
+			<if test="category=='report'">
+				and `category` = "신고" and wr_del = 0
+			</if>
+			<if test="category=='etc'">
+				and `category` = "기타" and wr_del = 0
+			</if>
+		</if>
+		</trim>
+	</sql>
+	
+	<!-- 페이징 -->
+	<select id="getBoardList" resultType="kr.co.journalista.eBoardVO">
+		select * from wr_board <include refid="searchCondition"></include> order by wr_no desc limit #{pageStart}, #{perPageNum}
+	</select>
+	
+	<select id="getBoardListCnt" resultType="int">
+		select count(wr_no) from wr_board <include refid="searchCondition"></include>
+	</select>
+  
+
+	<!-- 글쓰기 후 뷰 -->
+	<select id="viewafterwrite" resultType="int">
+		select
+		wr_no
+		from
+		wr_board where wr_del = 0 order by wr_no desc limit 1
+	</select>
+	
+	<!-- 이전글 최소페이지 -->
+	<select id="minpage" resultType="int">
+		select
+		wr_no
+		from
+		wr_board where wr_del = 0 order by wr_no limit 1
+	</select>
+</mapper>
