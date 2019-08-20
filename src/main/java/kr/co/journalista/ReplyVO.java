@@ -9,10 +9,18 @@ public class ReplyVO {
 	private String re_text;
 	private String email;
 	private String name;
+	private String re_ip;
 	private Date regdate;
 	private Date updatedate;
 	
 	
+	
+	public String getRe_ip() {
+		return re_ip;
+	}
+	public void setRe_ip(String re_ip) {
+		this.re_ip = re_ip;
+	}
 	public Integer getRe_no() {
 		return re_no;
 	}

@@ -3,6 +3,7 @@ package kr.co.journalista.reply;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.journalista.ReplyVO;
+import kr.co.journalista.member.ClientUtils;
 
 @RestController
 @RequestMapping("/reply/*")
@@ -28,11 +30,12 @@ public class ReplyController {
 	
 	// 댓글입력
 	@RequestMapping("/insert")
-	public void insert(ReplyVO replyVO, HttpSession session) throws Exception{
+	public void insert(ReplyVO replyVO, HttpSession session, HttpServletRequest request) throws Exception{
 		String userId = (String) session.getAttribute("userId");
 		String userName = (String) session.getAttribute("userName");
 		replyVO.setEmail(userId);
 		replyVO.setName(userName);
+		replyVO.setRe_ip(ClientUtils.getRemoteIP(request));	
 		logger.info("userId"+ userId);
 		service.create(replyVO);
 	}

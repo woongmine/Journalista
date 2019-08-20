@@ -8,8 +8,8 @@
 	<!-- 댓글 입력 -->
 	<insert id="insertReply"
 		parameterType="kr.co.journalista.ReplyVO">
-		INSERT INTO wr_boardrep ( wr_no, re_text, email, name)
-		VALUES ( #{wr_no}, #{re_text}, #{email}, #{name})
+		INSERT INTO wr_boardrep ( wr_no, re_text, email, name, re_ip)
+		VALUES ( #{wr_no}, #{re_text}, #{email}, #{name},#{re_ip})
 	</insert>
 
 	<!-- 댓글 목록 -->
