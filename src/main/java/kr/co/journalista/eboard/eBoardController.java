@@ -13,7 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import kr.co.journalista.LikeVO;
+import kr.co.journalista.WrBoardVO;
 import kr.co.journalista.eBoardVO;
+import kr.co.journalista.member.MemberService;
 
 @Controller
 @RequestMapping(value = "/eboard")
@@ -32,6 +35,44 @@ public class eBoardController {
 
 	}
 
+	@RequestMapping(value = "/listPage")
+	public void getBoardList(LikeVO vo, Model model) throws Exception{
+		List<eBoardVO> allboard = service.getBoardList(vo);
+		model.addAttribute("like_list", allboard);
+	}
+    
+	@RequestMapping(value = "first_score")
+	public String getScore(eBoardVO vo) throws Exception{
+		service.first_score(vo);
+		System.out.println(vo.getScore());
+		
+		return "redirect:/eboard/listPage";
+	}
+	
+	@RequestMapping(value = "like")
+	public void getlike(eBoardVO vo, HttpSession session, HttpServletResponse response) throws Exception{
+		PrintWriter writer = response.getWriter();
+        response.setCharacterEncoding("utf-8");
+        response.setContentType("text/html; utf-8");
+		System.out.println("hi");
+		String login_email = (String) session.getAttribute("login_email");
+		System.out.println(login_email);
+		String login_member_no = (String) session.getAttribute("login_member_no");
+		System.out.println(login_member_no);
+		if (login_member_no != null) {
+			vo.setM_no(Integer.parseInt(login_member_no));
+		}
+        System.out.println(vo.getE_no());
+		
+		if (login_email != null) {
+			service.like(vo);
+			writer.write("<script> location.href='/eboard/listPage';</script>");
+		}
+		else {
+			writer.write("<script> alert(\"로그인을 해주세요.\"); location.href='/eboard/listPage';</script>");
+		}
+	}
+	
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
 	public void getWrite() throws Exception {
 
@@ -52,7 +93,7 @@ public class eBoardController {
 		if(login_email != null) {
 			service.write(vo);
 			num =  service.viewafterwrite();
-			writer.write("<script> alert(\"작성완료.\"); location.href='/eboard/view?wr_no=" + num + "';</script>");
+			writer.write("<script> alert(\"작성완료.\"); location.href='/eboard/view?e_no=" + num + "';</script>");
 		
 			
 		}
@@ -64,44 +105,44 @@ public class eBoardController {
 	
 	// 다음 글
 	@RequestMapping(value = "/next", method = RequestMethod.GET)
-	public void nextView(@RequestParam("wr_no") int wr_no, Model model, HttpSession session, HttpServletResponse response) throws Exception {
+	public void nextView(@RequestParam("e_no") int e_no, Model model, HttpSession session, HttpServletResponse response) throws Exception {
 		PrintWriter writer = response.getWriter();
         response.setCharacterEncoding("utf-8");
         response.setContentType("text/html; utf-8");
 		eBoardVO vo = null;
-		wr_no = wr_no + 1;
-		vo = service.view(wr_no);
-		while(vo.getWr_del() == 1) {
-			System.out.println("wr_no = " + vo.getWr_no() + ", wr_del = " + vo.getWr_del());
-			wr_no = wr_no + 1;
-			vo = service.view(wr_no);
+		e_no = e_no + 1;
+		vo = service.view(e_no);
+		while(vo.getE_del() == 1) {
+			System.out.println("e_no = " + vo.getE_no() + ", e_del = " + vo.getE_del());
+			e_no = e_no + 1;
+			vo = service.view(e_no);
 		}
-		writer.write("<script> location.href='/eboard/view?wr_no=" + wr_no + "';</script>");
+		writer.write("<script> location.href='/eboard/view?e_no=" + e_no + "';</script>");
 	}
 	
 	// 이전 글
 	@RequestMapping(value = "/past", method = RequestMethod.GET)
-	public void pastView(@RequestParam("wr_no") int wr_no, Model model, HttpSession session, HttpServletResponse response) throws Exception {
+	public void pastView(@RequestParam("e_no") int e_no, Model model, HttpSession session, HttpServletResponse response) throws Exception {
 		PrintWriter writer = response.getWriter();
         response.setCharacterEncoding("utf-8");
         response.setContentType("text/html; utf-8");
 		eBoardVO vo = null;
-		wr_no = wr_no - 1;
-		vo = service.view(wr_no);
-		while(vo.getWr_del() == 1) {
-			System.out.println("wr_no = " + vo.getWr_no() + ", wr_del = " + vo.getWr_del());
-			wr_no = wr_no - 1;
-			vo = service.view(wr_no);
+		e_no = e_no - 1;
+		vo = service.view(e_no);
+		while(vo.getE_del() == 1) {
+			System.out.println("e_no = " + vo.getE_no() + ", e_del = " + vo.getE_del());
+			e_no = e_no - 1;
+			vo = service.view(e_no);
 		}
-		writer.write("<script> location.href='/eboard/view?wr_no=" + wr_no + "';</script>");
+		writer.write("<script> location.href='/eboard/view?e_no=" + e_no + "';</script>");
 	}
 	
 	// 게시물 조회
 	int temp_no = 0;
 	@RequestMapping(value = "/view", method = RequestMethod.GET)
-	public void getView(@RequestParam("wr_no") int wr_no, Model model, HttpSession session) throws Exception {
+	public void getView(@RequestParam("e_no") int e_no, Model model, HttpSession session) throws Exception {
 		eBoardVO view = null;
-		view = service.view(wr_no);
+		view = service.view(e_no);
 		model.addAttribute("view", view);
 		int max = service.viewafterwrite();
 		session.setAttribute("max", max);
@@ -111,10 +152,10 @@ public class eBoardController {
 
 		session.setAttribute("email", view.getEmail());
 		String se_email = (String) session.getAttribute("email");
-		if(view.getEmail() == se_email & view.getWr_no() != temp_no) {
-			service.updateReadcnt(wr_no);
+		if(view.getEmail() == se_email & view.getE_no() != temp_no) {
+			service.updateReadcnt(e_no);
 		}
-		temp_no = view.getWr_no();
+		temp_no = view.getE_no();
 		
 		int num = 1;
 		// 게시물 총 갯수
@@ -142,15 +183,15 @@ public class eBoardController {
 
 	// 게시물 수정
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
-	public void getUpdate(@RequestParam("wr_no") int wr_no, Model model, HttpSession session) throws Exception {
+	public void getUpdate(@RequestParam("e_no") int e_no, Model model, HttpSession session) throws Exception {
 		eBoardVO vo = null;
-		vo = service.view(wr_no);
+		vo = service.view(e_no);
 //		model.addAttribute("view", vo);
 		
 		session.setAttribute("name", vo.getName());
-		session.setAttribute("wr_no", vo.getWr_no());
-		session.setAttribute("wr_title", vo.getWr_title());
-		session.setAttribute("wr_contents", vo.getWr_contents());
+		session.setAttribute("wr_no", vo.getE_no());
+		session.setAttribute("wr_title", vo.getE_title());
+		session.setAttribute("wr_contents", vo.getE_contents());
 		session.setAttribute("writeremail", vo.getEmail());
 		
 	}
@@ -167,11 +208,11 @@ public class eBoardController {
 		System.out.println("writeremail : " + writer_email);
 		if(login_email != null) {
 			if(!login_email.equals(writer_email)) {
-				writer.write("<script> alert(\"꼼수 쓰지마라 다 막아버린다.\"); location.href='/eboard/view?wr_no=" + vo.getWr_no() + "';</script>");
+				writer.write("<script> alert(\"꼼수 쓰지마라 다 막아버린다.\"); location.href='/eboard/view?e_no=" + vo.getE_no() + "';</script>");
 			}
 			else {
 				service.update(vo);
-				writer.write("<script> alert(\"수정됐다.\"); location.href='/eboard/view?wr_no=" + vo.getWr_no() + "';</script>");
+				writer.write("<script> alert(\"수정됐다.\"); location.href='/eboard/view?e_no=" + vo.getE_no() + "';</script>");
 			}
 		}
 		else {
@@ -181,22 +222,22 @@ public class eBoardController {
 
 	// 게시물 삭제
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	public void getDelete(@RequestParam("wr_no") int wr_no, Model model, HttpSession session, HttpServletResponse response) throws Exception {
+	public void getDelete(@RequestParam("e_no") int e_no, Model model, HttpSession session, HttpServletResponse response) throws Exception {
 		eBoardVO view = null;
 		PrintWriter writer = response.getWriter();
         response.setCharacterEncoding("utf-8");
         response.setContentType("text/html; utf-8");
-		view = service.view(wr_no);
+		view = service.view(e_no);
 		String login_email = (String) session.getAttribute("login_email");
 		System.out.println("sessionemail : " + login_email);
 		String writer_email = view.getEmail();
 		System.out.println("writeremail : " + writer_email);
 		if(login_email != null) {
 			if(!login_email.equals(writer_email)) {
-				writer.write("<script> alert(\"본인만 지울 수 있다.\"); location.href='/eboard/view?wr_no=" + wr_no + "';</script>");
+				writer.write("<script> alert(\"본인만 지울 수 있다.\"); location.href='/eboard/view?e_no=" + e_no + "';</script>");
 			}
 			else {
-				service.delete(view.getWr_no());
+				service.delete(view.getE_no());
 				writer.write("<script> alert(\"삭제됐다.\"); location.href='/eboard/listPage?num=1';</script>");
 			}
 		}
@@ -209,35 +250,10 @@ public class eBoardController {
 	// 게시물 삭제
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public String postDelete(eBoardVO vo) throws Exception {
-		service.delete(vo.getWr_no());
+		service.delete(vo.getE_no());
 
 		return "redirect:/eboard/listPage?num=1";
 	}
-
-
 	
-	@RequestMapping(value = "/listPage")
-	public void getBoardList(Criteria cri, Model model) throws Exception{
-        //현재 페이지에 해당하는 게시물을 조회해 옴 
-		List<eBoardVO> allboard = service.getBoardList(cri);
-        //모델에 추가
-		model.addAttribute("list", allboard);
-        //PageMaker 객체 생성
-		PageMaker pageMaker = new PageMaker(cri);
-        //전체 게시물 수를 구함
-		int totalCount = service.getBoardListCnt(cri);
-        //pageMaker로 전달 -> pageMaker는 startPage, endPage, prev, next를 계산함
-		pageMaker.setTotalCount(totalCount);
-        //모델에 추가
-		model.addAttribute("pageMaker", pageMaker);
-	}
-    
-	@RequestMapping(value = "first_score")
-	public String getScore(eBoardVO vo) throws Exception{
-		service.first_score(vo);
-		System.out.println(vo.getScore());
-		
-		return "redirect:/eboard/listPage";
-	}
 	
 }

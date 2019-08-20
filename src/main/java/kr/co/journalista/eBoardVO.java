@@ -3,51 +3,26 @@ package kr.co.journalista;
 import java.util.Date;
 
 public class eBoardVO {
-	private int wr_no;
+	private int e_no;
 	private int m_no;
 	private String email;
 	private String name;
-	private int wr_hit;
-	private Date wr_datetime;
-	private String wr_title;
-	private String wr_contents;
-	private String wr_ip;
-	private int wr_del;
+	private int e_hit;
+	private Date e_datetime;
+	private String e_title;
+	private String e_contents;
+	private String e_ip;
+	private int e_del;
 	private String category;
 	private int score;
+	private int like;
 	
-	public int getScore() {
-		return score;
-	}
-	public void setScore(int score) {
-		this.score = score;
-	}
-	public String getCategory() {
-		return category;
-	}
-	public void setCategory(String category) {
-		this.category = category;
-	}
-	private int num;
 	
-
-	public int getNum() {
-		return num;
+	public int getE_no() {
+		return e_no;
 	}
-	public void setNum(int num) {
-		this.num = num;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public int getWr_no() {
-		return wr_no;
-	}
-	public void setWr_no(int wr_no) {
-		this.wr_no = wr_no;
+	public void setE_no(int e_no) {
+		this.e_no = e_no;
 	}
 	public int getM_no() {
 		return m_no;
@@ -55,48 +30,72 @@ public class eBoardVO {
 	public void setM_no(int m_no) {
 		this.m_no = m_no;
 	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getWr_hit() {
-		return wr_hit;
+	public int getE_hit() {
+		return e_hit;
 	}
-	public void setWr_hit(int wr_hit) {
-		this.wr_hit = wr_hit;
+	public void setE_hit(int e_hit) {
+		this.e_hit = e_hit;
 	}
-	public Date getWr_datetime() {
-		return wr_datetime;
+	public Date getE_datetime() {
+		return e_datetime;
 	}
-	public void setWr_datetime(Date wr_datetime) {
-		this.wr_datetime = wr_datetime;
+	public void setE_datetime(Date e_datetime) {
+		this.e_datetime = e_datetime;
 	}
-	public String getWr_title() {
-		return wr_title;
+	public String getE_title() {
+		return e_title;
 	}
-	public void setWr_title(String wr_title) {
-		this.wr_title = wr_title;
+	public void setE_title(String e_title) {
+		this.e_title = e_title;
 	}
-	public String getWr_contents() {
-		return wr_contents;
+	public String getE_contents() {
+		return e_contents;
 	}
-	public void setWr_contents(String wr_contents) {
-		this.wr_contents = wr_contents;
+	public void setE_contents(String e_contents) {
+		this.e_contents = e_contents;
 	}
-	public String getWr_ip() {
-		return wr_ip;
+	public String getE_ip() {
+		return e_ip;
 	}
-	public void setWr_ip(String wr_ip) {
-		this.wr_ip = wr_ip;
+	public void setE_ip(String e_ip) {
+		this.e_ip = e_ip;
 	}
-	public int getWr_del() {
-		return wr_del;
+	public int getE_del() {
+		return e_del;
 	}
-	public void setWr_del(int wr_del) {
-		this.wr_del = wr_del;
+	public void setE_del(int e_del) {
+		this.e_del = e_del;
 	}
-	 
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	public int getScore() {
+		return score;
+	}
+	public void setScore(int score) {
+		this.score = score;
+	}
+	public int getLike() {
+		return like;
+	}
+	public void setLike(int like) {
+		this.like = like;
+	}
+	
 	 
 }

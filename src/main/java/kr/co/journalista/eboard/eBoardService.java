@@ -2,7 +2,7 @@ package kr.co.journalista.eboard;
 
 import java.util.List;
 
-
+import kr.co.journalista.LikeVO;
 import kr.co.journalista.eBoardVO;
 
 public interface eBoardService {
@@ -37,8 +37,10 @@ public interface eBoardService {
 	
 	//총 게시글 개수 확인
 	public int getBoardListCnt(Criteria cri) throws Exception;
-	public List<eBoardVO> getBoardList(Criteria cri) throws Exception;
+	public List<eBoardVO> getBoardList(LikeVO vo) throws Exception;
 
 	//별점주기
 	public int first_score(eBoardVO vo) throws Exception;
+
+	public void like(eBoardVO vo) throws Exception;
 }

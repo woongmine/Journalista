@@ -20,6 +20,40 @@
 		e_no = #{e_no}
 	</update>
 	
+	<select id="like_check" parameterType="kr.co.journalista.eBoardVO" resultType="int">
+		select 
+		count(`e_no`)
+		from
+		liketo 
+		where 
+		m_no = #{m_no}
+	</select>
+	
+	<insert id="insert_like" parameterType="kr.co.journalista.eBoardVO">
+		insert into
+		liketo(`like_no`, `e_no`, `m_no`, `like_check`)
+		values(#{e_no}, #{e_no}, #{m_no}, 1)
+	</insert>
+	
+	<update id="like" parameterType="kr.co.journalista.eBoardVO">
+		update liketo set like_check = 1 
+		where e_no = #{e_no} and m_no = #{m_no}
+	</update>
+	
+	<update id="unlike" parameterType="kr.co.journalista.eBoardVO">
+		update liketo set like_check = 0 
+		where e_no = #{e_no} and m_no = #{m_no}
+	</update>
+	
+	<select id="like_or_unlike" parameterType="kr.co.journalista.eBoardVO" resultType="int">
+		select
+		like_check
+		from
+		liketo
+		where
+		e_no = #{e_no}
+	</select>
+	
 	<insert id="write" parameterType="kr.co.journalista.eBoardVO">
 		insert into
 		e_board(`wr_title`, `m_no`, `wr_contents`, `name`, `wr_datetime`, `wr_del`, `email`, `category`)
@@ -120,9 +154,8 @@
 		</trim>
 	</sql>
 	
-	<!-- 페이징 -->
-	<select id="getBoardList" resultType="kr.co.journalista.eBoardVO">
-		select * from wr_board <include refid="searchCondition"></include> order by wr_no desc limit #{pageStart}, #{perPageNum}
+	<select id="getBoardList" resultType="kr.co.journalista.LikeVO">
+		select * from liketo
 	</select>
 	
 	<select id="getBoardListCnt" resultType="int">

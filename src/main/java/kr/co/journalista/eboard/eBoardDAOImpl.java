@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import kr.co.journalista.LikeVO;
 import kr.co.journalista.eBoardVO;
 
 @Repository
@@ -77,8 +78,8 @@ public class eBoardDAOImpl implements eBoardDAO {
 
 
 	@Override
-	public List<eBoardVO> getBoardList(Criteria cri) {
-		return sql.selectList(namespace + ".getBoardList", cri);
+	public List<eBoardVO> getBoardList(LikeVO vo) {
+		return sql.selectList(namespace + ".getBoardList", vo);
 	}
 
 	@Override
@@ -90,6 +91,33 @@ public class eBoardDAOImpl implements eBoardDAO {
 	@Override
 	public int first_score(eBoardVO vo) throws Exception {
 		return sql.update(namespace + ".first_score", vo);
+	}
+
+	@Override
+	public void like(eBoardVO vo) throws Exception {
+		sql.update(namespace + ".like", vo);
+	}
+
+	@Override
+	public void unlike(eBoardVO vo) throws Exception {
+		sql.update(namespace + ".unlike", vo);
+	}
+
+	@Override
+	public int like_check(eBoardVO vo) throws Exception {
+		int like_check = sql.selectOne(namespace + ".like_check", vo);
+		System.out.println(like_check);
+		return like_check;
+	}
+
+	@Override
+	public int like_or_unlike(eBoardVO vo) throws Exception {
+		return sql.selectOne(namespace + ".like_or_unlike", vo);
+	}
+
+	@Override
+	public void insert_like(eBoardVO vo) throws Exception {
+		sql.insert(namespace + ".insert_like", vo);
 	}
 
 }

@@ -17,11 +17,84 @@
 	  left:60%;
 	  transform:translate(-63%, -25%)
 	}
+	
+	.btn-unlike {
+	  color: transparent;
+	  text-shadow: 0 0 2px rgba(255,255,255,.7), 0 0 0 #000;
+	}
+	.btn-unlike:hover {
+	  text-shadow: 0 0 0 #ea0;
+	}
+	.btn-like {
+	  color: black;
+	  text-shadow: 0;
+	}
+	.btn-like:hover {
+	  color: transparent;
+	  text-shadow: 0 0 0 #777;
+	}
+	
+	p, p a { 
+		color: #aaa;
+		text-decoration: none;
+	}
+	p a:hover,
+	p a:focus {
+		text-decoration: underline;
+	}
+	p + p { color: #bbb; margin-top: 2em;}
+	.detail {position: absolute; text-align: right; right: 5px; bottom: 5px; width: 50%;}
+	
+	a[href*="intent"] {
+		display:inline-block;
+		margin-top: 0.4em;
+	}
 
+	/*  
+	 * Rating styles
+	 */
+	.rating {
+		width: 226px;
+		margin: 0 auto 1em;
+		font-size: 45px;
+		overflow:hidden;
+	}
+	.rating input {
+	  float: right;
+	  opacity: 0;
+	  position: absolute;
+	}
+	.rating a,
+    .rating label {
+			float:right;
+			color: #aaa;
+			text-decoration: none;
+			-webkit-transition: color .4s;
+			-moz-transition: color .4s;
+			-o-transition: color .4s;
+			transition: color .4s;
+		}
+	.rating label:hover ~ label,
+	.rating input:focus ~ label,
+	.rating label:hover,
+			.rating a:hover,
+			.rating a:hover ~ a,
+			.rating a:focus,
+			.rating a:focus ~ a		{
+				color: orange;
+				cursor: pointer;
+			}
+			.rating2 {
+				direction: rtl;
+			}
+			.rating2 a {
+				float:none
+			}
+	
 </style>
 </head>
-<script>
 
+<script>
 	//게시글 작성 로그인 체크
 	function idcheck(){
 		var value = $('#name').val();
@@ -59,7 +132,7 @@
 							+ encodeURIComponent(keywordVal);
 					window.location.href = url;
 				})
-	}
+		}
 	
 	//카테고리
 	
@@ -93,65 +166,6 @@
 		location.href = url;
 	});
 </script>
-<style>
-
-		p, p a { 
-			color: #aaa;
-			text-decoration: none;
-		}
-		p a:hover,
-		p a:focus {
-			text-decoration: underline;
-		}
-		p + p { color: #bbb; margin-top: 2em;}
-		.detail {position: absolute; text-align: right; right: 5px; bottom: 5px; width: 50%;}
-		
-		a[href*="intent"] {
-			display:inline-block;
-			margin-top: 0.4em;
-		}
-
-		/*  
-		 * Rating styles
-		 */
-		.rating {
-			width: 226px;
-			margin: 0 auto 1em;
-			font-size: 45px;
-			overflow:hidden;
-		}
-.rating input {
-  float: right;
-  opacity: 0;
-  position: absolute;
-}
-		.rating a,
-    .rating label {
-			float:right;
-			color: #aaa;
-			text-decoration: none;
-			-webkit-transition: color .4s;
-			-moz-transition: color .4s;
-			-o-transition: color .4s;
-			transition: color .4s;
-		}
-.rating label:hover ~ label,
-.rating input:focus ~ label,
-.rating label:hover,
-		.rating a:hover,
-		.rating a:hover ~ a,
-		.rating a:focus,
-		.rating a:focus ~ a		{
-			color: orange;
-			cursor: pointer;
-		}
-		.rating2 {
-			direction: rtl;
-		}
-		.rating2 a {
-			float:none
-		}
-</style>
 <script>
 function five_stars(){
 	alert("별점 5개를 주셨습니다.");
@@ -168,6 +182,7 @@ function two_stars(){
 function a_star(){
 	alert("별점 1개를 주셨습니다.");
 }
+
 </script>
 <div class="modal fade" id="myModal" role="dialog">
   <div class="modal-dialog">
@@ -229,108 +244,44 @@ function a_star(){
 	</div>
 </div>
 </div>
-<div class="layer_center" style="width: 800px; margin-top: 100px;">
+<div class="layer_center" style="width: 800px; margin-top: 0px;">
 
+<c:forEach items="${like_list}" var="like_list">
+<c:set var="like_check" value="${like_list.like_check }" />
 <div class="card">
-	<h5 class="card-header">기사 제목</h5>
+	<input type="hidden" name="e_no" id="e_no" value="${like_list.e_no}">
+	<h5 class="card-header">제목</h5>
 	<div class="card-body">
-	  <h5 class="card-title">기사 내용</h5>
-	  	<a>기사의 현재 별점 : 4점</a>
-	  	<form method="post" action="/eboard/score">
-	  	<div align="center">별점 주기</div>
-	  	<div class="rating rating2"><!--
-				--><a href="/eboard/first_score?score=5" title="Give 5 stars" onclick="return five_stars();">★</a><!--
-				--><a href="/eboard/first_score?score=4" title="Give 4 stars" onclick="return four_stars();">★</a><!--
-				--><a href="/eboard/first_score?score=3" title="Give 3 stars" onclick="return three_stars();">★</a><!--
-				--><a href="/eboard/first_score?score=2" title="Give 2 stars" onclick="return two_stars();">★</a><!--
-				--><a href="/eboard/first_score?score=1" title="Give 1 star" onclick="return a_star();">★</a>
-		</div>
-	  	<!-- 
-	  	<select id="score" name="score">
-			<option value="" selected disabled hidden>별점 주기</option>
-			<option value="2"  >★☆☆☆☆</option>
-			<option value="4" >★★☆☆☆</option>
-			<option value="6"  >★★★☆☆</option>
-			<option value="8">★★★★☆</option>
-			<option value="10"  >★★★★★</option>
-		</select>
-		<button type="submit">등록하기</button>
-		 -->
-		</form>
+		<h5 class="card-title">내용</h5>
+		<a>현재 이 기자의 평균 별점 : 4점</a>
 		<div align="right">
 		<a href="#" class="btn btn-primary">댓글쓰기</a>
-		<a href="#" class="btn btn-primary">좋아요</a>
+		<% int like_check = (int) pageContext.getAttribute("like_check"); 
+			System.out.println(like_check);
+		%>
+		<% if (like_check == 1) { %>
+		<button id="btn-like" class="btn-like">👍</button>
+		<% } else {
+			%>
+		<button id="btn-unlike" class="btn-unlike">👍</button>
+		<% } %>
 		</div>
 	</div>
-	 
+</div>
+</c:forEach>
 </div>
 
-<div class="card">
-	<h5 class="card-header">기사 제목</h5>
-	<div class="card-body">
-	  <h5 class="card-title">기사 내용</h5>
-	  	<a>기사의 현재 별점 : 4점</a>
-	  	<form method="post" action="/eboard/score">
-	  	<div align="center">별점 주기</div>
-	  	<div class="rating rating2"><!--
-				--><a href="/eboard/first_score?score=5" title="Give 5 stars" onclick="return five_stars();">★</a><!--
-				--><a href="/eboard/first_score?score=4" title="Give 4 stars" onclick="return four_stars();">★</a><!--
-				--><a href="/eboard/first_score?score=3" title="Give 3 stars" onclick="return three_stars();">★</a><!--
-				--><a href="/eboard/first_score?score=2" title="Give 2 stars" onclick="return two_stars();">★</a><!--
-				--><a href="/eboard/first_score?score=1" title="Give 1 star" onclick="return a_star();">★</a>
-		</div>
-		</form>
-		<div align="right">
-		<a href="#" class="btn btn-primary">댓글쓰기</a>
-		<a href="#" class="btn btn-primary">좋아요</a>
-		</div>
-	</div>
-	 
-</div>
+<script>
+$(".btn-unlike").click(function() {
+	var e_no = $('#e_no').val();
+	var url = "like?e_no=1";
+	location.href = url;
+})
+$(".btn-like").click(function() {
+	var e_no = $('#e_no').val();
+	var url = "like?e_no=1";
+	location.href = url;
+})
 
-<div class="card">
-	<h5 class="card-header">기사 제목</h5>
-	<div class="card-body">
-	  <h5 class="card-title">기사 내용</h5>
-	  	<a>기사의 현재 별점 : 4점</a>
-	  	<form method="post" action="/eboard/score">
-	  	<div align="center">별점 주기</div>
-	  	<div class="rating rating2"><!--
-				--><a href="/eboard/first_score?score=5" title="Give 5 stars" onclick="return five_stars();">★</a><!--
-				--><a href="/eboard/first_score?score=4" title="Give 4 stars" onclick="return four_stars();">★</a><!--
-				--><a href="/eboard/first_score?score=3" title="Give 3 stars" onclick="return three_stars();">★</a><!--
-				--><a href="/eboard/first_score?score=2" title="Give 2 stars" onclick="return two_stars();">★</a><!--
-				--><a href="/eboard/first_score?score=1" title="Give 1 star" onclick="return a_star();">★</a>
-		</div>
-		</form>
-		<div align="right">
-		<a href="#" class="btn btn-primary">댓글쓰기</a>
-		<a href="#" class="btn btn-primary">좋아요</a>
-		</div>
-	</div>
-	 
-</div>
 
-<div class="card">
-	<h5 class="card-header">기사 제목</h5>
-	<div class="card-body">
-	  <h5 class="card-title">기사 내용</h5>
-	  	<a>기사의 현재 별점 : 4점</a>
-	  	<form method="post" action="/eboard/score">
-	  	<div align="center">별점 주기</div>
-	  	<div class="rating rating2"><!--
-				--><a href="/eboard/first_score?score=5" title="Give 5 stars" onclick="return five_stars();">★</a><!--
-				--><a href="/eboard/first_score?score=4" title="Give 4 stars" onclick="return four_stars();">★</a><!--
-				--><a href="/eboard/first_score?score=3" title="Give 3 stars" onclick="return three_stars();">★</a><!--
-				--><a href="/eboard/first_score?score=2" title="Give 2 stars" onclick="return two_stars();">★</a><!--
-				--><a href="/eboard/first_score?score=1" title="Give 1 star" onclick="return a_star();">★</a>
-		</div>
-		</form>
-		<div align="right">
-		<a href="#" class="btn btn-primary">댓글쓰기</a>
-		<a href="#" class="btn btn-primary">좋아요</a>
-		</div>
-	</div>
-	 
-</div>
-</div>
+</script>

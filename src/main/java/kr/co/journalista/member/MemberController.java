@@ -72,14 +72,12 @@ public class MemberController {
 
 	// 로그인 처리(자동로그인포함)
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(LoginDTO dto, Model model,HttpSession session,HttpServletRequest request, RedirectAttributes rttr
+	public String login(LoginDTO dto, Model model,HttpSession session, RedirectAttributes rttr
 			) throws Exception {
 		logger.info("post login");
 
-
 		MemberVO vo = service.login(dto);
 	
-		
 		if (vo == null) {
 			rttr.addFlashAttribute("msg", "retry");
 			return "redirect:/member/login";
@@ -88,16 +86,16 @@ public class MemberController {
 			rttr.addFlashAttribute("mag","retry");
 			return "redirect:/member/login";
 		}
-		vo.setIp(ClientUtils.getRemoteIP(request));	
+		
 		session.setAttribute("userId", vo.getEmail());
 		session.setAttribute("userName", vo.getName());
-		session.setAttribute("ip",vo.getIp());
 		logger.info("userId=="+vo.getEmail());
 		logger.info("userName=="+vo.getName());
-		logger.info("ip== "+vo.getIp());
 		session.setAttribute("login_email", vo.getEmail());
+		session.setAttribute("login_member_no", Integer.toString(vo.getM_no()));
+		System.out.println(vo.getM_no());
 		model.addAttribute("member", vo);
-
+		
 		// 로그인 유지를 선택할 경우
 		if (LoginDTO.isUseCookie()) {
 			logger.info("!!!!!!!!!!!!! :" + LoginDTO.isUseCookie());

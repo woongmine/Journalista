@@ -7,17 +7,19 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import kr.co.journalista.LikeVO;
 import kr.co.journalista.eBoardVO;
 
 @Service
 public class eBoardServiceImpl implements eBoardService {
 	@Inject
 	private eBoardDAO dao;
+	private LikeVO likevo;
 	
 	@Override
 	public void write(eBoardVO vo) throws Exception {
 		Date date = new Date();
-		vo.setWr_datetime(date);
+		vo.setE_datetime(date);
 		dao.write(vo);
 	}
 
@@ -76,13 +78,30 @@ public class eBoardServiceImpl implements eBoardService {
 	}
 	
 	@Override
-	public List<eBoardVO> getBoardList(Criteria cri) throws Exception {
-		return dao.getBoardList(cri);
+	public List<eBoardVO> getBoardList(LikeVO vo) throws Exception {
+		return dao.getBoardList(vo);
 	}
 
 	@Override
 	public int first_score(eBoardVO vo) throws Exception {
 		return dao.first_score(vo);
+	}
+
+	@Override
+	public void like(eBoardVO vo) throws Exception {
+		int like_check = dao.like_check(vo);	//db에 있는지 확인
+		if(like_check == 0) {	//없으면
+			dao.insert_like(vo);	//생성 후 좋아요
+		}
+		else {	//있으면
+			int like_or_unlike = dao.like_or_unlike(vo);
+			if(like_or_unlike == 1) {	//좋아요 상태인지 아닌지 확인. 좋아요 상태라면,
+				dao.unlike(vo);
+			}
+			else {
+				dao.like(vo);
+			}
+		}
 	}
 
 }
