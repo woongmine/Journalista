@@ -23,7 +23,7 @@ function a_star(){
 
 </script>
 <!-- Sidebar -->
-<section id="sidebar" style="width:400px;">
+<section id="sidebar" style="width:400px; margin-left: 35px;">
 
 	<section>
 		<div class="modal fade" id="myModal" role="dialog">
