@@ -255,5 +255,9 @@ public class eBoardController {
 		return "redirect:/eboard/listPage?num=1";
 	}
 	
+	@RequestMapping(value = "/eboardsearch")
+	public void eboardSearch() throws Exception{
+		
+	}
 	
 }

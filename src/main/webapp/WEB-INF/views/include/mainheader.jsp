@@ -1,26 +1,72 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="true" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="header.jsp" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<c:set var="contextPath" value="${pageContext.request.contextPath }" />
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="/">JOURNALISTA</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav">
-      <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
-      <a class="nav-item nav-link" href="/eboard/listPage">게시판</a>
-      <a class="nav-item nav-link" href="/wrboard/listPage">기타게시판</a>
-      <c:if test="${member.name == null }">
-	      <a class="nav-item nav-link" href="/member/login">로그인</a>
-	      <a class="nav-item nav-link" href="/member/register">회원가입</a>
-      </c:if>
-      <c:if test="${member.name!=null}">
-     	 <a class="nav-item nav-link" href="/member/mypage">회원정보</a>
-	  </c:if>
-	  <a class="nav-item nav-link" href="/admin/memberPage">회원관리</a>
-    </div>
-  </div>
-</nav>
+<!-- Header -->
+<header id="header">
+	<h1>
+		<a href="${contextPath}/">Journalista</a>
+	</h1>
+	<nav class="links">
+		<ul>
+			<li><a href="/eboard/listPage">eboard</a></li>
+			<li><a href="/eboard/eboardsearch">기자 검색</a></li>
+			<li><a href="/wrboard/listPage">건의게시판</a></li>
+			<li><a href="/member/register">회원가입</a></li>
+			<li><a href="/member/login">로그인</a></li>
+			<li><a href="/admin/memberPage">관리자페이지</a></li>
+		</ul>
+	</nav>
+	<nav class="main">
+		<ul>
+			<li class="search"><a class="fa-search" href="#search">Search</a>
+				<form id="search" method="get" action="#">
+					<input type="text" name="query" placeholder="Search" />
+				</form></li>
+			<li class="menu"><a class="fa-bars" href="#menu">Menu</a></li>
+		</ul>
+	</nav>
+</header>
+
+<!-- Menu -->
+<section id="menu">
+
+	<!-- Search -->
+	<section>
+		<form class="search" method="get" action="#">
+			<input type="text" name="query" placeholder="Search" />
+		</form>
+	</section>
+
+	<!-- Links -->
+	<section>
+		<ul class="links">
+			<li><a href="#">
+					<h3>Lorem ipsum</h3>
+					<p>Feugiat tempus veroeros dolor</p>
+			</a></li>
+			<li><a href="#">
+					<h3>Dolor sit amet</h3>
+					<p>Sed vitae justo condimentum</p>
+			</a></li>
+			<li><a href="#">
+					<h3>Feugiat veroeros</h3>
+					<p>Phasellus sed ultricies mi congue</p>
+			</a></li>
+			<li><a href="#">
+					<h3>Etiam sed consequat</h3>
+					<p>Porta lectus amet ultricies</p>
+			</a></li>
+		</ul>
+	</section>
+
+	<!-- Actions -->
+	<section>
+		<ul class="actions stacked">
+			<li><a href="#" class="button large fit">Log In</a></li>
+		</ul>
+	</section>
+
+</section>

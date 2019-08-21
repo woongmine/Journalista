@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.journalista.mappers.wrboardMapper">
+
+	<insert id="write" parameterType="kr.co.journalista.WrBoardVO">
+		insert into
+		wr_board(`wr_title`, `m_no`, `wr_contents`, `name`, `wr_datetime`, `wr_del`, `email`, `category`, `wr_ip`)
+		values(#{wr_title}, #{m_no}, #{wr_contents} , #{name}, #{wr_datetime}, 0, #{email}, #{category}, #{wr_ip})
+	</insert>
+
+	<update id="update" parameterType="kr.co.journalista.WrBoardVO">
+		update
+		wr_board
+		set
+		wr_title =
+		#{wr_title},
+		wr_contents = #{wr_contents}
+		where
+		wr_no = #{wr_no}
+	</update>
+
+	<delete id="delete" parameterType="int">
+		update 
+		wr_board
+		set
+		wr_del = 
+		1
+		where
+		wr_no =
+		#{wr_no}
+	</delete>
+
+	<select id="view" parameterType="int"
+		resultType="kr.co.journalista.WrBoardVO">
+		select
+		wr_no, wr_title, wr_contents, name, wr_datetime, wr_hit, email, wr_del
+		from
+		wr_board
+		where
+		wr_no = #{wr_no}
+	</select>
+
+	<select id="updateReadcnt" resultType="int">
+		update wr_board 
+		set wr_hit = wr_hit +1 
+		where wr_no = #{wr_no}
+	</select>
+
+	<!-- 게시물 목록 -->
+	<select id="list" resultType="kr.co.journalista.WrBoardVO">
+		select
+		wr_no, wr_title, wr_contents, name,
+		wr_datetime, wr_hit
+		from wr_board where wr_del = 0
+	</select>
+
+	<!-- 게시물 총 갯수 구하기 -->
+	<select id="count" resultType="int">
+		select
+		count(wr_no)
+		from
+		wr_board
+	</select>
+	
+
+	<!-- 페이징 1 -->
+	<select id="listPage" parameterType="hashMap"
+		resultType="kr.co.journalista.WrBoardVO">
+		select
+		wr_no, wr_title, wr_contents, name, wr_datetime, wr_hit
+		from
+		wr_board where wr_del = 0 order by wr_no desc
+		limit #{displayPost}, #{postNum}
+
+	</select>
+	
+	
+	<!-- 
+	<select id="getBoardListCnt" resultType="int">
+
+		SELECT
+			count(*) as listCnt
+		FROM
+			wr_board
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+
+			<if test="keyword != null and keyword != '' ">
+	
+			<if test="searchType=='wr_title'">
+	
+				AND `WR_TITLE` like CONCAT('%', #{keyword}, '%')
+	
+			</if>
+	
+			<if test="searchType=='wr_contents'">
+	
+				AND `WR_CONTENTS` like CONCAT('%', #{keyword}, '%')
+	
+			</if>
+	
+			<if test="searchType=='name'">
+	
+				AND `NAME` like CONCAT('%', #{keyword}, '%')
+	
+			</if>
+			
+			<if test="category == 'all'">
+			
+				or `category_request` = 0 or `category_report` = 0 or `category_etc` = 0
+			
+			</if>
+			
+			<if test="category == 'request'">
+				
+				`category_request` = 1
+			
+			</if>
+			
+			<if test="category == 'report'">
+				
+				`category_report` = 1
+			
+			</if>
+			
+			<if test="category == 'etc'">
+				
+				`category_etc` = 1
+			
+			</if>
+	
+	      	</if>
+
+		</trim>
+
+	</select>
+	 
+	<select id="getBoardList" parameterType="hashMap"
+		resultType="kr.co.journalista.WrBoardVO">
+		select
+		wr_no, wr_title, wr_contents, name, wr_datetime, wr_hit
+		from
+		wr_board
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="searchType=='wr_title' and keyword != null and keyword != '' ">
+				AND `WR_TITLE` like CONCAT('%', #{keyword}, '%') and wr_del = 0
+			</if>
+
+			<if test="searchType=='wr_contents' and keyword != null and keyword != '' ">
+				AND `WR_CONTENTS` like CONCAT('%', #{keyword}, '%') and wr_del = 0
+			</if>
+
+			<if test="searchType=='name' and keyword != null and keyword != '' ">
+				AND `NAME` like CONCAT('%', #{keyword}, '%') and wr_del = 0
+			</if>
+			
+			<if test="category=='request'">
+				AND `category_request` = 1 and wr_del = 0
+			</if>
+			
+			<if test="category=='report'">
+				AND `category_report` = 1 and wr_del = 0
+			</if>
+			
+			<if test="category=='etc'">
+				AND `category_etc` = 1 and wr_del = 0
+			</if>
+			
+			<if test="category=='all'">
+				and wr_del = 0
+			</if>
+		</trim>
+ 		order by wr_no desc
+	</select>
+  -->
+  
+  	<sql id="searchCondition">
+  		<trim prefix="WHERE" prefixOverrides="AND|OR">
+		<if test="searchType != null">
+			<if test="searchType == 'wr_title'.toString()">
+				and `wr_title` like CONCAT('%', #{keyword}, '%') and wr_del = 0
+			</if>
+			<if test="searchType == 'wr_contents'.toString()">
+				and `wr_contents` like CONCAT('%', #{keyword}, '%') and wr_del = 0
+			</if>
+			<if test="searchType == 'name'.toString()">
+				and `name` like CONCAT('%', #{keyword}, '%') and wr_del = 0
+			</if>	
+		</if>
+		<if test="category != null">	
+			<if test="category=='request'">
+				and `category` = "요청" and wr_del = 0
+			</if>
+			<if test="category=='report'">
+				and `category` = "신고" and wr_del = 0
+			</if>
+			<if test="category=='etc'">
+				and `category` = "기타" and wr_del = 0
+			</if>
+		</if>
+		</trim>
+	</sql>
+	
+	<!-- 페이징 -->
+	<select id="getBoardList" resultType="kr.co.journalista.WrBoardVO">
+		select * from wr_board <include refid="searchCondition"></include> order by wr_no desc limit #{pageStart}, #{perPageNum}
+	</select>
+	
+	<select id="getBoardListCnt" resultType="int">
+		select count(wr_no) from wr_board <include refid="searchCondition"></include>
+	</select>
+  
+
+	<!-- 글쓰기 후 뷰 -->
+	<select id="viewafterwrite" resultType="int">
+		select
+		wr_no
+		from
+		wr_board where wr_del = 0 order by wr_no desc limit 1
+	</select>
+	
+	<!-- 이전글 최소페이지 -->
+	<select id="minpage" resultType="int">
+		select
+		wr_no
+		from
+		wr_board where wr_del = 0 order by wr_no limit 1
+	</select>
+</mapper>
