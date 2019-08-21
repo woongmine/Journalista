@@ -20,8 +20,8 @@
 <link rel="stylesheet"
 	href="${contextPath}/resources/assets/css/main.css" />
 </head>
-<body class="is-preload">
-	<div id="wrapper">
+<body class="is-preload" style="width:1450px;">
+	<div id="wrapper" style="padding-left:2px;">
 		<tiles:insertAttribute name="header" />
 		<div id="main">
 		<tiles:insertAttribute name="body"/>
