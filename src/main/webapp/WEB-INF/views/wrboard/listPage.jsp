@@ -112,7 +112,7 @@
 		location.href = url;
 	});
 </script>
-<div>
+<div style="padding-left: 70px;">
 	<div style="padding-right: 10px;">
 		<table class="table" style="width: 30%" align="right">
 			<tr>
@@ -216,4 +216,4 @@
 			</ul>
 		</nav>
 	</div>
-
+</div>
