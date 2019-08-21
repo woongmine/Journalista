@@ -204,7 +204,7 @@
 	
 	<!-- 페이징 -->
 	<select id="getBoardList" resultType="kr.co.journalista.WrBoardVO">
-		select * from wr_board <include refid="searchCondition"></include> order by wr_no desc limit #{pageStart}, #{perPageNum}
+		select *,(SELECT COUNT(*) FROM wr_boardrep WHERE wr_no = b.wr_no) AS recnt from wr_board b <include refid="searchCondition"></include> order by wr_no desc limit #{pageStart}, #{perPageNum}
 	</select>
 	
 	<select id="getBoardListCnt" resultType="int">

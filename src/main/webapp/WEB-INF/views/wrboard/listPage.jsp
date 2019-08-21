@@ -142,7 +142,12 @@
 				<tr scope="row">
 					<td>${list.wr_no}</td>
 					<td>${list.category }</td>
-					<td><a href="/wrboard/view?wr_no=${list.wr_no}">${list.wr_title}</a></td>
+					<td><a href="/wrboard/view?wr_no=${list.wr_no}">${list.wr_title}</a>
+						<c:if test="${list.recnt > 0}">
+							<span style="color:blue">(${list.recnt})
+							</span>
+						</c:if>
+					</td>
 					<td>${list.name}</td>
 					<td><fmt:formatDate value="${list.wr_datetime}"
 							pattern="yy.MM.dd-hh.mm.ss" /></td>

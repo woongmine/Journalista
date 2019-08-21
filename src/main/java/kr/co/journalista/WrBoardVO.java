@@ -14,8 +14,16 @@ public class WrBoardVO {
 	private String wr_ip;
 	private int wr_del;
 	private String category;
+	private int recnt;
 	
 	
+	
+	public int getRecnt() {
+		return recnt;
+	}
+	public void setRecnt(int recnt) {
+		this.recnt = recnt;
+	}
 	public String getCategory() {
 		return category;
 	}
