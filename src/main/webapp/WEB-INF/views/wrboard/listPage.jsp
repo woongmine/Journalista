@@ -114,7 +114,7 @@
 </script>
 <div style="padding-left: 70px;">
 	<div style="padding-right: 10px;">
-		<table class="table" style="width: 30%" align="right">
+		<table class="table">
 			<tr>
 				<td><button class="button fit"
 						onclick="location.href='listPage'">전체</button></td>
