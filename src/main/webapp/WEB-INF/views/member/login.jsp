@@ -27,12 +27,11 @@
 	<!-- Main content -->
 	<section class="content container-fluid">
 		<form method="post">
-			이메일:<input type="email" name="email" id="email" /> <br /> 비밀번호:<input
-				type="password" name="password" id="password" /> <br />
+			이메일:<input type="email" name="email" id="email" /> <br />
+			비밀번호:<input type="password" name="password" id="password" /> <br />
 			<div class="col-xs-8">
 				<div class="checkbox icheck">
-					<label> <input type="checkbox" name="useCookie">자동로그인
-					</label>
+					<input type="checkbox" id="login1" name="useCookie"><label for="login1">자동로그인</label>
 				</div>
 			</div>
 			<c:if test="${!empty msg and fn:length(msg) >0}">
@@ -45,16 +44,12 @@
 					<font color=red>탈퇴한 회원은 로그인 할 수 없습니다.</font>
 				</div>
 			</c:if>
-			<br> <input type="submit" id="login" value="로그인" /> <input
-				type="button" value="메인으로" id="main" />
+			<br> <input type="submit" id="login" value="로그인" />
+			 <input type="button" onclick="location.href='../'" value="메인으로" id="main" />
 
 		</form>
 
-		<script>
-			document.getElementById("main").onclick = function() {
-				location.href = "../";
-			}
-		</script>
+		
 
 		<!-- /.content -->
 </div>
