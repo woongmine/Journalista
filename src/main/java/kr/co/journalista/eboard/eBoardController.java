@@ -36,9 +36,11 @@ public class eBoardController {
 	}
 
 	@RequestMapping(value = "/listPage")
-	public void getBoardList(LikeVO vo, Model model) throws Exception{
-		List<eBoardVO> allboard = service.getBoardList(vo);
-		model.addAttribute("like_list", allboard);
+	public void getBoardList(LikeVO vo, eBoardVO boardvo, Model model) throws Exception{
+		List<LikeVO> likelist = service.getLikeList(vo);
+		List<eBoardVO> all_list = service.getBoardList(boardvo);
+		model.addAttribute("like_list", likelist);
+		model.addAttribute("boardlist", all_list);
 	}
     
 	@RequestMapping(value = "first_score")
@@ -255,9 +257,5 @@ public class eBoardController {
 		return "redirect:/eboard/listPage?num=1";
 	}
 	
-	@RequestMapping(value = "/eboardsearch")
-	public void eboardSearch() throws Exception{
-		
-	}
 	
 }

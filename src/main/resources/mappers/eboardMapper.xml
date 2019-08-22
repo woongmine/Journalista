@@ -22,17 +22,17 @@
 	
 	<select id="like_check" parameterType="kr.co.journalista.eBoardVO" resultType="int">
 		select 
-		count(`e_no`)
+		count(`like_no`)
 		from
 		liketo 
 		where 
-		m_no = #{m_no}
+		m_no = #{m_no} and e_no = #{e_no} 
 	</select>
 	
 	<insert id="insert_like" parameterType="kr.co.journalista.eBoardVO">
 		insert into
-		liketo(`like_no`, `e_no`, `m_no`, `like_check`)
-		values(#{e_no}, #{e_no}, #{m_no}, 1)
+		liketo(`e_no`, `m_no`, `like_check`)
+		values(#{e_no}, #{m_no}, 1)
 	</insert>
 	
 	<update id="like" parameterType="kr.co.journalista.eBoardVO">
@@ -154,8 +154,11 @@
 		</trim>
 	</sql>
 	
-	<select id="getBoardList" resultType="kr.co.journalista.LikeVO">
+	<select id="getLikeList" resultType="kr.co.journalista.LikeVO">
 		select * from liketo
+	</select>
+	<select id="getBoardList" resultType="kr.co.journalista.eBoardVO">
+		select * from e_board
 	</select>
 	
 	<select id="getBoardListCnt" resultType="int">

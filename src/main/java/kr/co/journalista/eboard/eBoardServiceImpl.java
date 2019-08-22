@@ -78,7 +78,12 @@ public class eBoardServiceImpl implements eBoardService {
 	}
 	
 	@Override
-	public List<eBoardVO> getBoardList(LikeVO vo) throws Exception {
+	public List<LikeVO> getLikeList(LikeVO vo) throws Exception {
+		return dao.getLikeList(vo);
+	}
+	
+	@Override
+	public List<eBoardVO> getBoardList(eBoardVO vo) throws Exception {
 		return dao.getBoardList(vo);
 	}
 

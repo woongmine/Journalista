@@ -37,7 +37,8 @@ public interface eBoardService {
 	
 	//총 게시글 개수 확인
 	public int getBoardListCnt(Criteria cri) throws Exception;
-	public List<eBoardVO> getBoardList(LikeVO vo) throws Exception;
+	public List<LikeVO> getLikeList(LikeVO vo) throws Exception;
+	public List<eBoardVO> getBoardList(eBoardVO vo) throws Exception;
 
 	//별점주기
 	public int first_score(eBoardVO vo) throws Exception;

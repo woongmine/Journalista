@@ -3,23 +3,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath }" />
-<head>
 <style>
-	.layer_left{
-	  position:absolute;
-	  top:50%;
-	  transform:translate(0%, -50%)
-	}
-	
-	.layer_center{
-	  position:absolute;
-	  top:38%;
-	  left:60%;
-	  transform:translate(-63%, -25%)
-	}
-	
 	.btn-unlike {
-	  color: transparent;
+	  color: white;
 	  text-shadow: 0 0 2px rgba(255,255,255,.7), 0 0 0 #000;
 	}
 	.btn-unlike:hover {
@@ -33,67 +19,7 @@
 	  color: transparent;
 	  text-shadow: 0 0 0 #777;
 	}
-	
-	p, p a { 
-		color: #aaa;
-		text-decoration: none;
-	}
-	p a:hover,
-	p a:focus {
-		text-decoration: underline;
-	}
-	p + p { color: #bbb; margin-top: 2em;}
-	.detail {position: absolute; text-align: right; right: 5px; bottom: 5px; width: 50%;}
-	
-	a[href*="intent"] {
-		display:inline-block;
-		margin-top: 0.4em;
-	}
-
-	/*  
-	 * Rating styles
-	 */
-	.rating {
-		width: 226px;
-		margin: 0 auto 1em;
-		font-size: 45px;
-		overflow:hidden;
-	}
-	.rating input {
-	  float: right;
-	  opacity: 0;
-	  position: absolute;
-	}
-	.rating a,
-    .rating label {
-			float:right;
-			color: #aaa;
-			text-decoration: none;
-			-webkit-transition: color .4s;
-			-moz-transition: color .4s;
-			-o-transition: color .4s;
-			transition: color .4s;
-		}
-	.rating label:hover ~ label,
-	.rating input:focus ~ label,
-	.rating label:hover,
-			.rating a:hover,
-			.rating a:hover ~ a,
-			.rating a:focus,
-			.rating a:focus ~ a		{
-				color: orange;
-				cursor: pointer;
-			}
-			.rating2 {
-				direction: rtl;
-			}
-			.rating2 a {
-				float:none
-			}
-	
 </style>
-</head>
-
 <script>
 	//게시글 작성 로그인 체크
 	function idcheck(){
@@ -166,46 +92,21 @@
 		location.href = url;
 	});
 </script>
-<script>
-function five_stars(){
-	alert("별점 5개를 주셨습니다.");
-}
-function four_stars(){
-	alert("별점 4개를 주셨습니다.");
-}
-function three_stars(){
-	alert("별점 3개를 주셨습니다.");
-}
-function two_stars(){
-	alert("별점 2개를 주셨습니다.");
-}
-function a_star(){
-	alert("별점 1개를 주셨습니다.");
-}
 
-</script>
 
 <div class="layer_center" style="width: 800px; margin-top: 0px;">
 
-<c:forEach items="${like_list}" var="like_list">
-<c:set var="like_check" value="${like_list.like_check }" />
-<div class="card">
-	<input type="hidden" name="e_no" id="e_no" value="${like_list.e_no}">
+<c:forEach items="${boardlist}" var="boardlist">
+<div class="card" style="margin-bottom:20px;">
+	<input type="hidden" name="e_no" id="e_no" value="${boardlist.e_no}">
 	<h5 class="card-header">제목</h5>
 	<div class="card-body">
 		<h5 class="card-title">내용</h5>
-		<a>현재 이 기자의 평균 별점 : 4점</a>
+		<a>현재 이 기자의 평균 별점 : ${boardlist.score }점</a>
 		<div align="right">
-		<a href="#" class="button small">댓글쓰기</a>
-		<% int like_check = (int) pageContext.getAttribute("like_check"); 
-			System.out.println(like_check);
-		%>
-		<% if (like_check == 1) { %>
+		<a href="#" class="btn btn-primary">댓글쓰기</a>
+		<a>좋아요 : ${boardlist.like}</a>
 		<button id="btn-like" class="btn-like">👍</button>
-		<% } else {
-			%>
-		<button id="btn-unlike" class="btn-unlike">👍</button>
-		<% } %>
 		</div>
 	</div>
 </div>
