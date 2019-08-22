@@ -41,6 +41,7 @@ public class eBoardController {
 		List<eBoardVO> all_list = service.getBoardList(boardvo);
 		model.addAttribute("like_list", likelist);
 		model.addAttribute("boardlist", all_list);
+		
 	}
     
 	@RequestMapping(value = "first_score")
@@ -56,7 +57,6 @@ public class eBoardController {
 		PrintWriter writer = response.getWriter();
         response.setCharacterEncoding("utf-8");
         response.setContentType("text/html; utf-8");
-		System.out.println("hi");
 		String login_email = (String) session.getAttribute("login_email");
 		System.out.println(login_email);
 		String login_member_no = (String) session.getAttribute("login_member_no");
@@ -64,7 +64,7 @@ public class eBoardController {
 		if (login_member_no != null) {
 			vo.setM_no(Integer.parseInt(login_member_no));
 		}
-        System.out.println(vo.getE_no());
+        System.out.println("e_no" + vo.getE_no());
 		
 		if (login_email != null) {
 			service.like(vo);

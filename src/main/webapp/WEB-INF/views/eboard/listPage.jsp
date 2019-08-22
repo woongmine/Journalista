@@ -98,7 +98,8 @@
 
 <c:forEach items="${boardlist}" var="boardlist">
 <div class="card" style="margin-bottom:20px;">
-	<input type="hidden" name="e_no" id="e_no" value="${boardlist.e_no}">
+	<c:set var="number_no" value='${boardlist.e_no }' />
+	<input type="hidden" name="number" id="number${number_no }" value="${boardlist.e_no}">
 	<h5 class="card-header">제목</h5>
 	<div class="card-body">
 		<h5 class="card-title">내용</h5>
@@ -106,24 +107,9 @@
 		<div align="right">
 		<a href="#" class="btn btn-primary">댓글쓰기</a>
 		<a>좋아요 : ${boardlist.like}</a>
-		<button id="btn-like" class="btn-like">👍</button>
+		<button id="btn-like" class="btn-like" onclick = "location.href = 'like?e_no=${boardlist.e_no}';">👍</button>
 		</div>
 	</div>
 </div>
 </c:forEach>
 </div>
-
-<script>
-$(".btn-unlike").click(function() {
-	var e_no = $('#e_no').val();
-	var url = "like?e_no=1";
-	location.href = url;
-})
-$(".btn-like").click(function() {
-	var e_no = $('#e_no').val();
-	var url = "like?e_no=1";
-	location.href = url;
-})
-
-
-</script>

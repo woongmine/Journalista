@@ -102,17 +102,24 @@ public class eBoardDAOImpl implements eBoardDAO {
 	@Override
 	public void like(eBoardVO vo) throws Exception {
 		sql.update(namespace + ".like", vo);
+		int sum = sql.selectOne(namespace + ".sum_like", vo);
+		vo.setLike(sum);
+		System.out.println("sum : " + vo.getLike());
+		sql.update(namespace + ".update_like", vo);
 	}
 
 	@Override
 	public void unlike(eBoardVO vo) throws Exception {
 		sql.update(namespace + ".unlike", vo);
+		int sum = sql.selectOne(namespace + ".sum_like", vo);
+		vo.setLike(sum);
+		System.out.println("sum : " + vo.getLike());
+		sql.update(namespace + ".update_like", vo);
 	}
 
 	@Override
 	public int like_check(eBoardVO vo) throws Exception {
 		int like_check = sql.selectOne(namespace + ".like_check", vo);
-		System.out.println(like_check);
 		return like_check;
 	}
 
@@ -124,6 +131,17 @@ public class eBoardDAOImpl implements eBoardDAO {
 	@Override
 	public void insert_like(eBoardVO vo) throws Exception {
 		sql.insert(namespace + ".insert_like", vo);
+		int sum = sql.selectOne(namespace + ".sum_like", vo);
+		vo.setLike(sum);
+		System.out.println("sum : " + vo.getLike());
+		sql.update(namespace + ".update_like", vo);
 	}
+
+//	@Override
+//	public void sum_like(eBoardVO vo) throws Exception {
+//		int sum_like = sql.selectOne(namespace + ".sum_like");
+//		System.out.println(sum_like);
+//		sql.insert(namespace + ".insert_sum_like", sum_like);
+//	}
 
 }

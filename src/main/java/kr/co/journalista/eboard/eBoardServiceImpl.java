@@ -84,6 +84,9 @@ public class eBoardServiceImpl implements eBoardService {
 	
 	@Override
 	public List<eBoardVO> getBoardList(eBoardVO vo) throws Exception {
+//		System.out.println("sum_like start");
+//		dao.sum_like(vo);
+//		System.out.println("sum_like complete");
 		return dao.getBoardList(vo);
 	}
 
