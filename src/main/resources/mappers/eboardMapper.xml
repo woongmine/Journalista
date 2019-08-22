@@ -151,7 +151,7 @@
 				and `name` like CONCAT('%', #{keyword}, '%') and wr_del = 0
 			</if>	
 		</if>
-		<if test="category != null">	
+		<if test="category != null">
 			<if test="category=='request'">
 				and `category` = "요청" and wr_del = 0
 			</if>
@@ -165,8 +165,8 @@
 		</trim>
 	</sql>
 	
-	<select id="getLikeList" resultType="kr.co.journalista.LikeVO">
-		select * from liketo
+	<select id="getLikeList" resultType="kr.co.journalista.eBoardVO">
+		select * from liketo where m_no = #{m_no}
 	</select>
 	<select id="getBoardList" resultType="kr.co.journalista.eBoardVO">
 		select * from e_board
@@ -175,7 +175,6 @@
 	<select id="getBoardListCnt" resultType="int">
 		select count(wr_no) from wr_board <include refid="searchCondition"></include>
 	</select>
-  
 
 	<!-- 글쓰기 후 뷰 -->
 	<select id="viewafterwrite" resultType="int">

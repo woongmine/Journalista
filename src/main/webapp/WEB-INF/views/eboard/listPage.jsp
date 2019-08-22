@@ -4,18 +4,18 @@
 	pageEncoding="UTF-8"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath }" />
 <style>
-	.btn-unlike {
-	  color: white;
+	.btn-like {
+	  color: transparent;
 	  text-shadow: 0 0 2px rgba(255,255,255,.7), 0 0 0 #000;
 	}
-	.btn-unlike:hover {
+	.btn-like:hover {
 	  text-shadow: 0 0 0 #ea0;
 	}
-	.btn-like {
+	.btn-unlike {
 	  color: black;
 	  text-shadow: 0;
 	}
-	.btn-like:hover {
+	.btn-unlike:hover {
 	  color: transparent;
 	  text-shadow: 0 0 0 #777;
 	}
@@ -101,13 +101,21 @@
 	<c:set var="number_no" value='${boardlist.e_no }' />
 	<input type="hidden" name="number" id="number${number_no }" value="${boardlist.e_no}">
 	<h5 class="card-header">제목</h5>
+	<c:set var="like_check" value='${boardlist.like_check }'/>
 	<div class="card-body">
 		<h5 class="card-title">내용</h5>
 		<a>현재 이 기자의 평균 별점 : ${boardlist.score }점</a>
 		<div align="right">
 		<a href="#" class="btn btn-primary">댓글쓰기</a>
 		<a>좋아요 : ${boardlist.like}</a>
+		<input type="hidden" value="${boardlist.like_check }">
+		<% 
+		int like_check = (int)pageContext.getAttribute("like_check");
+		if (like_check == 1) { %>
+		<button id="btn-unlike" class="btn-unlike" onclick = "location.href = 'like?e_no=${boardlist.e_no}';">👍</button>
+		<% } else { %>
 		<button id="btn-like" class="btn-like" onclick = "location.href = 'like?e_no=${boardlist.e_no}';">👍</button>
+		<% } %>
 		</div>
 	</div>
 </div>

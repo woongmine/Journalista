@@ -78,7 +78,7 @@ public class eBoardDAOImpl implements eBoardDAO {
 
 
 	@Override
-	public List<LikeVO> getLikeList(LikeVO vo) {
+	public List<eBoardVO> getLikeList(eBoardVO vo) {
 		return sql.selectList(namespace + ".getLikeList", vo);
 	}
 	

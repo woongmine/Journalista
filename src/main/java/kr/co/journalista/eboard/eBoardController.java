@@ -1,7 +1,9 @@
 package kr.co.journalista.eboard;
 
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
@@ -36,12 +38,27 @@ public class eBoardController {
 	}
 
 	@RequestMapping(value = "/listPage")
-	public void getBoardList(LikeVO vo, eBoardVO boardvo, Model model) throws Exception{
-		List<LikeVO> likelist = service.getLikeList(vo);
-		List<eBoardVO> all_list = service.getBoardList(boardvo);
-		model.addAttribute("like_list", likelist);
-		model.addAttribute("boardlist", all_list);
-		
+	public void getBoardList(LikeVO vo, eBoardVO boardvo, Model model, HttpSession session) throws Exception{
+		String login_member_no = (String) session.getAttribute("login_member_no");
+		if(login_member_no != null) {
+			boardvo.setM_no(Integer.parseInt(login_member_no));
+			System.out.println(login_member_no);
+				List<eBoardVO> likelist = service.getLikeList(boardvo);
+				List<eBoardVO> all_list = service.getBoardList(boardvo);
+				for (eBoardVO boardlist : all_list) { 
+					for (eBoardVO like_list : likelist) { 
+						if (boardlist.getE_no() == like_list.getE_no()) { 
+							boardlist.setLike_check(like_list.getLike_check()); 
+							} 
+						} 
+					}
+				model.addAttribute("boardlist", all_list);
+		}
+		else {
+			List<eBoardVO> all_list = service.getBoardList(boardvo);
+			model.addAttribute("boardlist", all_list);
+		}
+	
 	}
     
 	@RequestMapping(value = "first_score")
@@ -57,6 +74,7 @@ public class eBoardController {
 		PrintWriter writer = response.getWriter();
         response.setCharacterEncoding("utf-8");
         response.setContentType("text/html; utf-8");
+		System.out.println("hi");
 		String login_email = (String) session.getAttribute("login_email");
 		System.out.println(login_email);
 		String login_member_no = (String) session.getAttribute("login_member_no");
@@ -68,7 +86,7 @@ public class eBoardController {
 		
 		if (login_email != null) {
 			service.like(vo);
-			writer.write("<script> location.href='/eboard/listPage';</script>");
+			writer.write("<script> location.href='/eboard/listPage'; event.preventDefault();</script>");
 		}
 		else {
 			writer.write("<script> alert(\"로그인을 해주세요.\"); location.href='/eboard/listPage';</script>");

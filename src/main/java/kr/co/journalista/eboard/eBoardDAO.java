@@ -35,7 +35,7 @@ public interface eBoardDAO {
 	public int minpage() throws Exception;
 	
 	//총 게시글 개수 확인
-	public List<LikeVO> getLikeList(LikeVO vo);
+	public List<eBoardVO> getLikeList(eBoardVO vo);
 	public List<eBoardVO> getBoardList(eBoardVO vo);
 	public int getBoardListCnt(Criteria cri) throws Exception;
 
