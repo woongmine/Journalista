@@ -81,7 +81,7 @@ function a_star(){
 
 </script>
 <!-- Sidebar -->
-<section id="sidebar" style="width:400px; margin-left: 35px;">
+<section id="sidebar" style="width:400px; margin-left: 10px;">
 
 	<section>
 		<div class="modal fade" id="myModal" role="dialog">
@@ -93,12 +93,12 @@ function a_star(){
 		      </div>
 		      <div class="modal-body">
 		      	<input type="text" style="width:100%;" placeholder="링크를 붙여넣어 주세요"><br/>
-		     		<div class="rating rating2"><!--
-						--><a href="/eboard/first_score?score=5" title="Give 5 stars" onclick="return five_stars();">★</a><!--
-						--><a href="/eboard/first_score?score=4" title="Give 4 stars" onclick="return four_stars();">★</a><!--
-						--><a href="/eboard/first_score?score=3" title="Give 3 stars" onclick="return three_stars();">★</a><!--
-						--><a href="/eboard/first_score?score=2" title="Give 2 stars" onclick="return two_stars();">★</a><!--
-						--><a href="/eboard/first_score?score=1" title="Give 1 star" onclick="return a_star();">★</a>
+		     		<div class="rating rating2">
+			     		<a href="/eboard/first_score?score=5" title="Give 5 stars" onclick="return five_stars();">★</a>
+						<a href="/eboard/first_score?score=4" title="Give 4 stars" onclick="return four_stars();">★</a>
+						<a href="/eboard/first_score?score=3" title="Give 3 stars" onclick="return three_stars();">★</a>
+						<a href="/eboard/first_score?score=2" title="Give 2 stars" onclick="return two_stars();">★</a>
+						<a href="/eboard/first_score?score=1" title="Give 1 star" onclick="return a_star();">★</a>
 					</div>
 		        <!-- 
 		        <select id="score" name="score">
