@@ -96,6 +96,107 @@
 		location.href = url;
 	});
 </script>
+<script>
+	
+	//댓글 쓰기 
+	
+	function inserttext(e_no){
+		var ere_text=$("#ere_text"+e_no).val();
+		var param={
+				ere_text : ere_text,
+				e_no : e_no					
+		};
+		console.log(param);
+		$.ajax({
+			type: "post",
+			url: "${path}/ereply/insert",
+			data: param,
+			success: function(){
+				alert("댓글이 등록되었습니다.");
+				listview2(e_no);
+				
+			}
+		});			
+	}
+
+
+//날짜 변환 함수
+function changeDate(date) {
+	date = new Date(parseInt(date));
+	year = date.getFullYear();
+	month = date.getMonth() + 1;
+	day = date.getDate();
+	hour = date.getHours();
+	minute = date.getMinutes();
+	second = date.getSeconds();
+	strDate = (year-2000)+"."+month+"."+day+"  "+hour+":"+minute+":"+second;
+
+	return strDate;
+}
+
+//댓글 삭제
+function ereplydelete(ere_no,e_no) {
+	var param = {
+		ere_no : ere_no
+	};
+	if (confirm("삭제하시겠습니까?")) {
+		$.ajax({
+			type : "post",
+			url : "${path}/ereply/replydelete",
+			data : param,
+			success : function() {
+				alert("댓글을 삭제하였습니다.");
+				 listview2(e_no);
+			}
+		});
+	}
+}
+
+function listview2(e_no){	
+	console.log(e_no);
+	var userId= "<%=session.getAttribute("userId")%>";
+	console.log(userId);
+	$.ajax({
+			type : "get",
+			data : e_no,
+			url : "${path}/ereply/listJson?e_no="+e_no,
+			success : function(result) {
+				var output = "<table>";
+				for ( var i in result) {
+					if (result[i].email == userId) {							
+						output += "<tr>";
+						output += "<td>" + result[i].name + "("
+								+ result[i].email + ")";
+						output += " / " + changeDate(result[i].regdate)
+								+ "<br>";
+						output += result[i].ere_text + "</td>"
+						output += "<td><a style='color:#6E6E6E' onClick='javascript:ereplydelete("
+								+ result[i].ere_no+","+e_no+
+								 ")'>삭제</a></td>";
+						output += "<tr>";
+					
+
+					} else {
+						output += "<tr>";
+						output += "<td>" + result[i].name + "("
+								+ result[i].email + ")";
+						output += " / " + changeDate(result[i].regdate)
+								+ "<br>";
+						output += result[i].ere_text + "<br></td>"
+						output += "<tr>";
+					
+					}
+				}
+			output += "</table>";
+			$("#listEreply"+e_no).html(output);
+			}
+		});
+}
+
+
+
+	
+</script>
 
 
 <div class="layer_center" style="width: 800px; margin-top: 0px;">
@@ -110,7 +211,13 @@
 		<h5 class="card-title">내용</h5>
 		<a>현재 이 기자의 평균 별점 : ${boardlist.score }점</a>
 		<div align="right">
-		<a href="#" class="btn btn-primary">댓글쓰기</a>
+		<div id="replytext" style="width: 700px; ">		
+				<br>
+				<textarea rows="2" cols="60" id="ere_text${boardlist.e_no}" placeholder="댓글을 입력하세요."></textarea>
+				<br>
+				<button type="button" onclick="listview(${boardlist.e_no})" style="color:#6E6E6E">댓글보기</button>	
+				<button type="button" id="btnEreply" onclick="inserttext(${boardlist.e_no})">댓글 작성</button>
+      	</div>		
 		<a>좋아요 : ${boardlist.like}</a>
 		<input type="hidden" value="${boardlist.like_check }">
 		<% 
@@ -122,6 +229,8 @@
 		<% } %>
 		</div>
 	</div>
+		<div id="listEreply${boardlist.e_no}" class="example01" style="display: none;" ></div>
+	
 </div>
 </c:forEach>
 </div>
@@ -175,12 +284,19 @@ $(window).scroll(function() {
 								+	"<h5 class=" + "'card-title'" + ">내용</h5>"
 								+	"<a> 현재 이 기자의 평균 별점 : " + this.score + "</a>"
 								+	"<div align=" + "'right'" + ">"
-								+	"<a href=" + "'#'" + "class=" + "'btn btn-primary'" + ">댓글쓰기</a>"
+								+ 	"<div id='replytext' style='width: 700px; '>"		
+								+	"<br>"
+								+	"<textarea rows='2' cols='60' id='ere_text"+this.e_no+"' placeholder='댓글을 입력하세요.'></textarea>"
+								+	"<br>"
+								+	"<button type='button' onclick='listview("+this.e_no+")' style='color:#6E6E6E'>댓글보기</button>"	
+								+	"<button type='button' id='btnEreply' onclick='inserttext("+this.e_no+")'>댓글 작성</button>"
+				      			+	"</div>"										
 								+	"<a>좋아요  : " + this.like + "</a>"
 								+	"<input type=" + "'hidden'" + "value=" + this.like_check + ">"
 								+	button
 								+	"</div>"
 								+	"</div>"
+								+	"<div id='listEreply"+this.e_no+"' class='example01' style='display: none;' ></div>"
 						 		+ 	"</div>";
 							
 					});
@@ -248,12 +364,19 @@ if ($(window).scrollTop() <= 0 ){
 							+	"<h5 class=" + "'card-title'" + ">내용</h5>"
 							+	"<a> 현재 이 기자의 평균 별점 : " + this.score + "</a>"
 							+	"<div align=" + "'right'" + ">"
-							+	"<a href=" + "'#'" + "class=" + "'btn btn-primary'" + ">댓글쓰기</a>"
+							+ 	"<div id='replytext' style='width: 700px; '>"		
+							+	"<br>"
+							+	"<textarea rows='2' cols='60' id='ere_text"+this.e_no+"' placeholder='댓글을 입력하세요.'></textarea>"
+							+	"<br>"
+							+	"<button type='button' onclick='listview("+this.e_no+")' style='color:#6E6E6E'>댓글보기</button>"	
+							+	"<button type='button' id='btnEreply' onclick='inserttext("+this.e_no+")'>댓글 작성</button>"
+			      			+	"</div>"
 							+	"<a>좋아요  : " + this.like + "</a>"
 							+	"<input type=" + "'hidden'" + "value=" + this.like_check + ">"
 							+	button
 							+	"</div>"
 							+	"</div>"
+							+	"<div id='listEreply"+this.e_no+"' class='example01' style='display: none;' ></div>"
 					 		+ 	"</div>";
 					 		
 				});
@@ -281,5 +404,15 @@ lastScrollTop = currentScrollTop;
 }
 });
 
+
+function listview(e_no){	
+		
+		 	if($("#listEreply"+e_no).is(":visible")){		 			
+		 		$("#listEreply"+e_no).slideUp('fast');
+				}else{
+					$("#listEreply"+e_no).slideDown('fast');				
+				} 
+			listview2(e_no);
+			}
 </script>
 

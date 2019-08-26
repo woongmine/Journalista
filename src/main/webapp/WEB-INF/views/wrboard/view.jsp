@@ -31,17 +31,6 @@
 			});			
 		});
 	});
-	$(document).ready(function(){
-		$("#spreadBtn").click(function(){
-			if($("#replytext").is(":visible")){
-				$("#replytext").slideUp('fast');
-				$("#listReply").slideUp('fast');
-			}else{
-				$("#replytext").slideDown('fast');
-				$("#listReply").slideDown('fast');
-			}
-		});
-	});
 	
 	 //댓글 목록2
 	function listReply2(){
@@ -208,16 +197,18 @@
 				href="/wrboard/listPage?num=1"> 목록보기</a> <a
 				href="/wrboard/next?wr_no=${view.wr_no}"
 				onclick="return CheckNextPage();">다음글</a>
-				<a id="spreadBtn" class="btn01" style="color:#6E6E6E">댓글보기</a>
 		</div>
 	</form>
-	<div id="replytext" style="width: 650px; display: none;" text=align:center;">
+	<div id="replytext" style="width: 650px;">
 			
 			<br>
 				<textarea rows="2" cols="60" id="re_text" placeholder="댓글을 입력하세요."></textarea>
-			<br>
+			
 				<button type="button" id="btnReply">댓글 작성</button>
-	<div id="listReply" class="example01" style="display: none;"></div>
+				<br>
+				<br>
+				
+				<div id="listReply" class="example01" ></div>
 	
 		
 	</div>
