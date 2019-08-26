@@ -164,7 +164,8 @@ function listview2(e_no){
 		<h5 class="card-title">내용</h5>
 		<a>현재 이 기자의 평균 별점 : ${boardlist.score }점</a>
 		<div align="right">
-		<a class="icon solid fa-comment" onclick="listview(${boardlist.e_no})" style="color:#6E6E6E; font-size:10pt; font-weight: bolder;"> ( ${boardlist.recnt} ) </a>
+		<a class="icon solid fa-comment" onclick="listview(${boardlist.e_no})" style="color:#6E6E6E; font-size:10pt; font-weight: bolder;"> comment( ${boardlist.recnt} ) </a>
+		<a style="color:#6E6E6E; font-size:10pt; font-weight: bolder;"> | </a>
 		<input type="hidden" value="${boardlist.like_check }">
 		<% 
 		int like_check = (int)pageContext.getAttribute("like_check");
@@ -239,6 +240,7 @@ $(window).scroll(function() {
 								+	"<a> 현재 이 기자의 평균 별점 : " + this.score + "</a>"
 								+	"<div align=" + "'right'" + ">"
 								+	"<a class='icon solid fa-comment' onclick='listview("+this.e_no+")' style='color:#6E6E6E; font-size:10pt; font-weight: bolder;''> ( "+this.recnt+" ) </a>"
+								+	"<a style='color:#6E6E6E; font-size:10pt; font-weight: bolder;'> | </a>"
 								+	"<a>좋아요  : " + this.like + "</a>"
 								+	"<input type=" + "'hidden'" + "value=" + this.like_check + ">"
 								+	button
