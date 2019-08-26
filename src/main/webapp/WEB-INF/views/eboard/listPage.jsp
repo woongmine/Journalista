@@ -225,11 +225,11 @@ $(window).scroll(function() {
 							var button = "";
 							console.log('likecheck : ' + this.like_check);
 							if(this.like_check == 1) {
-								button = "<button id=" + "'btn-unlike'" + "class=" + "'btn-unlike'" + "onclick = " + "location.href='like?e_no=" + this.e_no + "'>👍</button>";
-																														
+								button = "<a href= 'like?e_no="+this.e_no+"' class='icon fa-heart'" + "> </a>";
+																													
 								}
 							else {
-								button = "<button id=" + "'btn-like'" + "class=" + "'btn-like'" + "onclick = " + "location.href='like?e_no=" + this.e_no + "'>👍</button>";
+								button = "<a href= 'like?e_no="+this.e_no+"' class='icon fa-heart'" + "> </a>";
 								}
 							console.log(this);
 							str +=	"<div class=" + "'card'" + ">" 
@@ -241,9 +241,9 @@ $(window).scroll(function() {
 								+	"<div align=" + "'right'" + ">"
 								+	"<a class='icon solid fa-comment' onclick='listview("+this.e_no+")' style='color:#6E6E6E; font-size:10pt; font-weight: bolder;''> ( "+this.recnt+" ) </a>"
 								+	"<a style='color:#6E6E6E; font-size:10pt; font-weight: bolder;'> | </a>"
-								+	"<a>좋아요  : " + this.like + "</a>"
 								+	"<input type=" + "'hidden'" + "value=" + this.like_check + ">"
 								+	button
+								+	"<a>" + this.like + "</a>"
 								+	"</div>"
 								+	"</div>"
 								+	"<div id='replytext"+this.e_no+"' style='width: 700px; display: none;'>"		
