@@ -4,22 +4,6 @@
 	pageEncoding="UTF-8"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath }" />
 <style>
-	.btn-like {
-	  color: transparent;
-	  text-shadow: 0 0 2px rgba(255,255,255,.7), 0 0 0 #000;
-	}
-	.btn-like:hover {
-	  text-shadow: 0 0 0 #ea0;
-	}
-	.btn-unlike {
-	  color: black;
-	  text-shadow: 0;
-	}
-	.btn-unlike:hover {
-	  color: transparent;
-	  text-shadow: 0 0 0 #777;
-	}
-	
 	.card {
 		margin-bottom:20px;
 	}
@@ -63,38 +47,7 @@
 					window.location.href = url;
 				})
 		}
-	
-	//카테고리
-	
-	function category_request(){
-		var url = "listPage?page=1" + "&perPageNum=" + "${pageMaker.cri.perPageNum}";
-		url = url + "&category=request";
-		location.href = url;
-		
-	}
-	function category_report(){
-		var url = "listPage?page=1" + "&perPageNum=" + "${pageMaker.cri.perPageNum}";
-		url = url + "&category=report";
-		location.href = url;
-		
-	}
-	function category_etc(){
-		var url = "listPage?page=1" + "&perPageNum=" + "${pageMaker.cri.perPageNum}";
-		url = url + "&category=etc";
-		location.href = url;
-		
-	}
-	
-	$(document).on('click', '#btnCategory', function(e){
 
-		e.preventDefault();
-
-		var url = "listPage?page=1" + "&perPageNum=" + "${pageMaker.cri.perPageNum}";
-
-		url = url + "&category=" + $('#category').val();
-
-		location.href = url;
-	});
 </script>
 <script>
 	
@@ -199,7 +152,7 @@ function listview2(e_no){
 </script>
 
 
-<div class="layer_center" style="width: 800px; margin-top: 0px;">
+<div class="layer_center" id="top" style="width: 800px; margin-top: 0px;">
 
 <c:forEach items="${boardlist}" var="boardlist">
 <div class="card">
@@ -211,31 +164,31 @@ function listview2(e_no){
 		<h5 class="card-title">내용</h5>
 		<a>현재 이 기자의 평균 별점 : ${boardlist.score }점</a>
 		<div align="right">
-		<a class="icon solid fa-comment" onclick="listview(${boardlist.e_no})" style="color:#6E6E6E; font-size:10pt; font-weight: bolder;">( ${boardlist.recnt} )</a>
-		<a style="white-space: pre-wrap; font-size:10pt; font-weight: bolder;"> | </a>
-		<a style="color:#6E6E6E; font-size:10pt; font-weight: bolder;">좋아요 : ${boardlist.like}</a>
+		<div id="replytext" style="width: 700px; ">		
+				<br>
+				<textarea rows="2" cols="60" id="ere_text${boardlist.e_no}" placeholder="댓글을 입력하세요."></textarea>
+				<br>
+				<button type="button" onclick="listview(${boardlist.e_no})" style="color:#6E6E6E">댓글보기</button>	
+				<button type="button" id="btnEreply" onclick="inserttext(${boardlist.e_no})">댓글 작성</button>
+      	</div>		
 		<input type="hidden" value="${boardlist.like_check }">
 		<% 
 		int like_check = (int)pageContext.getAttribute("like_check");
 		if (like_check == 1) { %>
-		<button id="btn-unlike" class="btn-unlike" onclick = "location.href = 'like?e_no=${boardlist.e_no}';">👍</button>
+		<a href="like?e_no=${boardlist.e_no}" class="icon fa-heart"></a>
 		<% } else { %>
-		<button id="btn-like" class="btn-like" onclick = "location.href = 'like?e_no=${boardlist.e_no}';">👍</button>
+		<a href="like?e_no=${boardlist.e_no}" class="icon fa-heart"></a>
 		<% } %>
+		<a>${boardlist.like}</a>
 		</div>
 	</div>
-		<div id="replytext${boardlist.e_no}" style="width: 700px; display: none;">		
-				<br>
-				<textarea rows="2" cols="60" id="ere_text${boardlist.e_no}" placeholder="댓글을 입력하세요."></textarea>
-				<br>
-				<button type="button" id="btnEreply" onclick="inserttext(${boardlist.e_no})">댓글 작성</button>
- 				<div id="listEreply${boardlist.e_no}" class="example01"  ></div>	     
-      	</div>	
-	
+		<div id="listEreply${boardlist.e_no}" class="example01" style="display: none;" ></div>
 </div>
 </c:forEach>
 </div>
-
+<div style="position: fixed; bottom: 5px; right: 5px;">
+<a href="#top"><img src="${contextPath}/WEB-INF/views/eboard/top.jpg" title="맨 위로 가기"></a>
+</div>
 
 <script>
 var lastScrollTop = 0;
@@ -285,20 +238,19 @@ $(window).scroll(function() {
 								+	"<h5 class=" + "'card-title'" + ">내용</h5>"
 								+	"<a> 현재 이 기자의 평균 별점 : " + this.score + "</a>"
 								+	"<div align=" + "'right'" + ">"
-								+	"<a class='icon solid fa-comment' onclick='listview("+this.e_no+")' style='color:#6E6E6E; font-size:10pt; font-weight: bolder;'>( "+this.recnt+" )</a>"
-								+	"<a style='white-space: pre-wrap; font-size:10pt; font-weight: bolder;'> | </a>"
-								+	"<a style='color:#6E6E6E; font-size:10pt; font-weight: bolder;'>좋아요 : "+this.like+"</a>"									
+								+ 	"<div id='replytext' style='width: 700px; '>"		
+								+	"<br>"
+								+	"<textarea rows='2' cols='60' id='ere_text"+this.e_no+"' placeholder='댓글을 입력하세요.'></textarea>"
+								+	"<br>"
+								+	"<button type='button' onclick='listview("+this.e_no+")' style='color:#6E6E6E'>댓글보기</button>"	
+								+	"<button type='button' id='btnEreply' onclick='inserttext("+this.e_no+")'>댓글 작성</button>"
+				      			+	"</div>"										
+								+	"<a>좋아요  : " + this.like + "</a>"
 								+	"<input type=" + "'hidden'" + "value=" + this.like_check + ">"
 								+	button
 								+	"</div>"
 								+	"</div>"
-								+	"<div id='replytext"+this.e_no+"' style='width: 700px; display: none;'>"		
-								+	"<br>"
-								+	"<textarea rows='2' cols='60' id='ere_text"+this.e_no+"' placeholder='댓글을 입력하세요.'></textarea>"
-								+	"<br>"
-								+	"<button type='button' id='btnEreply' onclick='inserttext("+this.e_no+")'>댓글 작성</button>"
-				 				+	"<div id='listEreply"+this.e_no+"' class='example01'  ></div>"	     
-				      			+	"</div>"	
+								+	"<div id='listEreply"+this.e_no+"' class='example01' style='display: none;' ></div>"
 						 		+ 	"</div>";
 							
 					});			
@@ -365,10 +317,19 @@ if ($(window).scrollTop() <= 0 ){
 							+	"<h5 class=" + "'card-title'" + ">내용</h5>"
 							+	"<a> 현재 이 기자의 평균 별점 : " + this.score + "</a>"
 							+	"<div align=" + "'right'" + ">"
+							+ 	"<div id='replytext' style='width: 700px; '>"		
+							+	"<br>"
+							+	"<textarea rows='2' cols='60' id='ere_text"+this.e_no+"' placeholder='댓글을 입력하세요.'></textarea>"
+							+	"<br>"
+							+	"<button type='button' onclick='listview("+this.e_no+")' style='color:#6E6E6E'>댓글보기</button>"	
+							+	"<button type='button' id='btnEreply' onclick='inserttext("+this.e_no+")'>댓글 작성</button>"
+			      			+	"</div>"
+							+	"<a>좋아요  : " + this.like + "</a>"
 							+	"<input type=" + "'hidden'" + "value=" + this.like_check + ">"
 							+	button
 							+	"</div>"
 							+	"</div>"
+							+	"<div id='listEreply"+this.e_no+"' class='example01' style='display: none;' ></div>"
 					 		+ 	"</div>";
 					 		
 				});
@@ -399,10 +360,10 @@ lastScrollTop = currentScrollTop;
 
 function listview(e_no){	
 		
-		 	if($("#replytext"+e_no).is(":visible")){		 			
-		 		$("#replytext"+e_no).slideUp('fast');
+		 	if($("#listEreply"+e_no).is(":visible")){		 			
+		 		$("#listEreply"+e_no).slideUp('fast');
 				}else{
-				$("#replytext"+e_no).slideDown('fast');				
+					$("#listEreply"+e_no).slideDown('fast');				
 				} 
 			listview2(e_no);
 			}
