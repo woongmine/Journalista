@@ -166,15 +166,15 @@ function listview2(e_no){
 		<div align="right">
 		<a class="icon solid fa-comment" onclick="listview(${boardlist.e_no})" style="color:#6E6E6E; font-size:10pt; font-weight: bolder;"> comment( ${boardlist.recnt} ) </a>
 		<a style="color:#6E6E6E; font-size:10pt; font-weight: bolder;"> | </a>
-		<input type="hidden" value="${boardlist.like_check }">
+		<input type="hidden" value="${boardlist.like_check }"style="color:#6E6E6E; font-size:10pt; font-weight: bolder;">
 		<% 
 		int like_check = (int)pageContext.getAttribute("like_check");
 		if (like_check == 1) { %>
-		<a href="like?e_no=${boardlist.e_no}" class="icon fa-heart"></a>
+		<a href="like?e_no=${boardlist.e_no}" class="fas fa-heart" style="color:#6E6E6E; font-size:10pt; font-weight: bolder; color:red"></a>
 		<% } else { %>
-		<a href="like?e_no=${boardlist.e_no}" class="icon fa-heart"></a>
+		<a href="like?e_no=${boardlist.e_no}" class="icon fa-heart" style="color:#6E6E6E; font-size:10pt; font-weight: bolder; "></a>
 		<% } %>
-		<a>${boardlist.like}</a>
+		<a style="color:#6E6E6E; font-size:10pt; font-weight: bolder;">like ( ${boardlist.like} )</a>
 		</div>
 	</div>
 		<div id="replytext${boardlist.e_no}" style="width: 700px; display: none;">		
@@ -225,11 +225,11 @@ $(window).scroll(function() {
 							var button = "";
 							console.log('likecheck : ' + this.like_check);
 							if(this.like_check == 1) {
-								button = "<a href= 'like?e_no="+this.e_no+"' class='icon fa-heart'" + "> </a>";
+								button = "<a href= 'like?e_no="+this.e_no+"' class='fas fa-heart' style='color:#6E6E6E; font-size:10pt; font-weight: bolder;color:red' > </a>";
 																													
 								}
 							else {
-								button = "<a href= 'like?e_no="+this.e_no+"' class='icon fa-heart'" + "> </a>";
+								button = "<a href= 'like?e_no="+this.e_no+"' class='icon fa-heart' style='color:#6E6E6E; font-size:10pt; font-weight: bolder;'> </a>";
 								}
 							console.log(this);
 							str +=	"<div class=" + "'card'" + ">" 
@@ -239,11 +239,11 @@ $(window).scroll(function() {
 								+	"<h5 class=" + "'card-title'" + ">내용</h5>"
 								+	"<a> 현재 이 기자의 평균 별점 : " + this.score + "</a>"
 								+	"<div align=" + "'right'" + ">"
-								+	"<a class='icon solid fa-comment' onclick='listview("+this.e_no+")' style='color:#6E6E6E; font-size:10pt; font-weight: bolder;''> ( "+this.recnt+" ) </a>"
+								+	"<a class='icon solid fa-comment' onclick='listview("+this.e_no+")' style='color:#6E6E6E; font-size:10pt; font-weight: bolder;''> comment ( "+this.recnt+" ) </a>"
 								+	"<a style='color:#6E6E6E; font-size:10pt; font-weight: bolder;'> | </a>"
-								+	"<input type=" + "'hidden'" + "value=" + this.like_check + ">"
+								+	"<input type=" + "'hidden'" + "value=" + this.like_check + ">"						
 								+	button
-								+	"<a>" + this.like + "</a>"
+								+	"<a style='color:#6E6E6E; font-size:10pt; font-weight: bolder;'>like ( " + this.like + " )</a>"
 								+	"</div>"
 								+	"</div>"
 								+	"<div id='replytext"+this.e_no+"' style='width: 700px; display: none;'>"		
