@@ -112,4 +112,14 @@ public class eBoardServiceImpl implements eBoardService {
 		}
 	}
 
+	@Override
+	public List<eBoardVO> infiniteScrollDown(Integer eno) throws Exception {
+		return dao.infiniteScrollDown(eno);
+	}
+
+	@Override
+	public List<eBoardVO> infiniteScrollUp(Integer eno) throws Exception {
+		return dao.infiniteScrollUp(eno);
+	}
+
 }

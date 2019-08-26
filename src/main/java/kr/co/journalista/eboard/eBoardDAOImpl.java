@@ -137,6 +137,16 @@ public class eBoardDAOImpl implements eBoardDAO {
 		sql.update(namespace + ".update_like", vo);
 	}
 
+	@Override
+	public List<eBoardVO> infiniteScrollDown(Integer eno) throws Exception {
+		return sql.selectList(namespace + ".infiniteScrollDown", eno);
+	}
+
+	@Override
+	public List<eBoardVO> infiniteScrollUp(Integer eno) throws Exception {
+		return sql.selectList(namespace + ".infiniteScrollUp", eno);
+	}
+
 //	@Override
 //	public void sum_like(eBoardVO vo) throws Exception {
 //		int sum_like = sql.selectOne(namespace + ".sum_like");

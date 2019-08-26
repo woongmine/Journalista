@@ -44,4 +44,9 @@ public interface eBoardService {
 	public int first_score(eBoardVO vo) throws Exception;
 
 	public void like(eBoardVO vo) throws Exception;
+
+	public List<eBoardVO> infiniteScrollDown(Integer eno) throws Exception;
+
+	public List<eBoardVO> infiniteScrollUp(Integer eno) throws Exception;
+
 }

@@ -1,9 +1,7 @@
 package kr.co.journalista.eboard;
 
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
@@ -11,14 +9,14 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.journalista.LikeVO;
-import kr.co.journalista.WrBoardVO;
 import kr.co.journalista.eBoardVO;
-import kr.co.journalista.member.MemberService;
 
 @Controller
 @RequestMapping(value = "/eboard")
@@ -58,7 +56,6 @@ public class eBoardController {
 			List<eBoardVO> all_list = service.getBoardList(boardvo);
 			model.addAttribute("boardlist", all_list);
 		}
-	
 	}
     
 	@RequestMapping(value = "first_score")
@@ -82,7 +79,7 @@ public class eBoardController {
 		if (login_member_no != null) {
 			vo.setM_no(Integer.parseInt(login_member_no));
 		}
-        System.out.println("e_no" + vo.getE_no());
+        System.out.println("e_no : " + vo.getE_no());
 		
 		if (login_email != null) {
 			service.like(vo);
@@ -92,6 +89,55 @@ public class eBoardController {
 			writer.write("<script> alert(\"로그인을 해주세요.\"); location.href='/eboard/listPage';</script>");
 		}
 	}
+	
+	@RequestMapping(value="/infiniteScrollDown", method = RequestMethod.POST)
+	public @ResponseBody List<eBoardVO> infiniteScrollDownPOST(@RequestBody eBoardVO vo, LikeVO likevo, HttpSession session) throws Exception{
+		String login_member_no = (String) session.getAttribute("login_member_no");
+		Integer eno = vo.getE_no();
+		System.out.println(eno);
+		if(login_member_no != null) {
+			vo.setM_no(Integer.parseInt(login_member_no));
+			List<eBoardVO> likelist = service.getLikeList(vo);
+			List<eBoardVO> scroll_list = service.infiniteScrollDown(eno);
+			for (eBoardVO scrolllist : scroll_list) { 
+				for (eBoardVO like_list : likelist) { 
+					if (scrolllist.getE_no() == like_list.getE_no()) { 
+						scrolllist.setLike_check(like_list.getLike_check()); 
+						} 
+					}
+				}
+			return scroll_list;
+		}
+		else {
+			return service.infiniteScrollDown(eno);
+		}
+		
+	}
+	
+	@RequestMapping(value="/infiniteScrollUp", method = RequestMethod.POST)
+	public @ResponseBody List<eBoardVO> infiniteScrollUpPOST(@RequestBody eBoardVO vo, LikeVO likevo, HttpSession session) throws Exception{
+		String login_member_no = (String) session.getAttribute("login_member_no");
+		Integer eno = vo.getE_no();
+		System.out.println(eno);
+		if(login_member_no != null) {
+			vo.setM_no(Integer.parseInt(login_member_no));
+			List<eBoardVO> likelist = service.getLikeList(vo);
+			List<eBoardVO> scroll_list = service.infiniteScrollUp(eno);
+			for (eBoardVO scrolllist : scroll_list) { 
+				for (eBoardVO like_list : likelist) { 
+					if (scrolllist.getE_no() == like_list.getE_no()) { 
+						scrolllist.setLike_check(like_list.getLike_check()); 
+						} 
+					}
+				}
+			return scroll_list;
+		}
+		else {
+			return service.infiniteScrollUp(eno);
+		}
+		
+	}
+	
 	
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
 	public void getWrite() throws Exception {

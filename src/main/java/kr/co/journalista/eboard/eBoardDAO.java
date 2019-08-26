@@ -8,6 +8,8 @@ import kr.co.journalista.eBoardVO;
 
 public interface eBoardDAO {
 
+	public List<eBoardVO> infiniteScrollDown(Integer eno) throws Exception;
+
 	// 게시물 입력
 	public void write(eBoardVO vo) throws Exception;
 	
@@ -50,6 +52,8 @@ public interface eBoardDAO {
 	public int like_or_unlike(eBoardVO vo) throws Exception;
 
 	public void insert_like(eBoardVO vo) throws Exception;
+
+	public List<eBoardVO> infiniteScrollUp(Integer eno) throws Exception;
 
 //	public void sum_like(eBoardVO vo) throws Exception;
 }
