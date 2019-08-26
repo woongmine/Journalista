@@ -11,16 +11,9 @@
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
       <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
-      <a class="nav-item nav-link" href="/wrboard/listPage">기타게시판</a>
-      <c:if test="${member.name == null }">
-	      <a class="nav-item nav-link" href="/member/login">로그인</a>
-	      <a class="nav-item nav-link" href="/member/register">회원가입</a>
-      </c:if>
-      <c:if test="${member.name!=null}">
-     	 <a class="nav-item nav-link" href="/member/mypage">회원정보</a>
-	  </c:if>
 	  <a class="nav-item nav-link" href="/admin/memberPage">회원관리</a>
 	  <a class="nav-item nav-link" href="/admin/wrboardPage">기타게시판관리</a>
+	  <a class="nav-item nav-link" href="/admin/addmember">회원 추가</a>
     </div>
   </div>
 </nav>
