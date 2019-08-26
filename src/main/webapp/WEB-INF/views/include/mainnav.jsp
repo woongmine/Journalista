@@ -93,7 +93,7 @@ function a_star(){
 		      </div>
 		      <div class="modal-body">
 		      	<input type="text" style="width:100%;" placeholder="링크를 붙여넣어 주세요"><br/>
-		     		<div class="rating rating2">
+		     		<div class="rating rating2" style="width:300px; text-align: center;" >
 			     		<a href="/eboard/first_score?score=5" title="Give 5 stars" onclick="return five_stars();">★</a>
 						<a href="/eboard/first_score?score=4" title="Give 4 stars" onclick="return four_stars();">★</a>
 						<a href="/eboard/first_score?score=3" title="Give 3 stars" onclick="return three_stars();">★</a>
