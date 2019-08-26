@@ -299,8 +299,7 @@ $(window).scroll(function() {
 								+	"<div id='listEreply"+this.e_no+"' class='example01' style='display: none;' ></div>"
 						 		+ 	"</div>";
 							
-					});
-					$(".layer_center").empty();					
+					});			
 					$(".layer_center").append(str);
 				
 				}
@@ -311,16 +310,16 @@ $(window).scroll(function() {
 			}
 		});
 		
-		var position = $(".layer_center:first").offset();// 위치 값
+		var position = $(".layer_center:first").offset();
 		
 		
-		$('html,body').stop().animate({scrollTop : position.top }, 600, easeEffect);
+		//$('html,body').stop().animate({scrollTop : position.top }, 600, easeEffect);
 		}
 
 	lastScrollTop = currentScrollTop;
 }
 
-else{
+/*else{
 
 console.log("up-scroll");			
 
@@ -401,7 +400,7 @@ if ($(window).scrollTop() <= 0 ){
 }
 
 lastScrollTop = currentScrollTop;
-}
+}*/
 });
 
 
