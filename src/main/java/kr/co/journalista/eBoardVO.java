@@ -17,8 +17,16 @@ public class eBoardVO {
 	private int score;
 	private int like;
 	private int like_check;
+	private int recnt;
 	
 	
+	
+	public int getRecnt() {
+		return recnt;
+	}
+	public void setRecnt(int recnt) {
+		this.recnt = recnt;
+	}
 	public int getLike_check() {
 		return like_check;
 	}

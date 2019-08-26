@@ -169,7 +169,7 @@
 		select * from liketo where m_no = #{m_no}
 	</select>
 	<select id="getBoardList" resultType="kr.co.journalista.eBoardVO">
-		select * from e_board limit 0, 7
+		select *,(SELECT COUNT(*) FROM e_boardrep WHERE e_no = b.e_no) AS recnt from e_board b limit 0, 7
 	</select>
 	
 	<select id="getBoardListCnt" resultType="int">
