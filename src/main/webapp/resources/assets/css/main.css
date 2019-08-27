@@ -182,7 +182,7 @@ input, select, textarea {
 
 		a:hover {
 			border-bottom-color: transparent;
-			color: #2ebaae;
+			color: #2ebaae !important;
 		}
 
 			a:hover:before {
@@ -3285,13 +3285,15 @@ input, select, textarea {
 				opacity: 1;
 				padding: 0 0.5em 0 0;
 			}
-
+/* 화면을 좁히면 상단 헤더의 링크 메뉴가 사라짐*/
 		@media screen and (max-width: 980px) {
 
 			#header .links {
 				display: none;
 			}
-
+			#header .main .login {
+				display: none;
+			}
 		}
 
 		@media screen and (max-width: 736px) {
@@ -3304,12 +3306,19 @@ input, select, textarea {
 				#header h1 {
 					padding: 0 0 0 1em;
 				}
-
+		
 				#header .main .search {
 					display: none;
 				}
 
 		}
+		
+		@media screen and (min-width: 980px) {
+				#header .main .menu {
+					display: none;
+				}
+		}
+		
 
 /* Wrapper */
 
@@ -3326,7 +3335,7 @@ input, select, textarea {
 		-webkit-transition: opacity 0.5s ease;
 		-ms-transition: opacity 0.5s ease;
 		transition: opacity 0.5s ease;
-		margin: 0 auto;
+		margin: auto;
 		max-width: 100%;
 		opacity: 1;
 		padding: 4.5em;
@@ -3609,7 +3618,7 @@ input, select, textarea {
 			}
 
 		}
-		
+
 /*탑버튼 css*/
 .back-top {
     cursor: pointer;

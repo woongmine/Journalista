@@ -30,8 +30,6 @@ $('#myDropdown').on('show.bs.dropdown', function () {
 				</div>
 			</li>
 			<li><a href="/wrboard/listPage">건의게시판</a></li>
-			<li><a href="/member/register">회원가입</a></li>
-			<li><a href="/member/login">로그인</a></li>
 			<li><a href="/admin/memberPage">관리자페이지</a></li>
 		</ul>
 	</nav>
@@ -42,6 +40,7 @@ $('#myDropdown').on('show.bs.dropdown', function () {
 					<input type="text" name="query" placeholder="Search" />
 				</form></li>
 			<li class="menu"><a class="fa-bars" href="#menu">Menu</a></li>
+			<li class="login"><a class="fa-sign-in-alt" href="/member/login">Login</a></li>
 		</ul>
 	</nav>
 </header>
@@ -81,7 +80,7 @@ $('#myDropdown').on('show.bs.dropdown', function () {
 	<!-- Actions -->
 	<section>
 		<ul class="actions stacked">
-			<li><a href="#" class="button large fit">Log In</a></li>
+			<li><a href="/member/login" class="button large fit">Log In</a></li>
 		</ul>
 	</section>
 
