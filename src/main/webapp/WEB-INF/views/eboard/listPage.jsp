@@ -152,8 +152,7 @@ function listview2(e_no){
 </script>
 
 
-<!-- 탑으로 가시오 -->
-<a id="back-to-top" href="#" class="btn btn-lg back-top" role="button" title="Click to return on the top page" data-toggle="tooltip" data-placement="left"><span class="fas fa-chevron-up"></span></a>
+<div class="layer_center" id="top" style="width: 800px; margin-top: 0px;">
 
 <c:forEach items="${boardlist}" var="boardlist">
 <div class="card">
@@ -188,9 +187,8 @@ function listview2(e_no){
 </div>
 </c:forEach>
 </div>
-<div style="position: fixed; bottom: 5px; right: 5px;">
-<a href="#top"><img src="${contextPath}/WEB-INF/views/eboard/top.jpg" title="맨 위로 가기"></a>
-</div>
+<!-- 탑으로 가시오 -->
+<a id="back-to-top" href="#" class="btn btn-lg back-top" role="button" title="Click to return on the top page" data-toggle="tooltip" data-placement="left"><span class="fas fa-chevron-up"></span></a>
 
 <script>
 var lastScrollTop = 0;
@@ -369,7 +367,6 @@ function listview(e_no){
 				} 
 			listview2(e_no);
 			}
-
 /*탑버튼 액션*/
 $(document).ready(function(){
     $(window).scroll(function () {
@@ -389,4 +386,3 @@ $(document).ready(function(){
 
 });
 </script>
-
