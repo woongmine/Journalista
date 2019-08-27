@@ -22,7 +22,7 @@
 		});
 	});
 </script>
-
+<div class="col-md-4 mx-auto">
 <div class="card">
   <h5 class="card-header"><center><a href="/" style="font-size:30pt;">Journalista</a></center></h5>
   <div class="card-body mx-auto">
@@ -61,4 +61,4 @@
 					</div>
   </div>
 </div>
-
+</div>
