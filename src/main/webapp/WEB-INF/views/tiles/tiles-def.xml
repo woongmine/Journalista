@@ -30,6 +30,12 @@
 		<put-attribute name="body" value="/WEB-INF/views/wrboard/{1}.jsp" />
     </definition>
     
+    <definition name="member/*" extends="wrboard">
+        <put-attribute name="header" value="/WEB-INF/views/include/mainheader.jsp" />
+        <put-attribute name="nav"   value="" />
+		<put-attribute name="body" value="/WEB-INF/views/member/{1}.jsp" />
+    </definition>
+    
     <!-- 유저 페이지 타일즈 -->
     <definition name="base" template="/WEB-INF/views/include/maintemplate.jsp">
     	<put-attribute name="top" value="/WEB-INF/views/include/header.jsp" />
