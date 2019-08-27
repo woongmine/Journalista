@@ -152,7 +152,8 @@ function listview2(e_no){
 </script>
 
 
-<div class="layer_center" id="top" style="width: 800px; margin-top: 0px;">
+<!-- 탑으로 가시오 -->
+<a id="back-to-top" href="#" class="btn btn-lg back-top" role="button" title="Click to return on the top page" data-toggle="tooltip" data-placement="left"><span class="fas fa-chevron-up"></span></a>
 
 <c:forEach items="${boardlist}" var="boardlist">
 <div class="card">
@@ -368,5 +369,24 @@ function listview(e_no){
 				} 
 			listview2(e_no);
 			}
+
+/*탑버튼 액션*/
+$(document).ready(function(){
+    $(window).scroll(function () {
+           if ($(this).scrollTop() > 50) {
+               $('#back-to-top').fadeIn();
+           } else {
+               $('#back-to-top').fadeOut();
+           }
+       });
+       // scroll body to 0px on click
+       $('#back-to-top').click(function () {
+           $('#back-to-top').tooltip('hide');
+           return false;
+       });
+       
+       $('#back-to-top').tooltip('show');
+
+});
 </script>
 
