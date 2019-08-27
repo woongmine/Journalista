@@ -4,6 +4,14 @@
 	pageEncoding="UTF-8"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath }" />
 
+<script>
+
+$('#myDropdown').on('show.bs.dropdown', function () {
+	  // do something...
+	})
+
+</script>
+
 <!-- Header -->
 <header id="header">
 	<h1>
@@ -12,7 +20,15 @@
 	<nav class="links">
 		<ul>
 			<li><a href="/eboard/listPage">eboard</a></li>
-			<li><a href="/eboard/eboardsearch">기자 검색</a></li>
+			<li>
+				<div class="dropdown">
+					<a href="/search/journalistSearch" class="dropdown-toggle" data-toggle=”dropdown” aria-haspopup=”true” role=”button” aria-expanded=”false“>기자DB</a>
+					<div class="dropdown-menu" aria-labelledby="dropdownMenuLink" role="menu">
+						<a class="dropdown-item" href="/search/journalistSearch" role="presentation">기자검색</a>
+						<a class="dropdown-item" href="#">언론사검색</a>
+					</div>
+				</div>
+			</li>
 			<li><a href="/wrboard/listPage">건의게시판</a></li>
 			<li><a href="/member/register">회원가입</a></li>
 			<li><a href="/member/login">로그인</a></li>

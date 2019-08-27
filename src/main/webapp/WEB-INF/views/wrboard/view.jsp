@@ -59,7 +59,7 @@
 
 							} else {
 								output += "<tr>";
-								output += "<td style='color:#6E6E6E; font-size:10pt; '>" + "<a style='color:#6E6E6E; font-size:11pt; font-weight: bolder;'>" + result[i].name + "("
+								output += "<td colspan='2' style='color:#6E6E6E; font-size:10pt; ' >" + "<a style='color:#6E6E6E; font-size:11pt; font-weight: bolder;'>" + result[i].name + "("
 										+ result[i].email + ")</a>";
 								output += " / " + changeDate(result[i].regdate)
 										+ "<br>";
