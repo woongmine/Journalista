@@ -118,26 +118,26 @@ function listview2(e_no){
 				for ( var i in result) {
 					if (result[i].email == userId) {							
 						output += "<tr>";
-						output += "<td>" + result[i].name + "("
-								+ result[i].email + ")";
+						output += "<td style='color:#6E6E6E; font-size:10pt; '>"  + "<a style='color:#6E6E6E; font-size:11pt; font-weight: bolder;'>"+ result[i].name + "("
+								+ result[i].email + ")</a>";
 						output += " / " + changeDate(result[i].regdate)
 								+ "<br>";
 						output += result[i].ere_text + "</td>"
-						output += "<td><a style='color:#6E6E6E' onClick='javascript:ereplydelete("
+						output += "<td><a style='color:#6E6E6E; font-size:13pt;' class='far fa-trash-alt' onClick='javascript:ereplydelete("
 								+ result[i].ere_no+","+e_no+
-								 ")'>삭제</a></td>";
+								 ")'></a></td>";
 						output += "<tr>";
 					
 
 					} else {
 						output += "<tr>";
-						output += "<td>" + result[i].name + "("
-								+ result[i].email + ")";
+						output += "<td style='color:#6E6E6E; font-size:10pt; '>"+ "<a style='color:#6E6E6E; font-size:11pt; font-weight: bolder;'>" + result[i].name + "("
+								+ result[i].email + ")</a>";
 						output += " / " + changeDate(result[i].regdate)
 								+ "<br>";
 						output += result[i].ere_text + "<br></td>"
 						output += "<tr>";
-					
+						
 					}
 				}
 			output += "</table>";
@@ -162,7 +162,7 @@ function listview2(e_no){
 	<c:set var="like_check" value='${boardlist.like_check }'/>
 	<div class="card-body">
 		<h5 class="card-title">내용</h5>
-		<a>현재 이 기자의 평균 별점 : ${boardlist.score }점</a>
+		<a style="color:#6E6E6E; font-size:10pt; font-weight: bolder;">현재 이 기자의 평균 별점 : ${boardlist.score }점</a>
 		<div align="right">
 		<a class="icon solid fa-comment" onclick="listview(${boardlist.e_no})" style="color:#6E6E6E; font-size:10pt; font-weight: bolder;"> comment( ${boardlist.recnt} ) </a>
 		<a style="color:#6E6E6E; font-size:10pt; font-weight: bolder;"> | </a>

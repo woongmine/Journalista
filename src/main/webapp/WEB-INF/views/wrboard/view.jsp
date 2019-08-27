@@ -46,21 +46,21 @@
 								console.log(userId);
 								console.log(result[i].email);
 								output += "<tr>";
-								output += "<td>" + result[i].name + "("
-										+ result[i].email + ")";
+								output += "<td style='color:#6E6E6E; font-size:10pt; '>" + "<a style='color:#6E6E6E; font-size:11pt; font-weight: bolder;'>"+result[i].name + "("
+										+ result[i].email + ")</a>";
 								output += " / " + changeDate(result[i].regdate)
 										+ "<br>";
 								output += result[i].re_text + "</td>"
-								output += "<td><a style='color:#6E6E6E' onClick='javascript:replydelete("
+								output += "<td><a style='color:#6E6E6E; font-size:13pt;'class='far fa-trash-alt' onClick='javascript:replydelete("
 										+ result[i].re_no
-										+ ")'>삭제</a></td>";
+										+ ")'></a></td>";
 								output += "<tr>";
 								
 
 							} else {
 								output += "<tr>";
-								output += "<td>" + result[i].name + "("
-										+ result[i].email + ")";
+								output += "<td style='color:#6E6E6E; font-size:10pt; '>" + "<a style='color:#6E6E6E; font-size:11pt; font-weight: bolder;'>" + result[i].name + "("
+										+ result[i].email + ")</a>";
 								output += " / " + changeDate(result[i].regdate)
 										+ "<br>";
 								output += result[i].re_text + "<br></td>"
