@@ -4,10 +4,10 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.journalista.mappers.eboardMapper">
 
-	<insert id="first_score" parameterType="kr.co.journalista.eBoardVO">
+	<insert id="write" parameterType="kr.co.journalista.eBoardVO">
 		insert into
-		e_board(`score`)
-		values(#{score})
+		e_board(`score`, `trackback`, `e_datetime`, `evaluation`)
+		values(#{score}, #{trackback}, #{e_datetime}, #{evaluation})
 	</insert>
 	
 	<update id="update_score" parameterType="kr.co.journalista.eBoardVO">
@@ -66,11 +66,6 @@
 		where e_no = #{e_no}
 	</select>
 	
-	<insert id="write" parameterType="kr.co.journalista.eBoardVO">
-		insert into
-		e_board(`wr_title`, `m_no`, `wr_contents`, `name`, `wr_datetime`, `wr_del`, `email`, `category`)
-		values(#{wr_title}, #{m_no}, #{wr_contents} , #{name}, #{wr_datetime}, 0, #{email}, #{category})
-	</insert>
 
 	<update id="update" parameterType="kr.co.journalista.eBoardVO">
 		update
@@ -169,7 +164,7 @@
 		select * from liketo where m_no = #{m_no}
 	</select>
 	<select id="getBoardList" resultType="kr.co.journalista.eBoardVO">
-		select *,(SELECT COUNT(*) FROM e_boardrep WHERE e_no = b.e_no) AS recnt from e_board b limit 0, 7
+		select *,(SELECT COUNT(*) FROM e_boardrep WHERE e_no = b.e_no) AS recnt from e_board b order by e_no desc limit 0, 7
 	</select>
 	
 	<select id="getBoardListCnt" resultType="int">
@@ -178,8 +173,9 @@
 
 	<select id="infiniteScrollDown" resultType="kr.co.journalista.eBoardVO">
 		select * from e_board 
-		where e_no &lt;= #{e_no} + 7
-		and e_no > #{e_no}
+		where e_no >= #{e_no} - 7
+		and e_no &lt; #{e_no}
+		order by e_no desc
 	</select>
 	
 	<select id="infiniteScrollUp" resultType="kr.co.journalista.eBoardVO">

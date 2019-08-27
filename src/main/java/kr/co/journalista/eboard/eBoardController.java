@@ -32,7 +32,6 @@ public class eBoardController {
 		list = service.list();
 
 		model.addAttribute("list", list);
-
 	}
 
 	@RequestMapping(value = "/listPage")
@@ -60,8 +59,17 @@ public class eBoardController {
     
 	@RequestMapping(value = "first_score")
 	public String getScore(eBoardVO vo) throws Exception{
-		service.first_score(vo);
+		service.write(vo);
 		System.out.println(vo.getScore());
+		
+		return "redirect:/eboard/listPage";
+	}
+
+	@RequestMapping(value = "write")
+	public String getWrite(eBoardVO vo) throws Exception{
+		System.out.println("trackback : " + vo.getTrackback());
+		System.out.println("evaluation : " + vo.getEvaluation());
+		service.write(vo);
 		
 		return "redirect:/eboard/listPage";
 	}
@@ -139,35 +147,35 @@ public class eBoardController {
 	}
 	
 	
-	@RequestMapping(value = "/write", method = RequestMethod.GET)
-	public void getWrite() throws Exception {
-
-	}
-
-	// 게시물 작성
-	@RequestMapping(value = "/write", method = RequestMethod.POST)
-	public void postWrite(eBoardVO vo, HttpSession session, HttpServletResponse response) throws Exception {
-		
-		int num = 0;
-		
-		PrintWriter writer = response.getWriter();
-        response.setCharacterEncoding("utf-8");
-        response.setContentType("text/html; utf-8");
-        String login_email = (String) session.getAttribute("login_email");
-		System.out.println("sessionemail : " + login_email);
-		
-		if(login_email != null) {
-			service.write(vo);
-			num =  service.viewafterwrite();
-			writer.write("<script> alert(\"작성완료.\"); location.href='/eboard/view?e_no=" + num + "';</script>");
-		
-			
-		}
-		else {
-			writer.write("<script> alert(\"로그인 하셍.\"); location.href='/eboard/listPage?num=1';</script>");
-		}
-		
-	}
+//	@RequestMapping(value = "/write", method = RequestMethod.GET)
+//	public void getWrite() throws Exception {
+//
+//	}
+//
+//	// 게시물 작성
+//	@RequestMapping(value = "/write", method = RequestMethod.POST)
+//	public void postWrite(eBoardVO vo, HttpSession session, HttpServletResponse response) throws Exception {
+//		
+//		int num = 0;
+//		
+//		PrintWriter writer = response.getWriter();
+//        response.setCharacterEncoding("utf-8");
+//        response.setContentType("text/html; utf-8");
+//        String login_email = (String) session.getAttribute("login_email");
+//		System.out.println("sessionemail : " + login_email);
+//		
+//		if(login_email != null) {
+//			service.write(vo);
+//			num =  service.viewafterwrite();
+//			writer.write("<script> alert(\"작성완료.\"); location.href='/eboard/view?e_no=" + num + "';</script>");
+//		
+//			
+//		}
+//		else {
+//			writer.write("<script> alert(\"로그인 하셍.\"); location.href='/eboard/listPage?num=1';</script>");
+//		}
+//		
+//	}
 	
 	// 다음 글
 	@RequestMapping(value = "/next", method = RequestMethod.GET)

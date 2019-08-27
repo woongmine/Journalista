@@ -8,9 +8,6 @@ import kr.co.journalista.eBoardVO;
 public interface eBoardService {
 
 	
-	// 게시물 입력
-	public void write(eBoardVO vo) throws Exception;
-	
 	// 게시물 수정
 	public void update(eBoardVO vo) throws Exception;
 	 
@@ -40,8 +37,8 @@ public interface eBoardService {
 	public List<eBoardVO> getLikeList(eBoardVO vo) throws Exception;
 	public List<eBoardVO> getBoardList(eBoardVO vo) throws Exception;
 
-	//별점주기
-	public int first_score(eBoardVO vo) throws Exception;
+	//한줄평 쓰기
+	public int write(eBoardVO vo) throws Exception;
 
 	public void like(eBoardVO vo) throws Exception;
 

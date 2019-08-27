@@ -16,12 +16,6 @@ public class eBoardServiceImpl implements eBoardService {
 	private eBoardDAO dao;
 	private LikeVO likevo;
 	
-	@Override
-	public void write(eBoardVO vo) throws Exception {
-		Date date = new Date();
-		vo.setE_datetime(date);
-		dao.write(vo);
-	}
 
 	@Override
 	public void update(eBoardVO vo) throws Exception {
@@ -91,8 +85,10 @@ public class eBoardServiceImpl implements eBoardService {
 	}
 
 	@Override
-	public int first_score(eBoardVO vo) throws Exception {
-		return dao.first_score(vo);
+	public int write(eBoardVO vo) throws Exception {
+		Date date = new Date();
+		vo.setE_datetime(date);
+		return dao.write(vo);
 	}
 
 	@Override

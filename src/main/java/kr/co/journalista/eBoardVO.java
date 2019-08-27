@@ -18,9 +18,23 @@ public class eBoardVO {
 	private int like;
 	private int like_check;
 	private int recnt;
+	private String trackback;
+	private String evaluation;
 	
 	
 	
+	public String getTrackback() {
+		return trackback;
+	}
+	public void setTrackback(String trackback) {
+		this.trackback = trackback;
+	}
+	public String getEvaluation() {
+		return evaluation;
+	}
+	public void setEvaluation(String evaluation) {
+		this.evaluation = evaluation;
+	}
 	public int getRecnt() {
 		return recnt;
 	}

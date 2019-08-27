@@ -20,11 +20,6 @@ public class eBoardDAOImpl implements eBoardDAO {
 	private static String namespace = "kr.co.journalista.mappers.eboardMapper";
 
 	@Override
-	public void write(eBoardVO vo) throws Exception {
-		sql.insert(namespace + ".write", vo);
-	}
-
-	@Override
 	public void update(eBoardVO vo) throws Exception {
 		sql.update(namespace + ".update", vo);
 	}
@@ -95,8 +90,8 @@ public class eBoardDAOImpl implements eBoardDAO {
 	}
 
 	@Override
-	public int first_score(eBoardVO vo) throws Exception {
-		return sql.update(namespace + ".first_score", vo);
+	public int write(eBoardVO vo) throws Exception {
+		return sql.update(namespace + ".write", vo);
 	}
 
 	@Override

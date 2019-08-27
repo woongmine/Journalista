@@ -158,10 +158,11 @@ function listview2(e_no){
 <div class="card">
 	<c:set var="number_no" value='${boardlist.e_no }' />
 	<input type="hidden" class="scrolling" name="number" id="number${number_no }" data-e_no="${boardlist.e_no }" value="${boardlist.e_no}">
-	<h5 class="card-header">제목 ${boardlist.e_no }</h5>
+	<h3 class="card-header">기자 이름 ${boardlist.e_no }</h3>
 	<c:set var="like_check" value='${boardlist.like_check }'/>
 	<div class="card-body">
-		<h5 class="card-title">내용</h5>
+		<h5 class="card-title">기사 링크 ${boardlist.trackback }</h5>
+		<h3>한줄평 ${boardlist.evaluation }</h3>
 		<a style="color:#6E6E6E; font-size:10pt; font-weight: bolder;">현재 이 기자의 평균 별점 : ${boardlist.score }점</a>
 		<div align="right">
 		<a class="icon solid fa-comment" onclick="listview(${boardlist.e_no})" style="color:#6E6E6E; font-size:10pt; font-weight: bolder;"> comment( ${boardlist.recnt} ) </a>
@@ -224,8 +225,7 @@ $(window).scroll(function() {
 							var button = "";
 							console.log('likecheck : ' + this.like_check);
 							if(this.like_check == 1) {
-								button = "<a href= 'like?e_no="+this.e_no+"' class='fas fa-heart' style='color:#6E6E6E; font-size:10pt; font-weight: bolder;color:red' > </a>";
-																													
+								button = "<a href= 'like?e_no="+this.e_no+"' class='fas fa-heart' style='color:#6E6E6E; font-size:10pt; font-weight: bolder;color:red' > </a>";																		
 								}
 							else {
 								button = "<a href= 'like?e_no="+this.e_no+"' class='icon fa-heart' style='color:#6E6E6E; font-size:10pt; font-weight: bolder;'> </a>";
@@ -233,9 +233,10 @@ $(window).scroll(function() {
 							console.log(this);
 							str +=	"<div class=" + "'card'" + ">" 
 								+	"<input type=" + "'hidden'" + "class=" + "'scrolling'" + "data-e_no=" + this.e_no + " value=" + this.e_no + ">"
-								+	"<h5 class=" + "'card-header'" + ">제목" + this.e_no + "</h5>"
+								+	"<h3 class=" + "'card-header'" + ">기자 이름" + this.e_no + "</h5>"
 								+	"<div class=" + "'card-body'" + ">"
-								+	"<h5 class=" + "'card-title'" + ">내용</h5>"
+								+	"<h5 class=" + "'card-title'" + ">기사 링크 + " + this.trackback + "</h5>"
+								+	"<h3>한줄평" + this.evaluation + "</h3>"
 								+	"<a> 현재 이 기자의 평균 별점 : " + this.score + "</a>"
 								+	"<div align=" + "'right'" + ">"
 								+	"<a class='icon solid fa-comment' onclick='listview("+this.e_no+")' style='color:#6E6E6E; font-size:10pt; font-weight: bolder;''> comment ( "+this.recnt+" ) </a>"
@@ -248,23 +249,21 @@ $(window).scroll(function() {
 								+	"<div id='replytext"+this.e_no+"' style='width: 700px; display: none;'>"		
 								+	"<br>"
 								+	"<textarea rows='2' cols='60' id='ere_text"+this.e_no+"' placeholder='댓글을 입력하세요.'></textarea>"
-								+	"<br>"	
+								+	"<br>"
 								+	"<button type='button' id='btnEreply' onclick='inserttext("+this.e_no+")'>댓글 작성</button>"
 				      			+	"<div id='listEreply"+this.e_no+"' class='example01'  ></div>"
-						 		+ 	"</div>";
-							
-					});			
+						 		+ 	"</div>"
+					 			+	"</div>";
+					});	
 					$(".layer_center").append(str);
-				
 				}
-				else{ 
+				else{
 					alert("더 불러올 데이터가 없습니다.");
 				}
-
 			}
 		});
 		
-		var position = $(".layer_center:first").offset();
+		//var position = $(".layer_center:first").offset();
 		
 		
 		//$('html,body').stop().animate({scrollTop : position.top }, 600, easeEffect);

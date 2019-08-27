@@ -10,9 +10,6 @@ public interface eBoardDAO {
 
 	public List<eBoardVO> infiniteScrollDown(Integer eno) throws Exception;
 
-	// 게시물 입력
-	public void write(eBoardVO vo) throws Exception;
-	
 	// 게시물 수정
 	public void update(eBoardVO vo) throws Exception;
 	 
@@ -41,7 +38,8 @@ public interface eBoardDAO {
 	public List<eBoardVO> getBoardList(eBoardVO vo);
 	public int getBoardListCnt(Criteria cri) throws Exception;
 
-	public int first_score(eBoardVO vo) throws Exception;
+	//한줄평 쓰기
+	public int write(eBoardVO vo) throws Exception;
 
 	public void like(eBoardVO vo) throws Exception;
 

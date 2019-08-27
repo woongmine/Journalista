@@ -60,7 +60,6 @@
 			.rating2 a {
 				float:none
 			}
-
 </style>
 <script>
 function five_stars(){
@@ -82,11 +81,36 @@ function a_star(){
 </script>
 <!-- Sidebar -->
 <section id="sidebar" style="width:400px; margin-left: 10px;">
-
 	<section>
-		<div class="modal fade" id="myModal" role="dialog">
-		  <div class="modal-dialog" style="top:70px;">
+		<div class="modal fade" id="Write_Modal" role="dialog">
+		<div class="modal-dialog" style="top:70px;">
 		    <!-- Modal content-->
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h2 class="modal-title">한 줄 평 남기기</h2>
+		      </div>
+		      <div class="modal-body" id="modal_body">
+		      	<h3>기자 검색</h3>
+		      	<div>
+		      	<input type="text" style="width:78%; float:left;" id="name" placeholder="기자 이름을 검색해 주세요"><button style="float:right;">Search</button><br/>
+		      	</div>
+		      	<br/>
+		      	<h3>기사 링크 붙여넣기</h3>
+		      	<input type="text" style="width:100%;" id="trackback" placeholder="링크를 붙여넣어 주세요"><br/>
+		      	<h3>한 줄 평</h3>
+		      	<input type="text" style="width:100%; height:100px;" id="evaluation" placeholder="한 줄 평">
+		      </div>
+		      <div>
+		      	<button type="button" id="next"class="btn btn-default" style="float:right;" onclick="return score();" data-target="#Score_Modal">&nbsp다음&nbsp</button>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		<!-- <div class="modal fade" id="Score_Modal" role="dialog">
+		  <div class="modal-dialog" style="top:70px;">
 		    <div class="modal-content">
 		      <div class="modal-header">
 		        <h4 class="modal-title">한 줄 평 남기기</h4>
@@ -100,26 +124,16 @@ function a_star(){
 						<a href="/eboard/first_score?score=2" title="Give 2 stars" onclick="return two_stars();">★</a>
 						<a href="/eboard/first_score?score=1" title="Give 1 star" onclick="return a_star();">★</a>
 					</div>
-		        <!-- 
-		        <select id="score" name="score">
-					<option value="" selected disabled hidden>별점 주기</option>
-					<option value="2"  >★☆☆☆☆</option>
-					<option value="4" >★★☆☆☆</option>
-					<option value="6"  >★★★☆☆</option>
-					<option value="8">★★★★☆</option>
-					<option value="10"  >★★★★★</option>
-				</select>
-				 -->
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 		      </div>
 		    </div>
 		  </div>
-		</div>
+		</div> -->
 		<div>
 		<div>
-		<button style="font-size:20px;"data-toggle="modal" data-target="#myModal" class="button fit">한줄평 남기기</button>
+		<button style="font-size:20px;"data-toggle="modal" data-target="#Write_Modal" class="button fit">한줄평 남기기</button>
 		</div>
 		</div>
 	</section>
@@ -134,21 +148,30 @@ function a_star(){
 		<br/>
 		<div style="height:300px;">
 	</div>
-	<div>
-		<div style="width:40%; float:left;">
-			<select id="searchTypeSel" name="searchType">
-				<option value="" selected disabled hidden>선택하세요</option>
-				<option value="wr_contents">기자 이름</option>
-				<option value="wr_title">기사 제목</option>
-				<option value="name">기사 내용</option>
-			</select>
-		</div>
-		<div style="width:60%; float:right;">
-			<input class="form-control" type="text" id="keyword" name="keyword" value="${pageMaker.cri.keyword}" placeholder="검색어를 입력하세요" />
-		</div>
 	</div>
-	<button id="searchBtn" class="button fit">Search</button>
-</div>
 	</section>
 
 </section>
+
+<script>
+function score() {
+	var trackback = $("#trackback").val();
+	console.log(trackback);
+	var evaluation = $("#evaluation").val();
+	console.log(evaluation);
+	var score = "";
+	score += "<div class=" + "'rating rating2'" + ">" 
+		  + "<a href=" + "'/eboard/write?score=5&trackback=" + trackback + "&evaluation=" + evaluation + "'onclick=" + "'return five_stars();'" + ">★</a>"
+		  + "<a href=" + "'/eboard/write?score=4&trackback=" + trackback + "&evaluation=" + evaluation + "'onclick=" + "'return four_stars();'" + ">★</a>"
+		  + "<a href=" + "'/eboard/write?score=3&trackback=" + trackback + "&evaluation=" + evaluation + "'onclick=" + "'return three_stars();'" + ">★</a>"
+		  + "<a href=" + "'/eboard/write?score=2&trackback=" + trackback + "&evaluation=" + evaluation + "'onclick=" + "'return two_stars();'" + ">★</a>"
+		  + "<a href=" + "'/eboard/write?score=1&trackback=" + trackback + "&evaluation=" + evaluation + "'onclick=" + "'return a_star();'" + ">★</a>"
+		  + "</div>";
+	console.log(score);
+	//var regist = "";
+	//regist += "<button type=" + "'button'" + "style=" + "'float:right;'" + ">&nbsp등록&nbsp</button>";		
+	
+	$("#modal_body").append(score);
+	$("#next").remove();
+}
+</script>
