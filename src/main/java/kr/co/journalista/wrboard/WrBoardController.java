@@ -52,7 +52,7 @@ public class WrBoardController {
         String login_email = (String) session.getAttribute("login_email");
 		System.out.println("sessionemail : " + login_email);
 		vo.setWr_ip(ClientUtils.getRemoteIP(request));	
-		
+		vo.setName((String)session.getAttribute("userName"));
 		if(login_email != null) {
 			service.write(vo);
 			num =  service.viewafterwrite();
