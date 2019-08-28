@@ -1,50 +1,60 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-
+	pageEncoding="UTF-8"%>
+<c:set var="contextPath" value="${pageContext.request.contextPath }" />
 <style>
 
- .card table { 
-	
-	font-size: 10pt;
+	.card table { 
+		font-size: 10pt;
+	}
 
-}
-
+/*
+	.card img{
+		position: absolute; top:0; left: 0;
+		width: 100%;
+		height: 100%;
+	}
+*/
 </style>
 
+<script>
+	
+	$('#searchBtn').on('click', function(){
+		var keyword = $('#keyword').val();
+		
+		$.ajax({
+			url: "journalistSearchComplete",
+			type: "GET",
+			data: keyword,
+			success: function(data) {
+				alert(keyword);
+			},
+			error : function(jqXHR, textStatus, errorThrown) {
+				alert("에러 발생~~ \n" + textStatus + " : " + errorThrown);
+			}
+		});
+	});
+	
+
+	
+	
+
+</script>
+
 <div>
-<form>
-<div align="center">
+<div align="center" id="search">
+<form id="searchForm" action="journalistSearchComplete">
 	<label for="journalistSearch">기자 검색</label>
 	<div class="input-group mb-3" style="width: 450px;">
 		<div class="input-group-prepend">
 			<span class="input-group-text">이름 검색</span>
 		</div>
-		<input type="text" class="form-control" id="journalistSearch" aria-describedby="basic-addon3">
+		<input type="text" class="form-control" id="keyword" name="keyword" >
 	</div>
-	<input type="button" value="검색">
-</div>
+	<input type="submit" id="searchBtn" value="검색">
 </form>
-
-<div class="row">
-  <div class="col-sm-4">
-    <div class="card" style="height: 300px;">
-      <div class="card-body">
-      	<table style="height: 170px;" font-size="10pt">
-      		<tr>
-      			<td rowspan="3">사진</td>
-      			<td>이름 : </td>
-      		</tr>
-      		<tr>
-      			<td>이메일 : </td>
-      		</tr>
-      		<tr>
-      			<td>소속 : </td>
-      		</tr>
-      	</table>
-      </div>
-    </div>
-  </div>
 </div>
+
 
 </div>

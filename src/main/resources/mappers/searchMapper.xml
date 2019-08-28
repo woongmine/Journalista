@@ -5,8 +5,8 @@
 <mapper namespace="kr.co.journalista.mappers.searchMapper">
 
 	<!-- 기자 검색 -->
-	<select id="searchjournalist">
-		SELECT * FROM airfly.journalistinfo WHERE journal_name=${journal_name}
+	<select id="searchjournalist" parameterType="String" resultType="kr.co.journalista.JournalVO">
+		SELECT * FROM airfly.journalistinfo WHERE journal_name like CONCAT('%', #{journal_name}, '%')
 	</select>
 	
 </mapper>
