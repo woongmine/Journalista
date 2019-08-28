@@ -7,7 +7,9 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +24,9 @@ public class RegisterServiceImpl  implements RegisterService{
 	
 	@Inject
 	private JavaMailSender mailSender;
+	@Autowired
+	BCryptPasswordEncoder passwordEncoder;
+
 
 	@Transactional
 	@Override
@@ -66,6 +71,15 @@ public class RegisterServiceImpl  implements RegisterService{
 					session.setAttribute("passwordCheck", vo.getPasswordCheck());
 				}
 				else {
+					String password = vo.getPassword();
+					
+					
+					String encryptPassword = passwordEncoder.encode(password);
+					vo.setPassword(encryptPassword);
+				
+					System.out.println("암호화된 비밀번호는======="+encryptPassword);
+					
+					
 					dao.register(vo); // 회원가입 DAO
 
 					String key = new TempKey().getKey(50, false); // 인증키 생성
@@ -80,6 +94,7 @@ public class RegisterServiceImpl  implements RegisterService{
 					sendMail.setTo(vo.getEmail());
 					sendMail.send();
 				}
+			
 				session.invalidate();
 				writer.write("<script> alert(\"회원가입 완료. 이메일 인증을 해주세요.\"); location.href='/';</script>");
 			}
