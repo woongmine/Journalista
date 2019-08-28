@@ -186,7 +186,7 @@ input, select, textarea {
 		}
 
 			a:hover:before {
-				color: #2ebaae !important;
+				color: #2ebaae;
 			}
 
 	strong, b {
