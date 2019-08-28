@@ -153,17 +153,17 @@ function listview2(e_no){
 	
 </script>
 
-
 <div class="layer_center" id="top" style="width: 800px; margin-top: 0px;">
 
 <c:forEach items="${boardlist}" var="boardlist">
 <div class="card">
 	<c:set var="number_no" value='${boardlist.e_no }' />
 	<input type="hidden" class="scrolling" name="number" id="number${number_no }" data-e_no="${boardlist.e_no }" value="${boardlist.e_no}">
-	<h5 class="card-header">제목 ${boardlist.e_no }</h5>
+	<h3 class="card-header">${boardlist.e_no } 기자 이름  ${boardlist.name }</h3>
 	<c:set var="like_check" value='${boardlist.like_check }'/>
 	<div class="card-body">
-		<h5 class="card-title">내용</h5>
+		<h5 class="card-title">기사 링크 ${boardlist.trackback }</h5>
+		<h3>한줄평 ${boardlist.evaluation }</h3>
 		<a style="color:#6E6E6E; font-size:10pt; font-weight: bolder;">현재 이 기자의 평균 별점 : ${boardlist.score }점</a>
 		<div align="right">
 		<a class="icon solid fa-comment" onclick="listview(${boardlist.e_no})" style="color:#6E6E6E; font-size:10pt; font-weight: bolder;"> comment( ${boardlist.recnt} ) </a>
@@ -235,9 +235,10 @@ $(window).scroll(function() {
 							console.log(this);
 							str +=	"<div class=" + "'card'" + ">" 
 								+	"<input type=" + "'hidden'" + "class=" + "'scrolling'" + "data-e_no=" + this.e_no + " value=" + this.e_no + ">"
-								+	"<h5 class=" + "'card-header'" + ">제목" + this.e_no + "</h5>"
+								+	"<h3 class=" + "'card-header'" + ">기자 이름" + this.e_no + "</h5>"
 								+	"<div class=" + "'card-body'" + ">"
-								+	"<h5 class=" + "'card-title'" + ">내용</h5>"
+								+	"<h5 class=" + "'card-title'" + ">기사 링크 + " + this.trackback + "</h5>"
+								+	"<h3>한줄평" + this.evaluation + "</h3>"
 								+	"<a> 현재 이 기자의 평균 별점 : " + this.score + "</a>"
 								+	"<div align=" + "'right'" + ">"
 								+	"<a class='icon solid fa-comment' onclick='listview("+this.e_no+")' style='color:#6E6E6E; font-size:10pt; font-weight: bolder;''> comment ( "+this.recnt+" ) </a>"
