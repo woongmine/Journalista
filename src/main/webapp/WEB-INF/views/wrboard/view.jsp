@@ -16,6 +16,9 @@
 		$("#btnReply").click(function(){
 			var re_text=$("#re_text").val();
 			var wr_no="${view.wr_no}";
+			if(re_text == ""){
+				alert("댓글을 입력하란말이다 개쉐리야~~!");
+			}else{
 			var param={
 					re_text : re_text,
 					wr_no : wr_no					
@@ -28,7 +31,8 @@
 					alert("댓글이 등록되었습니다.");
 					listReply2();
 				}
-			});			
+			});	
+			}
 		});
 	});
 	
@@ -46,8 +50,8 @@
 								console.log(userId);
 								console.log(result[i].email);
 								output += "<tr>";
-								output += "<td style='color:#6E6E6E; font-size:10pt; '>" + "<a style='color:#6E6E6E; font-size:11pt; font-weight: bolder;'>"+result[i].name + "("
-										+ result[i].email + ")</a>";
+								output += "<td style='color:#6E6E6E; font-size:10pt; '>" + "<a style='color:#6E6E6E; font-size:11pt; font-weight: bolder;'>"+result[i].name
+										+ "</a>";
 								output += " / " + changeDate(result[i].regdate)
 										+ "<br>";
 								output += result[i].re_text + "</td>"
@@ -59,8 +63,8 @@
 
 							} else {
 								output += "<tr>";
-								output += "<td colspan='2' style='color:#6E6E6E; font-size:10pt; ' >" + "<a style='color:#6E6E6E; font-size:11pt; font-weight: bolder;'>" + result[i].name + "("
-										+ result[i].email + ")</a>";
+								output += "<td colspan='2' style='color:#6E6E6E; font-size:10pt; ' >" + "<a style='color:#6E6E6E; font-size:11pt; font-weight: bolder;'>" + result[i].name 
+										+"</a>";
 								output += " / " + changeDate(result[i].regdate)
 										+ "<br>";
 								output += result[i].re_text + "<br></td>"
@@ -86,17 +90,14 @@
 		var param = {
 			re_no : re_no
 		};
-		if (confirm("삭제하시겠습니까?")) {
 			$.ajax({
 				type : "post",
 				url : "${path}/reply/replydelete",
 				data : param,
 				success : function() {
-					alert("댓글을 삭제하였습니다.");
 					listReply2();
 				}
 			});
-		}
 	}
 
 	//날짜 변환 함수

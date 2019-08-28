@@ -55,6 +55,10 @@
 	
 	function inserttext(e_no){
 		var ere_text=$("#ere_text"+e_no).val();
+		if(ere_text == "" ){
+			alert("댓글어딧나 어디있냔 말이다 개쉐리야~~~~~~!");
+		
+		}else{
 		var param={
 				ere_text : ere_text,
 				e_no : e_no					
@@ -69,7 +73,8 @@
 				listview2(e_no);
 				
 			}
-		});			
+		});	
+		}
 	}
 
 
@@ -92,17 +97,14 @@ function ereplydelete(ere_no,e_no) {
 	var param = {
 		ere_no : ere_no
 	};
-	if (confirm("삭제하시겠습니까?")) {
 		$.ajax({
 			type : "post",
 			url : "${path}/ereply/replydelete",
 			data : param,
 			success : function() {
-				alert("댓글을 삭제하였습니다.");
 				 listview2(e_no);
 			}
 		});
-	}
 }
 
 function listview2(e_no){	
@@ -118,8 +120,8 @@ function listview2(e_no){
 				for ( var i in result) {
 					if (result[i].email == userId) {							
 						output += "<tr>";
-						output += "<td style='color:#6E6E6E; font-size:10pt; '>"  + "<a style='color:#6E6E6E; font-size:11pt; font-weight: bolder;'>"+ result[i].name + "("
-								+ result[i].email + ")</a>";
+						output += "<td style='color:#6E6E6E; font-size:10pt; '>"  + "<a style='color:#6E6E6E; font-size:11pt; font-weight: bolder;'>"+ result[i].name 
+								+"</a>";
 						output += " / " + changeDate(result[i].regdate)
 								+ "<br>";
 						output += result[i].ere_text + "</td>"
@@ -131,8 +133,8 @@ function listview2(e_no){
 
 					} else {
 						output += "<tr>";
-						output += "<td style='color:#6E6E6E; font-size:10pt; '>"+ "<a style='color:#6E6E6E; font-size:11pt; font-weight: bolder;'>" + result[i].name + "("
-								+ result[i].email + ")</a>";
+						output += "<td colspan='2' style='color:#6E6E6E; font-size:10pt; '>"+ "<a style='color:#6E6E6E; font-size:11pt; font-weight: bolder;'>" + result[i].name 
+								+ "</a>";
 						output += " / " + changeDate(result[i].regdate)
 								+ "<br>";
 						output += result[i].ere_text + "<br></td>"
@@ -158,11 +160,10 @@ function listview2(e_no){
 <div class="card">
 	<c:set var="number_no" value='${boardlist.e_no }' />
 	<input type="hidden" class="scrolling" name="number" id="number${number_no }" data-e_no="${boardlist.e_no }" value="${boardlist.e_no}">
-	<h3 class="card-header">기자 이름 ${boardlist.e_no }</h3>
+	<h5 class="card-header">제목 ${boardlist.e_no }</h5>
 	<c:set var="like_check" value='${boardlist.like_check }'/>
 	<div class="card-body">
-		<h5 class="card-title">기사 링크 ${boardlist.trackback }</h5>
-		<h3>한줄평 ${boardlist.evaluation }</h3>
+		<h5 class="card-title">내용</h5>
 		<a style="color:#6E6E6E; font-size:10pt; font-weight: bolder;">현재 이 기자의 평균 별점 : ${boardlist.score }점</a>
 		<div align="right">
 		<a class="icon solid fa-comment" onclick="listview(${boardlist.e_no})" style="color:#6E6E6E; font-size:10pt; font-weight: bolder;"> comment( ${boardlist.recnt} ) </a>
@@ -188,8 +189,9 @@ function listview2(e_no){
 </div>
 </c:forEach>
 </div>
-<!-- 탑으로 가시오 -->
-<a id="back-to-top" href="#" class="btn btn-lg back-top" role="button" title="Click to return on the top page" data-toggle="tooltip" data-placement="left"><span class="fas fa-chevron-up"></span></a>
+<div style="position: fixed; bottom: 5px; right: 5px;">
+<a href="#top"><img src="${contextPath}/WEB-INF/views/eboard/top.jpg" title="맨 위로 가기"></a>
+</div>
 
 <script>
 var lastScrollTop = 0;
@@ -225,7 +227,8 @@ $(window).scroll(function() {
 							var button = "";
 							console.log('likecheck : ' + this.like_check);
 							if(this.like_check == 1) {
-								button = "<a href= 'like?e_no="+this.e_no+"' class='fas fa-heart' style='color:#6E6E6E; font-size:10pt; font-weight: bolder;color:red' > </a>";																		
+								button = "<a href= 'like?e_no="+this.e_no+"' class='fas fa-heart' style='color:#6E6E6E; font-size:10pt; font-weight: bolder;color:red' > </a>";
+																													
 								}
 							else {
 								button = "<a href= 'like?e_no="+this.e_no+"' class='icon fa-heart' style='color:#6E6E6E; font-size:10pt; font-weight: bolder;'> </a>";
@@ -233,10 +236,9 @@ $(window).scroll(function() {
 							console.log(this);
 							str +=	"<div class=" + "'card'" + ">" 
 								+	"<input type=" + "'hidden'" + "class=" + "'scrolling'" + "data-e_no=" + this.e_no + " value=" + this.e_no + ">"
-								+	"<h3 class=" + "'card-header'" + ">기자 이름" + this.e_no + "</h5>"
+								+	"<h5 class=" + "'card-header'" + ">제목" + this.e_no + "</h5>"
 								+	"<div class=" + "'card-body'" + ">"
-								+	"<h5 class=" + "'card-title'" + ">기사 링크 + " + this.trackback + "</h5>"
-								+	"<h3>한줄평" + this.evaluation + "</h3>"
+								+	"<h5 class=" + "'card-title'" + ">내용</h5>"
 								+	"<a> 현재 이 기자의 평균 별점 : " + this.score + "</a>"
 								+	"<div align=" + "'right'" + ">"
 								+	"<a class='icon solid fa-comment' onclick='listview("+this.e_no+")' style='color:#6E6E6E; font-size:10pt; font-weight: bolder;''> comment ( "+this.recnt+" ) </a>"
@@ -249,21 +251,24 @@ $(window).scroll(function() {
 								+	"<div id='replytext"+this.e_no+"' style='width: 700px; display: none;'>"		
 								+	"<br>"
 								+	"<textarea rows='2' cols='60' id='ere_text"+this.e_no+"' placeholder='댓글을 입력하세요.'></textarea>"
-								+	"<br>"
+								+	"<br>"	
 								+	"<button type='button' id='btnEreply' onclick='inserttext("+this.e_no+")'>댓글 작성</button>"
 				      			+	"<div id='listEreply"+this.e_no+"' class='example01'  ></div>"
 						 		+ 	"</div>"
-					 			+	"</div>";
-					});	
+						 		+ 	"</div>";
+							
+					});			
 					$(".layer_center").append(str);
+				
 				}
-				else{
+				else{ 
 					alert("더 불러올 데이터가 없습니다.");
 				}
+
 			}
 		});
 		
-		//var position = $(".layer_center:first").offset();
+		var position = $(".layer_center:first").offset();
 		
 		
 		//$('html,body').stop().animate({scrollTop : position.top }, 600, easeEffect);
@@ -366,22 +371,5 @@ function listview(e_no){
 				} 
 			listview2(e_no);
 			}
-/*탑버튼 액션*/
-$(document).ready(function(){
-    $(window).scroll(function () {
-           if ($(this).scrollTop() > 50) {
-               $('#back-to-top').fadeIn();
-           } else {
-               $('#back-to-top').fadeOut();
-           }
-       });
-       // scroll body to 0px on click
-       $('#back-to-top').click(function () {
-           $('#back-to-top').tooltip('hide');
-           return false;
-       });
-       
-       $('#back-to-top').tooltip('show');
-
-});
 </script>
+

@@ -61,4 +61,9 @@ public class MemberDAOImpl implements MemberDAO {
 	public void mypage_withdrawal(MemberVO vo) throws Exception {
 		sql.update(namespace + ".mypage_withdrawal", vo);
 	}
+
+	@Override
+	public String passCheck(String email) throws Exception {
+		return sql.selectOne(namespace + ".passCheck", email);
+	}
 }

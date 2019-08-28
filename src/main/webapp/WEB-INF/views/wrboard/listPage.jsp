@@ -144,7 +144,7 @@
 					<td>${list.category }</td>
 					<td><a href="/wrboard/view?wr_no=${list.wr_no}">${list.wr_title}</a>
 						<c:if test="${list.recnt > 0}">
-							<span style="color:blue">(${list.recnt})
+							<span style="color:blue"> (${list.recnt})
 							</span>
 						</c:if>
 					</td>

@@ -53,6 +53,12 @@ public class MemberServiceImpl implements MemberService {
 		vo.setWithdrawal_date(date);
 		dao.mypage_withdrawal(vo);
 	}
+	
+	// 비밀번호 암호화 체크를 위해 암호화된 비밀번호 받아오기
+	@Override
+	public String passCheck(String email) throws Exception {
+		return dao.passCheck(email);
+	}
 
 	
 }

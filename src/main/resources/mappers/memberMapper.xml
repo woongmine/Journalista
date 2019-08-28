@@ -25,6 +25,13 @@
 		and `password` = #{password}	
 	</select>
 	
+	<!-- 비밀번호 암호화 체크를 위해 암호화된 비밀번호 받아오기 -->
+	<select id="passCheck"  resultType="String">
+		select	`password`
+		from airfly.member
+		where `email` = #{email}
+	</select>
+	
 	<!-- 로그인 유지 -->
 	<update id="keepLogin">
 		update airfly.member set sessionKey=#{sessionId},

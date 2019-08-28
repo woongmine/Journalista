@@ -26,4 +26,7 @@ public interface MemberDAO {
 
 	// 회원탈퇴
 	public void mypage_withdrawal(MemberVO vo) throws Exception;
+	
+	// 비밀번호 암호화 체크를 위해 암호화된 비밀번호 받아오기
+	public String passCheck(String email) throws Exception;
 }
