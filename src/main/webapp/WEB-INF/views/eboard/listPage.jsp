@@ -189,9 +189,8 @@ function listview2(e_no){
 </div>
 </c:forEach>
 </div>
-<div style="position: fixed; bottom: 5px; right: 5px;">
-<a href="#top"><img src="${contextPath}/WEB-INF/views/eboard/top.jpg" title="맨 위로 가기"></a>
-</div>
+<a id="back-to-top" href="#" class="btn btn-lg back-top" role="button" title="Click to return on the top page" data-toggle="tooltip" data-placement="left"><span class="fas fa-chevron-up"></span></a>
+
 
 <script>
 var lastScrollTop = 0;
@@ -268,7 +267,7 @@ $(window).scroll(function() {
 			}
 		});
 		
-		var position = $(".layer_center:first").offset();
+		//var position = $(".layer_center:first").offset();
 		
 		
 		//$('html,body').stop().animate({scrollTop : position.top }, 600, easeEffect);
@@ -371,5 +370,24 @@ function listview(e_no){
 				} 
 			listview2(e_no);
 			}
+
+/*탑버튼 액션*/
+$(document).ready(function(){
+    $(window).scroll(function () {
+           if ($(this).scrollTop() > 50) {
+               $('#back-to-top').fadeIn();
+           } else {
+               $('#back-to-top').fadeOut();
+           }
+       });
+       // scroll body to 0px on click
+       $('#back-to-top').click(function () {
+           $('#back-to-top').tooltip('hide');
+           return false;
+       });
+       
+       $('#back-to-top').tooltip('show');
+
+});
 </script>
 
