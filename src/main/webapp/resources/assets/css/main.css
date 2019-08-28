@@ -2038,6 +2038,7 @@ input, select, textarea {
 	input[type="email"],
 	input[type="tel"],
 	select,
+
 	textarea {
 		-moz-appearance: none;
 		-webkit-appearance: none;

@@ -179,11 +179,9 @@
 			<button id="searchBtn" class="button fit">Search</button>
 		</div>
 		<div class="col-md-5"></div>
-		<div class="col-md-2">
-			<div class="text-center">
+			<div class="d-flex justify-content-end">
 				<a class="button" href="/wrboard/write" onclick="return idcheck();">WRITE</a>
 			</div>
-		</div>
 	</div>
 
 	<br>
