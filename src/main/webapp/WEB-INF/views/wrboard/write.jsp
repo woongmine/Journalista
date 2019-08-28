@@ -34,7 +34,7 @@
 
 		  <div>
 		    <label>내용</label>
-		    <textarea rows="5" cols="50" id="summernote" name="wr_contents"></textarea>
+		    <textarea id="summernote" rows="5" cols="50" name="wr_contents"></textarea>
 		  </div>
 
 		<div>

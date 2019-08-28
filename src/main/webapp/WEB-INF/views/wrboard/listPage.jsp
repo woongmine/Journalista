@@ -162,7 +162,7 @@
 	<div class="row">
 		<div class="col-md-2">
 			<select id="searchTypeSel" name="searchType">
-				<option value="" selected disabled hidden>=선택하세요=</option>
+				<option value="" selected disabled hidden>선택</option>
 				<option value="wr_title">제목</option>
 				<option value="wr_contents">내용</option>
 				<option value="name">닉네임</option>
@@ -181,8 +181,7 @@
 		<div class="col-md-5"></div>
 		<div class="col-md-2">
 			<div class="text-center">
-				<br /> <a href="/wrboard/write" onclick="return idcheck();">게시물
-					작성</a> <a href="/">홈으로</a>
+				<a class="button" href="/wrboard/write" onclick="return idcheck();">WRITE</a>
 			</div>
 		</div>
 	</div>

@@ -27,7 +27,6 @@
 		</div>
 		<tiles:insertAttribute name="nav"/>
 	</div>
-<script src="${contextPath}/resources/assets/js/jquery.min.js"></script>
 <script src="${contextPath}/resources/assets/js/browser.min.js"></script>
 <script src="${contextPath}/resources/assets/js/breakpoints.min.js"></script>
 <script src="${contextPath}/resources/assets/js/util.js"></script>
