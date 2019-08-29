@@ -3212,7 +3212,7 @@ input, select, textarea {
 				}
 
 					#header .main ul li > * {
-						display: block;
+						/*display: block;*/
 						float: left;
 					}
 
