@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.co.journalista.JournalVO;
-import kr.co.journalista.eboard.Criteria;
 
 @Repository
 public class SearchDAOImpl implements SearchDAO {
@@ -18,8 +17,8 @@ public class SearchDAOImpl implements SearchDAO {
 	private static String namespace = "kr.co.journalista.mappers.searchMapper";
 
 	@Override
-	public List<JournalVO> journalistSearch(Criteria cri) throws Exception {
-		return sql.selectList(namespace+".searchjournalist", cri);
+	public List<JournalVO> journalistSearch(String journal_name) throws Exception {
+		return sql.selectList(namespace+".searchjournalist", journal_name);
 	}
 
 

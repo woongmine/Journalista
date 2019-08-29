@@ -6,11 +6,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.journalista.JournalVO;
-import kr.co.journalista.eboard.Criteria;
 
 @Controller
 @RequestMapping(value = "/search")
@@ -26,12 +28,15 @@ public class SearchController {
 		logger.info("기자검색페이지");
 	}
 	
-	@RequestMapping(value = "/journalistSearchComplete")
-	public void journalistSearchComplete(Criteria cri, Model model) throws Exception{
-		logger.info("기자검색 들어감");
-		List<JournalVO> journal = service.journalistSearch(cri);
-		model.addAttribute("jorunal", journal);
-		
+	@RequestMapping(value = "/journalistSearchComplete", method = RequestMethod.POST)
+	@ResponseBody
+	public ModelAndView journalistSearchComplete(@RequestBody String journal_name, ModelAndView mav) throws Exception{
+		String journal_name_temp = journal_name.substring(0, journal_name.length()-1);
+		logger.info("기자검색 들어감"+journal_name_temp);
+		List<JournalVO> journal = service.journalistSearch(journal_name_temp);
+		mav.setViewName("/search/journalistSearch");
+		mav.addObject("journal", journal);
+		return mav;
 	}	
 	@RequestMapping(value = "/pressSearch")
 	public void pressSearch() throws Exception{

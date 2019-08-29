@@ -6,7 +6,7 @@
 
 	<!-- 기자 검색 -->
 	<select id="searchjournalist" parameterType="String" resultType="kr.co.journalista.JournalVO">
-		SELECT * FROM airfly.journalistinfo WHERE journal_name like CONCAT('%', #{journal_name}, '%')
+		SELECT * FROM airfly.journalistinfo WHERE journal_name regexp #{journal_name}
 	</select>
 	
 </mapper>

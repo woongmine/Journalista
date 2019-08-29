@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.journalista.JournalVO;
-import kr.co.journalista.eboard.Criteria;
 
 @Service
 public class SearchServiceImpl implements SearchService {
@@ -15,8 +14,8 @@ public class SearchServiceImpl implements SearchService {
 	private SearchDAO dao;
 
 	@Override
-	public List<JournalVO> journalistSearch(Criteria cri) throws Exception {
-		return dao.journalistSearch(cri);
+	public List<JournalVO> journalistSearch(String journal_name) throws Exception {
+		return dao.journalistSearch(journal_name);
 	}
 
 }
