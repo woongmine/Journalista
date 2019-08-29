@@ -115,6 +115,7 @@ public class MemberController {
 				logger.info("userId=="+vo.getEmail());
 				logger.info("userName=="+vo.getName());
 				session.setAttribute("login_email", vo.getEmail());
+				session.setAttribute("auth", vo.getAuth());
 				session.setAttribute("login_member_no", Integer.toString(vo.getM_no()));
 				System.out.println(vo.getM_no());
 				

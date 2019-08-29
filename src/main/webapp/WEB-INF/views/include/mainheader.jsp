@@ -4,14 +4,6 @@
 	pageEncoding="UTF-8"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath }" />
 
-<script>
-
-$('#myDropdown').on('show.bs.dropdown', function () {
-	  // do something...
-	})
-
-</script>
-
 <!-- Header -->
 <header id="header">
 	<h1>
@@ -20,7 +12,7 @@ $('#myDropdown').on('show.bs.dropdown', function () {
 	<nav class="links">
 		<ul>
 			<li><a href="/eboard/listPage">eboard</a></li>
-			<li class="dropdown">
+			<li class="nav-item dropdown">
  				<a class="dropdown-toggle" type="text" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">기자DB</a>
 				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
     				<a class="dropdown-item" href="/search/journalistSearch">기자정보</a>
@@ -28,7 +20,10 @@ $('#myDropdown').on('show.bs.dropdown', function () {
   				</div>
 			</li>
 			<li><a href="/wrboard/listPage">건의게시판</a></li>
-			<li><a href="/admin/memberPage">관리자페이지</a></li>
+			<c:if test="${member.auth=='9'}">
+			<li><a href="/admin/memberPage">ADMIN</a></li>
+			</c:if>
+		
 		</ul>
 	</nav>
 	<nav class="main">
@@ -38,7 +33,21 @@ $('#myDropdown').on('show.bs.dropdown', function () {
 					<input type="text" name="query" placeholder="Search" />
 				</form></li>
 			<li class="menu"><a class="fa-bars" href="#menu">Menu</a></li>
+			<c:if test="${member.name==null}">
 			<li class="login"><a class="fa-sign-in-alt" href="/member/login">Login</a></li>
+			</c:if>
+			<c:if test="${member.name!=null}">
+			  <li class="search nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+    <div class="dropdown-menu">
+      <div class="dropdown-item-text"> ${member.name} 님</div>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item" href="../member/mypage"><i class="far fa-id-card"></i> My Page</a>
+      <a class="dropdown-item" href="../member/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    </div>
+  </li>
+	
+			</c:if>
 		</ul>
 	</nav>
 </header>
@@ -57,29 +66,37 @@ $('#myDropdown').on('show.bs.dropdown', function () {
 	<section>
 		<ul class="links">
 			<li><a href="#">
-					<h3>Lorem ipsum</h3>
-					<p>Feugiat tempus veroeros dolor</p>
+					<h3>Comment</h3>
+					<p>사용자들이 올린 한줄평들을 모아서 보기</p>
 			</a></li>
 			<li><a href="#">
-					<h3>Dolor sit amet</h3>
-					<p>Sed vitae justo condimentum</p>
+					<h3>Junalist</h3>
+					<p>기자 검색</p>
 			</a></li>
 			<li><a href="#">
-					<h3>Feugiat veroeros</h3>
-					<p>Phasellus sed ultricies mi congue</p>
+					<h3>Board</h3>
+					<p>기타 게시판</p>
 			</a></li>
 			<li><a href="#">
-					<h3>Etiam sed consequat</h3>
-					<p>Porta lectus amet ultricies</p>
+					<h3>Rank</h3>
+					<p>조회순, 평점순, 좋아요 순으로 기자와 사용자들의 랭킹</p>
 			</a></li>
 		</ul>
 	</section>
 
 	<!-- Actions -->
+	<c:if test="${member.name==null}">
 	<section>
 		<ul class="actions stacked">
-			<li><a href="/member/login" class="button large fit">Log In</a></li>
+			<li><a href="../member/login" class="button large fit">Log In</a></li>
 		</ul>
 	</section>
-
+	</c:if>
+	<c:if test="${member.name!=null}">
+	<section>
+		<ul class="actions stacked">
+			<li><a href="../member/logout" class="button large fit">Log Out</a></li>
+		</ul>
+	</section>	
+	</c:if>
 </section>
