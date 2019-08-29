@@ -56,7 +56,7 @@
 					<a class="login_interface" href="/member/register" style="color:#6E6E6E; font-size:12pt; font-weight: bolder; border-bottom:none;">회원가입</a>
 					</div>
 					<div class="col">
-					<a class="login_interface" href="#" style="color:#6E6E6E; font-size:12pt; font-weight: bolder; border-bottom:none;">비밀번호 찾기</a>
+					<a class="login_interface" href="/member/findpw" style="color:#6E6E6E; font-size:12pt; font-weight: bolder; border-bottom:none;">비밀번호 찾기</a>					
 					</div>
 					</div>
   </div>

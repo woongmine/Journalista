@@ -5,6 +5,7 @@ import kr.co.journalista.MemberVO;
 
 import java.io.PrintWriter;
 import java.util.Date;
+import java.util.Random;
 
 import javax.inject.Inject;
 import javax.servlet.http.Cookie;
@@ -15,9 +16,11 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -32,6 +35,7 @@ public class MemberController {
 
 	@Inject
 	MemberService service;
+	private JavaMailSender mailSender;
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
 	
@@ -171,4 +175,47 @@ public class MemberController {
 		}
 		return "/member/logout";
 	}
+	
+	//비밀번호 찾기로 이동
+			@RequestMapping(value = "/findpw",  method = RequestMethod.GET)
+			public String findpw() throws Exception{
+				return "member/findpw";
+			}
+		
+		//비밀번호 변경
+			@RequestMapping(value = "/findpw", method = RequestMethod.POST)
+			public void findpw(@ModelAttribute MemberVO vo,HttpServletRequest request) throws Exception{
+				logger.info("find pw-@@@@@@@@@@@@@@@@");
+				String email = request.getParameter("email");
+				String name = request.getParameter("name");
+				
+				//MemberVO idCheck = service.idCheck(userId);
+				
+				
+				logger.info("find email = "+ email);
+				logger.info("find name = "+ name);
+				String password = "";
+				String st[] = {"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
+				Random r = new Random();
+				for(int i=1; i<=6; i++) {				
+					password += st[r.nextInt(26)];				
+				}
+				String spassword = password;					
+				String encryptPassword = passwordEncoder.encode(spassword);			
+				vo.setEmail(email);
+				vo.setName(name);
+				vo.setPassword(encryptPassword);
+				service.update_pw(vo);
+				logger.info("임시비밀번호는!!!!!!!!!!!!!!!!!!!!!!=================================="+password);
+				logger.info("암호화된비밀번호는!!!!!!!!!!!!!!!!!!!!!!=================================="+vo.getPassword());
+				
+			/*
+			 * MailHandler sendMail = new MailHandler(mailSender);
+			 * sendMail.setSubject("[Journalista 서비스 임시비밀번호 발급]"); sendMail.setText( new
+			 * StringBuffer().append("<h1> 저널리스트 임시비밀번호 </h1>").append(vo.getEmail()).
+			 * append("' target='_blenk'>이메일 인증 확인</a>").toString());
+			 * sendMail.setFrom("Journalista", "저널리스타"); sendMail.setTo(vo.getEmail());
+			 * sendMail.send();
+			 */
+			}
 }

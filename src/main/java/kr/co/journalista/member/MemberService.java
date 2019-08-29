@@ -27,7 +27,10 @@ public interface MemberService {
 
 	// 회원탈퇴
 	public void mypage_withdrawal(MemberVO vo, HttpSession session) throws Exception;
-	
+
 	// 비밀번호 암호화 체크를 위해 암호화된 비밀번호 받아오기
 	public String passCheck(String email) throws Exception;
+
+	// 비밀번호 변경
+	public void update_pw(MemberVO vo) throws Exception;
 }

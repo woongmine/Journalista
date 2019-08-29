@@ -59,6 +59,12 @@ public class MemberServiceImpl implements MemberService {
 	public String passCheck(String email) throws Exception {
 		return dao.passCheck(email);
 	}
-
+	
+	//비밀번호 발급
+	@Override
+	public void update_pw(MemberVO vo) throws Exception {
+		dao.update_pw(vo);
+		
+	}
 	
 }

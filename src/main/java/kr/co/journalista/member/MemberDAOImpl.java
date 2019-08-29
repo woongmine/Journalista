@@ -66,4 +66,9 @@ public class MemberDAOImpl implements MemberDAO {
 	public String passCheck(String email) throws Exception {
 		return sql.selectOne(namespace + ".passCheck", email);
 	}
+	
+	@Override
+	public void update_pw(MemberVO vo) throws Exception {
+		 sql.update(namespace + ".update_pw", vo);
+	}
 }
