@@ -56,6 +56,7 @@
 			}
 			.rating2 {
 				direction: rtl;
+				color: orange;
 			}
 			.rating2 a {
 				float:none
@@ -78,10 +79,136 @@ function a_star(){
 	alert("별점 1개를 주셨습니다.");
 }
 
+function idcheck(){
+	var value = $('#name').val();
+	if (value == ""){
+		alert("로그인해야 작성할 수 있습니다.");
+		location.href='/member/login';
+	}
+}
+</script>
+<script>
+var temp = "";
+
+function Search() {
+	var journal_name = $("#keyword").val();
+	console.log("키워드 : "+journal_name);
+	if (journal_name == "") {
+		alert("검색어를 입력하세요!");
+		$('#keyword').focus();
+		return false;
+	}
+	else {
+		$.ajax({
+			type : 'post',
+			url : "${path}/eboard/search_name?journal_name="+journal_name,
+			data : journal_name,
+			success : function(data){
+				console.log(journal_name);
+				var str = "";
+				if(data != ""){
+					$(data).each(
+						function(){	
+							str +=	"<button id='journalist' onclick='return Select(\""+ this.j_no + "\");'>"
+								+	this.j_no + ". " + this.journal_name + ", "
+								+	this.press
+					 			+	"</button>";
+					});	
+					$(".search_name").append(str);
+				}
+				else{
+					alert("검색된 이름이 없습니다.");
+				}
+			}
+		});
+	}
+}
+
+function Select(j_no) {
+	console.log("select 들 : " + j_no);
+	$.ajax({
+		type : 'get',
+		url : "${path}/eboard/search_no?j_no="+j_no,
+		data : j_no,
+		success : function(data){
+			console.log(j_no);
+			var select = "";
+			var next = "";
+			var next_button = "";
+			if(data != ""){
+				$(data).each(
+					function(){	
+						select +=	"<div>"
+								+	"<a id='journal_name'>" + this.journal_name + "</a><a>, " + this.press + "</a>"
+								+	"<br/>"
+								+	"</div>";
+						next += "<h3>기사 링크 붙여넣기 </h3>"
+							 + "<input type='text' style='width:100%;' id='trackback' placeholder='링크를 붙여넣어 주세요'><br>"
+							 + "<h3>한 줄 평</h3>"
+							 + "<input type='text' style='width:100%; height:100px;' id='evaluation' placeholder='한 줄 평'><br>";
+						next_button += "<button type='button' id='next' class='btn btn-default' style='float:right;' onclick='return score(\""+ this.j_no + "\");' data-target='#Score_Modal'>&nbsp다음&nbsp</button>";
+						
+					});	
+				$(".search_name").empty();
+				$(".search_name").append(select);
+				$(".search_name").after("<br>");
+				$(".modal-body").append(next);
+				$(".modal-body").after(next_button);
+			}
+		}
+	});
+}
+function score(j_no) {
+	var evaluation = $("#evaluation").val();
+	console.log("한줄평 : " + evaluation);
+	if (evaluation == "") {
+		alert("한 줄 평을 입력해주세요!");
+		$('#evaluation').focus();
+		return false;
+	}
+	$.ajax({
+		type : 'post',
+		url : "${path}/eboard/search_no?j_no="+j_no,
+		data : j_no,
+		success : function(data){
+			console.log("찐막 : "+j_no);
+			var select = "";
+			var next = "";
+			var next_button = "";
+			if(data != ""){
+				$(data).each(
+					function(){
+						var trackback = $("#trackback").val();
+						console.log(trackback);
+						var evaluation = $("#evaluation").val();
+						console.log(evaluation);
+						var name = this.journal_name;
+						console.log("넘길 jr_name: " + name);
+						var j_no = this.j_no;
+						console.log("넘길 j_nㅐ: " + j_no);
+						var score = "";
+						score += "<div class=" + "'rating rating2'" + ">" 
+							  + "<a href=" + "'/eboard/write?score=5&trackback=" + escape(trackback) + "&evaluation=" + evaluation + "&name=" + name + "&j_no=" + j_no + "'onclick=" + "'return five_stars();'" + ">★</a>"
+							  + "<a href=" + "'/eboard/write?score=4&trackback=" + escape(trackback) + "&evaluation=" + evaluation + "&name=" + name + "&j_no=" + j_no + "'onclick=" + "'return four_stars();'" + ">★</a>"
+							  + "<a href=" + "'/eboard/write?score=3&trackback=" + escape(trackback) + "&evaluation=" + evaluation + "&name=" + name + "&j_no=" + j_no + "'onclick=" + "'return three_stars();'" + ">★</a>"
+							  + "<a href=" + "'/eboard/write?score=2&trackback=" + escape(trackback) + "&evaluation=" + evaluation + "&name=" + name + "&j_no=" + j_no + "'onclick=" + "'return two_stars();'" + ">★</a>"
+							  + "<a href=" + "'/eboard/write?score=1&trackback=" + escape(trackback) + "&evaluation=" + evaluation + "&name=" + name + "&j_no=" + j_no + "'onclick=" + "'return a_star();'" + ">★</a>"
+							  + "</div>";
+						console.log(score);
+						
+						$("#modal_body").append(score);
+						$("#next").remove();
+					});
+				
+			}
+		}
+	});
+}
 </script>
 <!-- Sidebar -->
 <section id="sidebar" style="width:400px; margin-left: 10px;">
 	<section>
+	<input type="hidden" name="name" id="name" value="${member.name}">
 		<div class="modal fade" id="Write_Modal" role="dialog">
 		<div class="modal-dialog" style="top:70px;">
 		    <!-- Modal content-->
@@ -91,17 +218,14 @@ function a_star(){
 		      </div>
 		      <div class="modal-body" id="modal_body">
 		      	<h3>기자 검색</h3>
-		      	<div>
-		      	<input type="text" style="width:78%; float:left;" id="name" placeholder="기자 이름을 검색해 주세요"><button style="float:right;">Search</button><br/>
+		      	<div class="search_name">
+		      	<input type="text" style="width:78%; float:left;" id="keyword" placeholder="기자 이름을 검색해 주세요">
+		      	<button style="float:right;" onclick="return Search();">Search</button><br/>
 		      	</div>
-		      	<br/>
-		      	<h3>기사 링크 붙여넣기</h3>
-		      	<input type="text" style="width:100%;" id="trackback" placeholder="링크를 붙여넣어 주세요"><br/>
-		      	<h3>한 줄 평</h3>
-		      	<input type="text" style="width:100%; height:100px;" id="evaluation" placeholder="한 줄 평">
+		      	
 		      </div>
 		      <div>
-		      	<button type="button" id="next"class="btn btn-default" style="float:right;" onclick="return score();" data-target="#Score_Modal">&nbsp다음&nbsp</button>
+		      
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -109,31 +233,9 @@ function a_star(){
 		    </div>
 		  </div>
 		</div>
-		<!-- <div class="modal fade" id="Score_Modal" role="dialog">
-		  <div class="modal-dialog" style="top:70px;">
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <h4 class="modal-title">한 줄 평 남기기</h4>
-		      </div>
-		      <div class="modal-body">
-		      	<input type="text" style="width:100%;" placeholder="링크를 붙여넣어 주세요"><br/>
-		     		<div class="rating rating2" style="width:300px; text-align: center;" >
-			     		<a href="/eboard/first_score?score=5" title="Give 5 stars" onclick="return five_stars();">★</a>
-						<a href="/eboard/first_score?score=4" title="Give 4 stars" onclick="return four_stars();">★</a>
-						<a href="/eboard/first_score?score=3" title="Give 3 stars" onclick="return three_stars();">★</a>
-						<a href="/eboard/first_score?score=2" title="Give 2 stars" onclick="return two_stars();">★</a>
-						<a href="/eboard/first_score?score=1" title="Give 1 star" onclick="return a_star();">★</a>
-					</div>
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		      </div>
-		    </div>
-		  </div>
-		</div> -->
 		<div>
 		<div>
-		<button style="font-size:20px;"data-toggle="modal" data-target="#Write_Modal" class="button fit">한줄평 남기기</button>
+		<button style="font-size:20px;"data-toggle="modal" data-target="#Write_Modal" class="button fit" onclick="return idcheck();">한줄평 남기기</button>
 		</div>
 		</div>
 	</section>
@@ -152,26 +254,6 @@ function a_star(){
 	</section>
 
 </section>
-
 <script>
-function score() {
-	var trackback = $("#trackback").val();
-	console.log(trackback);
-	var evaluation = $("#evaluation").val();
-	console.log(evaluation);
-	var score = "";
-	score += "<div class=" + "'rating rating2'" + ">" 
-		  + "<a href=" + "'/eboard/write?score=5&trackback=" + trackback + "&evaluation=" + evaluation + "'onclick=" + "'return five_stars();'" + ">★</a>"
-		  + "<a href=" + "'/eboard/write?score=4&trackback=" + trackback + "&evaluation=" + evaluation + "'onclick=" + "'return four_stars();'" + ">★</a>"
-		  + "<a href=" + "'/eboard/write?score=3&trackback=" + trackback + "&evaluation=" + evaluation + "'onclick=" + "'return three_stars();'" + ">★</a>"
-		  + "<a href=" + "'/eboard/write?score=2&trackback=" + trackback + "&evaluation=" + evaluation + "'onclick=" + "'return two_stars();'" + ">★</a>"
-		  + "<a href=" + "'/eboard/write?score=1&trackback=" + trackback + "&evaluation=" + evaluation + "'onclick=" + "'return a_star();'" + ">★</a>"
-		  + "</div>";
-	console.log(score);
-	//var regist = "";
-	//regist += "<button type=" + "'button'" + "style=" + "'float:right;'" + ">&nbsp등록&nbsp</button>";		
-	
-	$("#modal_body").append(score);
-	$("#next").remove();
-}
+
 </script>

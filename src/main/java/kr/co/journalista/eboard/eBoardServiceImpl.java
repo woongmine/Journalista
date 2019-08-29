@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import kr.co.journalista.JournalVO;
 import kr.co.journalista.LikeVO;
 import kr.co.journalista.eBoardVO;
 
@@ -14,8 +15,6 @@ import kr.co.journalista.eBoardVO;
 public class eBoardServiceImpl implements eBoardService {
 	@Inject
 	private eBoardDAO dao;
-	private LikeVO likevo;
-	
 
 	@Override
 	public void update(eBoardVO vo) throws Exception {
@@ -66,10 +65,6 @@ public class eBoardServiceImpl implements eBoardService {
 	}
 
 
-	@Override
-	public int getBoardListCnt(Criteria cri) throws Exception {
-		return dao.getBoardListCnt(cri);
-	}
 	
 	@Override
 	public List<eBoardVO> getLikeList(eBoardVO vo) throws Exception {
@@ -78,9 +73,6 @@ public class eBoardServiceImpl implements eBoardService {
 	
 	@Override
 	public List<eBoardVO> getBoardList(eBoardVO vo) throws Exception {
-//		System.out.println("sum_like start");
-//		dao.sum_like(vo);
-//		System.out.println("sum_like complete");
 		return dao.getBoardList(vo);
 	}
 
@@ -117,5 +109,21 @@ public class eBoardServiceImpl implements eBoardService {
 	public List<eBoardVO> infiniteScrollUp(Integer eno) throws Exception {
 		return dao.infiniteScrollUp(eno);
 	}
+
+	@Override
+	public List<JournalVO> search(JournalVO vo) throws Exception {
+		return dao.search(vo);
+	}
+
+	@Override
+	public List<JournalVO> search_no(JournalVO vo) throws Exception {
+		return dao.search_no(vo);
+	}
+
+	@Override
+	public void total_score(eBoardVO vo) throws Exception {
+		dao.total_score(vo);
+	}
+
 
 }

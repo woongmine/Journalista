@@ -1,5 +1,6 @@
 package kr.co.journalista.eboard;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import kr.co.journalista.JournalVO;
 import kr.co.journalista.LikeVO;
 import kr.co.journalista.eBoardVO;
 
@@ -84,12 +86,6 @@ public class eBoardDAOImpl implements eBoardDAO {
 
 
 	@Override
-
-	public int getBoardListCnt(Criteria cri) throws Exception {
-		return sql.selectOne(namespace + ".getBoardListCnt", cri);
-	}
-
-	@Override
 	public int write(eBoardVO vo) throws Exception {
 		return sql.update(namespace + ".write", vo);
 	}
@@ -141,6 +137,34 @@ public class eBoardDAOImpl implements eBoardDAO {
 	public List<eBoardVO> infiniteScrollUp(Integer eno) throws Exception {
 		return sql.selectList(namespace + ".infiniteScrollUp", eno);
 	}
+
+	@Override
+	public List<JournalVO> search(JournalVO vo) throws Exception {
+		return sql.selectList(namespace + ".search", vo);
+	}
+	@Override
+	public List<JournalVO> search_no(JournalVO vo) throws Exception {
+		return sql.selectList(namespace + ".search_no", vo);
+	}
+
+	@Override
+	public void total_score(eBoardVO vo) throws Exception {
+		double total_score = sql.selectOne(namespace + ".total_score", vo);
+		double count_jno = sql.selectOne(namespace + ".count_jno", vo);
+		double avg_score = total_score/count_jno;
+		System.out.println("평균 별점 : "+avg_score);
+		JournalVO j_vo = new JournalVO();
+		j_vo.setJ_no(vo.getJ_no());
+		DecimalFormat form = new DecimalFormat("#.#");
+	    System.out.println("포맷 후 : "+form.format(avg_score));
+	    String avg_scoreE = form.format(avg_score);
+	    avg_score = Double.parseDouble(avg_scoreE);
+		j_vo.setTotal_score(avg_score);
+
+		sql.update(namespace + ".update_score", j_vo);
+		sql.update(namespace + ".update_eBoard_avg_score", j_vo);
+	}
+
 
 //	@Override
 //	public void sum_like(eBoardVO vo) throws Exception {

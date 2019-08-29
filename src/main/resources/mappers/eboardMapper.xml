@@ -4,20 +4,38 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.journalista.mappers.eboardMapper">
 
+	<select id="search" resultType="kr.co.journalista.JournalVO">
+		select * from journalistinfo
+		where journal_name = #{journal_name}
+	</select>
+	
+	<select id="search_no" resultType="kr.co.journalista.JournalVO">
+		select * from journalistinfo
+		where j_no = #{j_no}
+	</select>
+	
 	<insert id="write" parameterType="kr.co.journalista.eBoardVO">
 		insert into
-		e_board(`score`, `trackback`, `e_datetime`, `evaluation`)
-		values(#{score}, #{trackback}, #{e_datetime}, #{evaluation})
+		e_board(`score`, `trackback`, `e_datetime`, `evaluation`, `name`, `j_no`)
+		values(#{score}, #{trackback}, #{e_datetime}, #{evaluation}, #{name}, #{j_no})
 	</insert>
 	
-	<update id="update_score" parameterType="kr.co.journalista.eBoardVO">
-		update
-		e_board
-		set
-		score =
-		#{score}
-		where
-		e_no = #{e_no}
+	<select id="total_score" parameterType="kr.co.journalista.eBoardVO" resultType="double">
+		select sum(score) from e_board where j_no = #{j_no};
+	</select>
+	
+	<select id="count_jno" parameterType="kr.co.journalista.eBoardVO" resultType="double">
+		select count(*) from e_board where j_no = #{j_no};
+	</select>
+	
+	<update id="update_score" parameterType="kr.co.journalista.JournalVO">
+		update journalistinfo set total_score = #{total_score}
+		where j_no = #{j_no}
+	</update>
+	
+	<update id="update_eBoard_avg_score" parameterType="kr.co.journalista.JournalVO">
+		update e_board set total_score = #{total_score}
+		where j_no = #{j_no}
 	</update>
 	
 	<select id="like_check" parameterType="kr.co.journalista.eBoardVO" resultType="int">
@@ -66,73 +84,6 @@
 		where e_no = #{e_no}
 	</select>
 	
-
-	<update id="update" parameterType="kr.co.journalista.eBoardVO">
-		update
-		e_board
-		set
-		wr_title =
-		#{wr_title},
-		wr_contents = #{wr_contents}
-		where
-		wr_no = #{wr_no}
-	</update>
-
-	<delete id="delete" parameterType="int">
-		update 
-		wr_board
-		set
-		wr_del = 
-		1
-		where
-		wr_no =
-		#{wr_no}
-	</delete>
-
-	<select id="view" parameterType="int"
-		resultType="kr.co.journalista.eBoardVO">
-		select
-		wr_no, wr_title, wr_contents, name, wr_datetime, wr_hit, email, wr_del
-		from
-		wr_board
-		where
-		wr_no = #{wr_no}
-	</select>
-
-	<select id="updateReadcnt" resultType="int">
-		update wr_board 
-		set wr_hit = wr_hit +1 
-		where wr_no = #{wr_no}
-	</select>
-
-	<!-- 게시물 목록 -->
-	<select id="list" resultType="kr.co.journalista.eBoardVO">
-		select
-		wr_no, wr_title, wr_contents, name,
-		wr_datetime, wr_hit
-		from wr_board where wr_del = 0
-	</select>
-
-	<!-- 게시물 총 갯수 구하기 -->
-	<select id="count" resultType="int">
-		select
-		count(wr_no)
-		from
-		wr_board
-	</select>
-	
-
-	<!-- 페이징 1 -->
-	<select id="listPage" parameterType="hashMap"
-		resultType="kr.co.journalista.eBoardVO">
-		select
-		wr_no, wr_title, wr_contents, name, wr_datetime, wr_hit
-		from
-		wr_board where wr_del = 0 order by wr_no desc
-		limit #{displayPost}, #{postNum}
-
-	</select>
-  
   	<sql id="searchCondition">
   		<trim prefix="WHERE" prefixOverrides="AND|OR">
 		<if test="searchType != null">
@@ -166,10 +117,6 @@
 	<select id="getBoardList" resultType="kr.co.journalista.eBoardVO">
 		select *,(SELECT COUNT(*) FROM e_boardrep WHERE e_no = b.e_no) AS recnt from e_board b order by e_no desc limit 0, 7
 	</select>
-	
-	<select id="getBoardListCnt" resultType="int">
-		select count(wr_no) from wr_board <include refid="searchCondition"></include>
-	</select>
 
 	<select id="infiniteScrollDown" resultType="kr.co.journalista.eBoardVO">
 		select * from e_board 
@@ -184,19 +131,4 @@
 		and e_no >= #{e_no} - 7
 	</select>
 
-	<!-- 글쓰기 후 뷰 -->
-	<select id="viewafterwrite" resultType="int">
-		select
-		wr_no
-		from
-		wr_board where wr_del = 0 order by wr_no desc limit 1
-	</select>
-	
-	<!-- 이전글 최소페이지 -->
-	<select id="minpage" resultType="int">
-		select
-		wr_no
-		from
-		wr_board where wr_del = 0 order by wr_no limit 1
-	</select>
 </mapper>

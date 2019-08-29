@@ -52,12 +52,10 @@
 <script>
 	
 	//댓글 쓰기 
-	
 	function inserttext(e_no){
 		var ere_text=$("#ere_text"+e_no).val();
 		if(ere_text == "" ){
 			alert("댓글어딧나 어디있냔 말이다 개쉐리야~~~~~~!");
-		
 		}else{
 		var param={
 				ere_text : ere_text,
@@ -147,24 +145,26 @@ function listview2(e_no){
 			}
 		});
 }
-
-
-
 	
 </script>
 
 <div class="layer_center" id="top" style="width: 800px; margin-top: 0px;">
-
 <c:forEach items="${boardlist}" var="boardlist">
 <div class="card">
 	<c:set var="number_no" value='${boardlist.e_no }' />
+	<c:set var="score" value='${boardlist.score }'/>
 	<input type="hidden" class="scrolling" name="number" id="number${number_no }" data-e_no="${boardlist.e_no }" value="${boardlist.e_no}">
-	<h3 class="card-header">${boardlist.e_no } 기자 이름  ${boardlist.name }</h3>
+	<h3 class="card-header">${boardlist.name } 기자 
+	<% int score = (int)pageContext.getAttribute("score"); 
+	   for(int i=1; i<=score; i++){ %>
+		<i class="fas fa-star" style="color:orange; float:right;"></i>
+	<% } %>
+	</h3>
 	<c:set var="like_check" value='${boardlist.like_check }'/>
 	<div class="card-body">
-		<h5 class="card-title">기사 링크 ${boardlist.trackback }</h5>
-		<h3>한줄평 ${boardlist.evaluation }</h3>
-		<a style="color:#6E6E6E; font-size:10pt; font-weight: bolder;">현재 이 기자의 평균 별점 : ${boardlist.score }점</a>
+		<h4 class="card-title"><a href="${boardlist.trackback }" target="_blank">기사 링크 :  ${boardlist.trackback }</a></h4>
+		<h3>한줄평 : ${boardlist.evaluation }</h3>
+		<a style="color:#6E6E6E; font-size:10pt; font-weight: bolder;">현재 이 기자의 평균 별점 : ${boardlist.total_score }점</a>
 		<div align="right">
 		<a class="icon solid fa-comment" onclick="listview(${boardlist.e_no})" style="color:#6E6E6E; font-size:10pt; font-weight: bolder;"> comment( ${boardlist.recnt} ) </a>
 		<a style="color:#6E6E6E; font-size:10pt; font-weight: bolder;"> | </a>
@@ -224,6 +224,7 @@ $(window).scroll(function() {
 					$(data).each(
 						function(){	
 							var button = "";
+							var score = "";
 							console.log('likecheck : ' + this.like_check);
 							if(this.like_check == 1) {
 								button = "<a href= 'like?e_no="+this.e_no+"' class='fas fa-heart' style='color:#6E6E6E; font-size:10pt; font-weight: bolder;color:red' > </a>";
@@ -232,13 +233,28 @@ $(window).scroll(function() {
 							else {
 								button = "<a href= 'like?e_no="+this.e_no+"' class='icon fa-heart' style='color:#6E6E6E; font-size:10pt; font-weight: bolder;'> </a>";
 								}
+							if(this.score == 1) {
+								score = "<i class='fas fa-star' style='color:orange; float:right;'></i>"
+								}
+							else if(this.score == 2) {
+								score = "<i class='fas fa-star' style='color:orange; float:right;'></i><i class='fas fa-star' style='color:orange; float:right;'></i>"
+								}
+							else if(this.score == 3) {
+								score = "<i class='fas fa-star' style='color:orange; float:right;'></i><i class='fas fa-star' style='color:orange; float:right;'></i></i><i class='fas fa-star' style='color:orange; float:right;'></i>"
+								}
+							else if(this.score == 4) {
+								score = "<i class='fas fa-star' style='color:orange; float:right;'></i><i class='fas fa-star' style='color:orange; float:right;'></i></i><i class='fas fa-star' style='color:orange; float:right;'></i></i><i class='fas fa-star' style='color:orange; float:right;'></i>"
+								}
+							else if(this.score == 5) {
+								score = "<i class='fas fa-star' style='color:orange; float:right;'></i><i class='fas fa-star' style='color:orange; float:right;'></i></i><i class='fas fa-star' style='color:orange; float:right;'></i></i><i class='fas fa-star' style='color:orange; float:right;'></i></i><i class='fas fa-star' style='color:orange; float:right;'></i>"
+								}
 							console.log(this);
 							str +=	"<div class=" + "'card'" + ">" 
 								+	"<input type=" + "'hidden'" + "class=" + "'scrolling'" + "data-e_no=" + this.e_no + " value=" + this.e_no + ">"
-								+	"<h3 class=" + "'card-header'" + ">기자 이름" + this.e_no + "</h5>"
+								+	"<h3 class=" + "'card-header'" + ">" + this.name + "기자</h3>"
 								+	"<div class=" + "'card-body'" + ">"
-								+	"<h5 class=" + "'card-title'" + ">기사 링크 + " + this.trackback + "</h5>"
-								+	"<h3>한줄평" + this.evaluation + "</h3>"
+								+	"<h4 class=" + "'card-title'" + "><a href='" + this.trackback + "target='_blank'> 기사 링크 + " + this.trackback + "</h4>"
+								+	"<h3>한줄평" + this.evaluation + score + "</h3>"
 								+	"<a> 현재 이 기자의 평균 별점 : " + this.score + "</a>"
 								+	"<div align=" + "'right'" + ">"
 								+	"<a class='icon solid fa-comment' onclick='listview("+this.e_no+")' style='color:#6E6E6E; font-size:10pt; font-weight: bolder;''> comment ( "+this.recnt+" ) </a>"
@@ -256,7 +272,7 @@ $(window).scroll(function() {
 				      			+	"<div id='listEreply"+this.e_no+"' class='example01'  ></div>"
 						 		+ 	"</div>"
 						 		+ 	"</div>";
-							
+					 		
 					});			
 					$(".layer_center").append(str);
 				
@@ -277,88 +293,6 @@ $(window).scroll(function() {
 	lastScrollTop = currentScrollTop;
 }
 
-/*else{
-
-console.log("up-scroll");			
-
-if ($(window).scrollTop() <= 0 ){
-    
-	var firsteno = $(".scrolling:first").attr("data-e_no");
-	console.log('firsteno : ' + firsteno);
-	$.ajax({
-		type : 'post',
-		url : 'infiniteScrollUp',
-		headers : {
-			"Content-Type" : "application/json",
-			"X-HTTP-Method-Override" : "POST"
-		},
-		dataType : 'json', 
-		data : JSON.stringify({
-			e_no : firsteno
-		}),
-		success : function(data){
-			
-			var str = "";
-			
-			if(data != ""){
-				
-				$(data).each(
-					function(){
-						var button = "";
-						console.log('likecheck : ' + this.like_check);
-						if(this.like_check == 1) {
-							button = "<button id=" + "'btn-unlike'" + "class=" + "'btn-unlike'" + "onclick = " + "location.href='like?e_no=" + this.e_no + "'>👍</button>";
-																													
-							}
-						else {
-							button = "<button id=" + "'btn-like'" + "class=" + "'btn-like'" + "onclick = " + "location.href='like?e_no=" + this.e_no + "'>👍</button>";
-							}
-						console.log(this);
-						str +=	"<div class=" + "'card'" + ">" 
-							+	"<input type=" + "'hidden'" + "class=" + "'scrolling'" + "data-e_no=" + this.e_no + " value=" + this.e_no + ">"
-							+	"<h5 class=" + "'card-header'" + ">제목" + this.e_no + "</h5>"
-							+	"<div class=" + "'card-body'" + ">"
-							+	"<h5 class=" + "'card-title'" + ">내용</h5>"
-							+	"<a> 현재 이 기자의 평균 별점 : " + this.score + "</a>"
-							+	"<div align=" + "'right'" + ">"
-							+ 	"<div id='replytext' style='width: 700px; '>"		
-							+	"<br>"
-							+	"<textarea rows='2' cols='60' id='ere_text"+this.e_no+"' placeholder='댓글을 입력하세요.'></textarea>"
-							+	"<br>"
-							+	"<button type='button' onclick='listview("+this.e_no+")' style='color:#6E6E6E'>댓글보기</button>"	
-							+	"<button type='button' id='btnEreply' onclick='inserttext("+this.e_no+")'>댓글 작성</button>"
-			      			+	"</div>"
-							+	"<a>좋아요  : " + this.like + "</a>"
-							+	"<input type=" + "'hidden'" + "value=" + this.like_check + ">"
-							+	button
-							+	"</div>"
-							+	"</div>"
-							+	"<div id='listEreply"+this.e_no+"' class='example01' style='display: none;' ></div>"
-					 		+ 	"</div>";
-					 		
-				});
-				$(".layer_center").empty();						
-				$(".layer_center").append(str);
-			 		
-			}
-			else{
-
-				var position =($(document).height() - $(window).height()) -10;
-				
-				$('html,body').stop().animate({scrollTop : position.top }, 600, easeEffect);
-			}
-
-		}
-	});
-	
-	var position =($(document).height() - $(window).height()) -10;
-	
-	$('html,body').stop().animate({scrollTop : position}, 600, easeEffect);
-	
-}
-
-lastScrollTop = currentScrollTop;
-}*/
 });
 
 
@@ -373,6 +307,7 @@ function listview(e_no){
 			}
 
 /*탑버튼 액션*/
+ */*
 $(document).ready(function(){
     $(window).scroll(function () {
            if ($(this).scrollTop() > 50) {
@@ -390,5 +325,6 @@ $(document).ready(function(){
        $('#back-to-top').tooltip('show');
 
 });
+  */
 </script>
 

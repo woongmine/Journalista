@@ -2,6 +2,7 @@ package kr.co.journalista.eboard;
 
 import java.util.List;
 
+import kr.co.journalista.JournalVO;
 import kr.co.journalista.LikeVO;
 import kr.co.journalista.eBoardVO;
 
@@ -36,7 +37,6 @@ public interface eBoardDAO {
 	//총 게시글 개수 확인
 	public List<eBoardVO> getLikeList(eBoardVO vo);
 	public List<eBoardVO> getBoardList(eBoardVO vo);
-	public int getBoardListCnt(Criteria cri) throws Exception;
 
 	//한줄평 쓰기
 	public int write(eBoardVO vo) throws Exception;
@@ -52,6 +52,11 @@ public interface eBoardDAO {
 	public void insert_like(eBoardVO vo) throws Exception;
 
 	public List<eBoardVO> infiniteScrollUp(Integer eno) throws Exception;
+
+	public List<JournalVO> search(JournalVO vo) throws Exception;
+	public List<JournalVO> search_no(JournalVO vo) throws Exception;
+
+	public void total_score(eBoardVO vo) throws Exception;
 
 //	public void sum_like(eBoardVO vo) throws Exception;
 }

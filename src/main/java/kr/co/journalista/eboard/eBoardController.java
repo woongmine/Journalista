@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.journalista.JournalVO;
 import kr.co.journalista.LikeVO;
 import kr.co.journalista.eBoardVO;
 
@@ -24,15 +25,6 @@ public class eBoardController {
 	
 	@Inject
 	eBoardService service;
-	
-	@RequestMapping(value = "/list", method = { RequestMethod.GET, RequestMethod.POST })
-	public void list(Model model) throws Exception {
-
-		List<eBoardVO> list = null;
-		list = service.list();
-
-		model.addAttribute("list", list);
-	}
 
 	@RequestMapping(value = "/listPage")
 	public void getBoardList(LikeVO vo, eBoardVO boardvo, Model model, HttpSession session) throws Exception{
@@ -40,16 +32,16 @@ public class eBoardController {
 		if(login_member_no != null) {
 			boardvo.setM_no(Integer.parseInt(login_member_no));
 			System.out.println(login_member_no);
-				List<eBoardVO> likelist = service.getLikeList(boardvo);
-				List<eBoardVO> all_list = service.getBoardList(boardvo);
-				for (eBoardVO boardlist : all_list) { 
-					for (eBoardVO like_list : likelist) { 
-						if (boardlist.getE_no() == like_list.getE_no()) { 
-							boardlist.setLike_check(like_list.getLike_check()); 
-							} 
-						} 
+			List<eBoardVO> likelist = service.getLikeList(boardvo);
+			List<eBoardVO> all_list = service.getBoardList(boardvo);
+			for (eBoardVO boardlist : all_list) {
+				for (eBoardVO like_list : likelist) {
+					if (boardlist.getE_no() == like_list.getE_no()) { 
+						boardlist.setLike_check(like_list.getLike_check()); 
+						}
 					}
-				model.addAttribute("boardlist", all_list);
+				}
+			model.addAttribute("boardlist", all_list);
 		}
 		else {
 			List<eBoardVO> all_list = service.getBoardList(boardvo);
@@ -57,19 +49,13 @@ public class eBoardController {
 		}
 	}
     
-	@RequestMapping(value = "first_score")
-	public String getScore(eBoardVO vo) throws Exception{
-		service.write(vo);
-		System.out.println(vo.getScore());
-		
-		return "redirect:/eboard/listPage";
-	}
-
+	
 	@RequestMapping(value = "write")
 	public String getWrite(eBoardVO vo) throws Exception{
+		System.out.println("write 기자 : " + vo.getName());
 		System.out.println("trackback : " + vo.getTrackback());
-		System.out.println("evaluation : " + vo.getEvaluation());
 		service.write(vo);
+		service.total_score(vo);
 		
 		return "redirect:/eboard/listPage";
 	}
@@ -91,7 +77,7 @@ public class eBoardController {
 		
 		if (login_email != null) {
 			service.like(vo);
-			writer.write("<script> location.href='/eboard/listPage'; event.preventDefault();</script>");
+			writer.write("<script> location.href='/eboard/listPage';</script>");
 		}
 		else {
 			writer.write("<script> alert(\"로그인을 해주세요.\"); location.href='/eboard/listPage';</script>");
@@ -102,7 +88,6 @@ public class eBoardController {
 	public @ResponseBody List<eBoardVO> infiniteScrollDownPOST(@RequestBody eBoardVO vo, LikeVO likevo, HttpSession session) throws Exception{
 		String login_member_no = (String) session.getAttribute("login_member_no");
 		Integer eno = vo.getE_no();
-		System.out.println(eno);
 		if(login_member_no != null) {
 			vo.setM_no(Integer.parseInt(login_member_no));
 			List<eBoardVO> likelist = service.getLikeList(vo);
@@ -146,115 +131,29 @@ public class eBoardController {
 		
 	}
 	
-	
-//	@RequestMapping(value = "/write", method = RequestMethod.GET)
-//	public void getWrite() throws Exception {
-//
-//	}
-//
-//	// 게시물 작성
-//	@RequestMapping(value = "/write", method = RequestMethod.POST)
-//	public void postWrite(eBoardVO vo, HttpSession session, HttpServletResponse response) throws Exception {
-//		
-//		int num = 0;
-//		
-//		PrintWriter writer = response.getWriter();
-//        response.setCharacterEncoding("utf-8");
-//        response.setContentType("text/html; utf-8");
-//        String login_email = (String) session.getAttribute("login_email");
-//		System.out.println("sessionemail : " + login_email);
-//		
-//		if(login_email != null) {
-//			service.write(vo);
-//			num =  service.viewafterwrite();
-//			writer.write("<script> alert(\"작성완료.\"); location.href='/eboard/view?e_no=" + num + "';</script>");
-//		
-//			
-//		}
-//		else {
-//			writer.write("<script> alert(\"로그인 하셍.\"); location.href='/eboard/listPage?num=1';</script>");
-//		}
-//		
-//	}
-	
-	// 다음 글
-	@RequestMapping(value = "/next", method = RequestMethod.GET)
-	public void nextView(@RequestParam("e_no") int e_no, Model model, HttpSession session, HttpServletResponse response) throws Exception {
-		PrintWriter writer = response.getWriter();
-        response.setCharacterEncoding("utf-8");
-        response.setContentType("text/html; utf-8");
-		eBoardVO vo = null;
-		e_no = e_no + 1;
-		vo = service.view(e_no);
-		while(vo.getE_del() == 1) {
-			System.out.println("e_no = " + vo.getE_no() + ", e_del = " + vo.getE_del());
-			e_no = e_no + 1;
-			vo = service.view(e_no);
-		}
-		writer.write("<script> location.href='/eboard/view?e_no=" + e_no + "';</script>");
+	@RequestMapping(value="/search_name", method = { RequestMethod.GET, RequestMethod.POST })
+	public @ResponseBody List<JournalVO> SearchPOST(JournalVO vo) throws Exception{
+		System.out.println("start");
+		String Journal_name = vo.getJournal_name();
+		System.out.println(Journal_name);
+		System.out.println(vo.getJ_no());
+		List<JournalVO> search_list = service.search(vo);
+		return search_list;
+		
 	}
 	
-	// 이전 글
-	@RequestMapping(value = "/past", method = RequestMethod.GET)
-	public void pastView(@RequestParam("e_no") int e_no, Model model, HttpSession session, HttpServletResponse response) throws Exception {
-		PrintWriter writer = response.getWriter();
-        response.setCharacterEncoding("utf-8");
-        response.setContentType("text/html; utf-8");
-		eBoardVO vo = null;
-		e_no = e_no - 1;
-		vo = service.view(e_no);
-		while(vo.getE_del() == 1) {
-			System.out.println("e_no = " + vo.getE_no() + ", e_del = " + vo.getE_del());
-			e_no = e_no - 1;
-			vo = service.view(e_no);
-		}
-		writer.write("<script> location.href='/eboard/view?e_no=" + e_no + "';</script>");
-	}
-	
-	// 게시물 조회
-	int temp_no = 0;
-	@RequestMapping(value = "/view", method = RequestMethod.GET)
-	public void getView(@RequestParam("e_no") int e_no, Model model, HttpSession session) throws Exception {
-		eBoardVO view = null;
-		view = service.view(e_no);
-		model.addAttribute("view", view);
-		int max = service.viewafterwrite();
-		session.setAttribute("max", max);
-		int min = service.minpage();
-		session.setAttribute("min", min);
-		
-
-		session.setAttribute("email", view.getEmail());
-		String se_email = (String) session.getAttribute("email");
-		if(view.getEmail() == se_email & view.getE_no() != temp_no) {
-			service.updateReadcnt(e_no);
-		}
-		temp_no = view.getE_no();
-		
-		int num = 1;
-		// 게시물 총 갯수
-		int count = service.count();
-
-		// 한 페이지에 출력할 게시물 갯수
-		int postNum = 5;
-
-		// 게시물 총 갯수 / 한 페이지에 출력할 게시물 갯수 = 하단 페이징
-		int pageNum = (int) Math.ceil((double) count / (double) 5);
-		
-		// 선택한 페이지 번호(임시)
-//		int selectNum = 1;
-
-		// 출력할 게시물
-		int displayPost = (num - 1) * 5;
-	
-		List<eBoardVO> list = null;
-		list = service.listPage(displayPost, postNum);  
-
-		model.addAttribute("list", list);
-		model.addAttribute("pageNum", pageNum);
+	@RequestMapping(value="/search_no", method = { RequestMethod.GET, RequestMethod.POST })
+	public @ResponseBody List<JournalVO> Search_no(JournalVO vo) throws Exception{
+		System.out.println("start");
+		int Journal_no = vo.getJ_no();
+		System.out.println(Journal_no);
+		System.out.println(vo.getJ_no());
+		List<JournalVO> search_list = service.search_no(vo);
+		return search_list;
 		
 	}
 
+	
 	// 게시물 수정
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
 	public void getUpdate(@RequestParam("e_no") int e_no, Model model, HttpSession session) throws Exception {

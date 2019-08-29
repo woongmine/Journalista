@@ -3,7 +3,14 @@ package kr.co.journalista;
 public class JournalVO {
 	private int p_no, j_no; //언론사고유번호,기자고유번호
 	private String journal_name, journal_email, press, journal_part, journal_pass; //기자이름,기자 이메일,언론사,기자분야
+	private Double total_score;
 	
+	public Double getTotal_score() {
+		return total_score;
+	}
+	public void setTotal_score(Double total_score) {
+		this.total_score = total_score;
+	}
 	public String getJournal_pass() {
 		return journal_pass;
 	}

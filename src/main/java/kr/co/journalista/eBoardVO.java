@@ -20,9 +20,22 @@ public class eBoardVO {
 	private int recnt;
 	private String trackback;
 	private String evaluation;
+	private int j_no;
+	private double total_score;
 	
 	
-	
+	public double getTotal_score() {
+		return total_score;
+	}
+	public void setTotal_score(double total_score) {
+		this.total_score = total_score;
+	}
+	public int getJ_no() {
+		return j_no;
+	}
+	public void setJ_no(int j_no) {
+		this.j_no = j_no;
+	}
 	public String getTrackback() {
 		return trackback;
 	}
