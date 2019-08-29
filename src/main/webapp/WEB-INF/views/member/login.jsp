@@ -46,6 +46,11 @@
 					<font color=red>탈퇴한 회원은 로그인 할 수 없습니다.</font>
 				</div>
 			</c:if>
+			<c:if test="${!empty mvg and fn:length(mvg) >0}">
+				<div id="result" style="display: inline;">
+					<font color=red>이메일 인증이 안되었습니다.</font>
+				</div>
+			</c:if>
 
 		    	<input class="button fit" type="submit" id="login" value="로그인"/>			
 					</form>

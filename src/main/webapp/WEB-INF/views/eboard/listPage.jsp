@@ -183,7 +183,7 @@ function listview2(e_no){
 				<br>
 				<textarea rows="2" cols="60" id="ere_text${boardlist.e_no}" placeholder="댓글을 입력하세요."></textarea>
 				<br>	
-				<button type="button" id="btnEreply" onclick="inserttext(${boardlist.e_no})">댓글 작성</button>
+				<button type="button" class="button" id="btnEreply" onclick="inserttext(${boardlist.e_no})">댓글 작성</button>
       	<div id="listEreply${boardlist.e_no}" class="example01"  ></div>
     	</div>		
 </div>

@@ -19,7 +19,7 @@
 	<!-- 로그인 -->
 	<select id="login" parameterType="kr.co.journalista.MemberVO" resultType="kr.co.journalista.MemberVO">
 		select
-		`email`, `name`, `leave`, `m_no`
+		*
 		from airfly.member
 		where `email` = #{email}
 		and `password` = #{password}	

@@ -80,58 +80,63 @@ public class MemberController {
 	}
 
 	// 로그인 처리(자동로그인포함)
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(LoginDTO dto, Model model,HttpSession session, RedirectAttributes rttr
-			) throws Exception {
-		logger.info("post login");
-		
-		String dbPassword = service.passCheck(dto.getEmail());		//db에서 받아온 비밀번호
-		boolean passMatch =  passwordEncoder.matches(dto.getPassword(), dbPassword);
-		
-		if (dbPassword == "" || dbPassword == null) {
-			rttr.addFlashAttribute("msg", "retry");
-			return "redirect:/member/login";
-		}
-		if(passMatch) {			//비밀번호 일치시 
-			logger.info("비밀번호 일치치치치치");
+		@RequestMapping(value = "/login", method = RequestMethod.POST)
+		public String login(LoginDTO dto, Model model,HttpSession session, RedirectAttributes rttr
+				) throws Exception {
+			logger.info("post login");
 			
-			dto.setPassword(dbPassword);
+			String dbPassword = service.passCheck(dto.getEmail());		//db에서 받아온 비밀번호
+			boolean passMatch =  passwordEncoder.matches(dto.getPassword(), dbPassword);
 			
-			MemberVO vo = service.login(dto);
-			
-			if (vo.getLeave() == 1) { //탈퇴회원 구별
-				logger.info("--------------탈퇴회원--------------------");
-				rttr.addFlashAttribute("mag","retry");
+			if (dbPassword == "" || dbPassword == null) {
+				rttr.addFlashAttribute("msg", "retry");
 				return "redirect:/member/login";
 			}
 			
-			session.setAttribute("userId", vo.getEmail());
-			session.setAttribute("userName", vo.getName());
-			logger.info("userId=="+vo.getEmail());
-			logger.info("userName=="+vo.getName());
-			session.setAttribute("login_email", vo.getEmail());
-			session.setAttribute("login_member_no", Integer.toString(vo.getM_no()));
-			System.out.println(vo.getM_no());
-			
-			model.addAttribute("member", vo);
-			
-			// 로그인 유지를 선택할 경우
-			if (LoginDTO.isUseCookie()) {
-				logger.info("!!!!!!!!!!!!! :" + LoginDTO.isUseCookie());
-				int amount = 60 * 60 * 24 * 7; // 7일
-				Date sessionLimit = new Date(System.currentTimeMillis() + (1000 * amount));// 로그인 유지기간 설정
-				service.keepLogin(vo.getEmail(), session.getId(), sessionLimit);
-			}
-			
-			logger.info("유저 이름은 : " + vo.getName());
-			
-			return "home";
+			if(passMatch) {			//비밀번호 일치시 
+				logger.info("비밀번호 일치치치치치");
 				
-		}else {		//비밀번호 불일치시 
-			rttr.addFlashAttribute("msg", "retry");
-			return "redirect:/member/login";
+				dto.setPassword(dbPassword);
+				
+				MemberVO vo = service.login(dto);
+				
+				if (vo.getLeave() == 1) { //탈퇴회원 구별
+					logger.info("--------------탈퇴회원--------------------");
+					rttr.addFlashAttribute("mag","retry");
+					return "redirect:/member/login";
+				}
+				if(vo.getEmail_key() == null) {
+					rttr.addFlashAttribute("mvg","retry");
+					return "redirect:/member/login";
+				}
+				
+				session.setAttribute("userId", vo.getEmail());
+				session.setAttribute("userName", vo.getName());
+				logger.info("userId=="+vo.getEmail());
+				logger.info("userName=="+vo.getName());
+				session.setAttribute("login_email", vo.getEmail());
+				session.setAttribute("login_member_no", Integer.toString(vo.getM_no()));
+				System.out.println(vo.getM_no());
+				
+				model.addAttribute("member", vo);
+				
+				// 로그인 유지를 선택할 경우
+				if (LoginDTO.isUseCookie()) {
+					logger.info("!!!!!!!!!!!!! :" + LoginDTO.isUseCookie());
+					int amount = 60 * 60 * 24 * 7; // 7일
+					Date sessionLimit = new Date(System.currentTimeMillis() + (1000 * amount));// 로그인 유지기간 설정
+					service.keepLogin(vo.getEmail(), session.getId(), sessionLimit);
+				}
+				
+				logger.info("유저 이름은 : " + vo.getName());
+				
+				return "home";
+					
+			}else {		//비밀번호 불일치시 
+				rttr.addFlashAttribute("msg", "retry");
+				return "redirect:/member/login";
+			}
 		}
-	}
 
 	@ResponseBody
 	@RequestMapping(value = "/idCheck", method = RequestMethod.POST)
