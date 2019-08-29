@@ -11,15 +11,15 @@
 	</h1>
 	<nav class="links">
 		<ul>
-			<li><a href="/eboard/listPage">eboard</a></li>
+			<li><a href="/eboard/listPage">comment</a></li>
 			<li class="nav-item dropdown">
- 				<a class="dropdown-toggle" type="text" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">기자DB</a>
+ 				<a class="dropdown-toggle" type="text" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">journalist</a>
 				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    				<a class="dropdown-item" href="/search/journalistSearch">기자정보</a>
-   					<a class="dropdown-item" href="#">언론사정보</a>
+    				<a class="dropdown-item" href="/search/journalistSearch">Journalist</a>
+   					<a class="dropdown-item" href="#">Press</a>
   				</div>
 			</li>
-			<li><a href="/wrboard/listPage">건의게시판</a></li>
+			<li><a href="/wrboard/listPage">board</a></li>
 			<c:if test="${member.auth=='9'}">
 			<li><a href="/admin/memberPage">ADMIN</a></li>
 			</c:if>
