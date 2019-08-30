@@ -104,6 +104,10 @@
 								 %>
                             </div>
                             <div class="form-group">
+                            	<label>생년월일 <h3>(정확히 입력해 주세요. 비밀번호 찾기에 사용됩니다.)</h3></label>
+                            	<input type="date" class="form-control" name="birthday" id="birthday" placeholder="date input">
+                            </div>
+                            <div class="form-group">
                             	<label>닉네임</label>
                             	
                             	<% if (name == null) {
@@ -134,6 +138,8 @@
 
 <script>
 function loading(){
+	var birthday = $("#birthday").val();
+	console.log(birthday);
 	var check = $("#checkcheck").val();
 	if(check == 0) {
 		alert('아이디 중복체크를 해주세요');
@@ -146,5 +152,4 @@ function loading(){
 		$("#register").append(str);
 		}
 }
-
 </script>

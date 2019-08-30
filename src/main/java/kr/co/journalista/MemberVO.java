@@ -14,9 +14,15 @@ public class MemberVO {
 	private String email_key;
 	private Date Reg_date;
 	private Date withdrawal_date;
+	private String birthday;
 	
 	
-	
+	public String getBirthday() {
+		return birthday;
+	}
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
+	}
 	public int getM_no() {
 		return m_no;
 	}
