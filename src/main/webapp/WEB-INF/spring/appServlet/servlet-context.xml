@@ -42,6 +42,17 @@
 			<beans:ref bean="MemberInterceptor" />
 		</interceptor>
 	</interceptors>
+	
+	<!-- 비로그인자 권한 막기 -->
+	<beans:bean id="UserInterceptor" class="kr.co.journalista.Interceptor.UserInterceptor" />
+	<interceptors>
+		<interceptor>
+			<mapping path="/wrboard/write" />
+			<mapping path="/eboard/write" />
+			<mapping path="/admin/*" />
+			<beans:ref bean="UserInterceptor" />
+		</interceptor>
+	</interceptors>
 
 
 	<beans:bean id="tilesViewResolver"

@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.WebUtils;
 
@@ -85,6 +86,10 @@ public class MemberController {
 				) throws Exception {
 			logger.info("post login");
 			
+			if(session.getAttribute("login") != null) {
+				logger.info("로그인 세션 초기화@@@@@@");
+				session.removeAttribute("login");
+			}
 			String dbPassword = service.passCheck(dto.getEmail());		//db에서 받아온 비밀번호
 			boolean passMatch =  passwordEncoder.matches(dto.getPassword(), dbPassword);
 			
@@ -112,6 +117,7 @@ public class MemberController {
 				
 				session.setAttribute("userId", vo.getEmail());
 				session.setAttribute("userName", vo.getName());
+				session.setAttribute("login", vo);
 				logger.info("userId=="+vo.getEmail());
 				logger.info("userName=="+vo.getName());
 				session.setAttribute("login_email", vo.getEmail());
@@ -223,5 +229,12 @@ public class MemberController {
 			 * sendMail.setFrom("Journalista", "저널리스타"); sendMail.setTo(vo.getEmail());
 			 * sendMail.send();
 			 */
+			}
+			@RequestMapping(value="needLogin")
+			public ModelAndView needLogin() throws Exception{
+				ModelAndView mav = new ModelAndView("/member/loginWarning");
+				mav.addObject("msg","로그인 후 이용해주시기 바랍니다.");
+				
+				return mav;
 			}
 }
