@@ -2,7 +2,6 @@ package kr.co.journalista.member;
 
 import java.util.Date;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import kr.co.journalista.LoginDTO;

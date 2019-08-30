@@ -20,7 +20,7 @@
   				</div>
 			</li>
 			<li><a href="/wrboard/listPage">board</a></li>
-			<c:if test="${member.auth=='9'}">
+			<c:if test="${member.auth >= '8'}">
 			<li><a href="/admin/memberPage">ADMIN</a></li>
 			</c:if>
 		

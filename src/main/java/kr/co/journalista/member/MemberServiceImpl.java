@@ -1,10 +1,8 @@
 package kr.co.journalista.member;
 
-import java.io.PrintWriter;
 import java.util.Date;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;

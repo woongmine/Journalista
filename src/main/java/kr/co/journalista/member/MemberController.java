@@ -16,7 +16,6 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,7 +35,6 @@ public class MemberController {
 
 	@Inject
 	MemberService service;
-	private JavaMailSender mailSender;
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
 	
@@ -57,9 +55,33 @@ public class MemberController {
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public String postmypage_update(HttpSession session, MemberVO vo) throws Exception {
 		logger.info("post mypage_update");
-		service.mypage_update(vo);
-		session.invalidate();
-		return "redirect:/";
+		String email = (String)session.getAttribute("login_email");
+		String nick = vo.getName();
+		String pass = vo.getPassword();
+		String passCk = vo.getPasswordCheck();
+		logger.info("비밀번호:"+pass);
+		logger.info("비밀번호확인:"+passCk);
+		if(pass.equals(passCk)) {
+			//패스와 패스확인이 일치하고 널값이 아닌경우
+			if(nick.length() > 8 && pass.length() >0 ) {
+				//글자수가 8자리 이상
+				logger.info("모든 조건 만족");
+				nick = nick.replace(" ", "");//닉네임 공백제거
+				vo.setName(nick);
+				vo.setEmail(email);
+				service.mypage_update(vo);
+				session.invalidate();
+				return "redirect:/";
+			} else {
+				logger.info("8자리 상이 아님");
+				//8자리 이하가 아니네 에러페이지로 리다이렉트
+				return "redirect:/";
+			}
+		} else {
+			logger.info("넌 특별하다");
+			//패스워드랑 패스워드확인이 일치하지 않는 경우 에러페이지로 리다이렉트
+			return "redirect:/";
+		}
 	}
 
 	// 마이페이지 회원 탈퇴
