@@ -118,7 +118,10 @@
 								}
 								 %>
                             </div>
-                            <button type="submit" id="register" name="register" class="btn btn-lg btn-success btn-block">회원가입</button>
+                            <div id="register_button">
+                            <button type="submit" id="register" name="register" class="btn btn-lg btn-success btn-block" onclick="return loading();">회원가입</button>
+                            
+  							</div>
 						</form>
 				</div>
 			</div>
@@ -126,3 +129,13 @@
 		<div class="col-sm-3"></div>
 	</div>
 </div>
+
+<script>
+function loading(){
+	var str = "";
+	str += "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> 하는 중...";
+	$("#register").attr('class','button fit');
+	$("#register").append(str);
+}
+
+</script>
