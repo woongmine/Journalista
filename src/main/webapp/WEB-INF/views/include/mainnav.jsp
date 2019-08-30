@@ -207,7 +207,7 @@ function score(j_no) {
 </script>
 <!-- Sidebar -->
 <section id="sidebar" style="width:400px; margin-left: 10px;">
-	<section>
+	<section id="intro">
 	<input type="hidden" name="name" id="name" value="${member.name}">
 		<div class="modal fade" id="Write_Modal" role="dialog">
 		<div class="modal-dialog" style="top:70px;">
