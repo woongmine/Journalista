@@ -3,94 +3,142 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="true" %>
 <% request.setCharacterEncoding("UTF-8"); %>
-<script>
-	function validate(){
-		
-	    if(update.password.value != update.passwordCheck.value) {
-		    alert("비밀번호를 확인해주세요");
-		    update.password.value = "";
-		    update.passwordCheck.value = "";
-			update.password.focus();
-			return false;
-		    }
-	    else if(update.password.value.length < 8) {
-			alert("비밀번호는 8자리 이상이어야 합니다.");
-		    update.password.value = "";
-		    update.passwordCheck.value = "";
-			update.password.focus();
-			return false;
-		    }
-	    else if(update.password.value == "" || update.name.value == "") {
-			alert("모든 항목을 채워주세요.")
-			if(update.password.value == "") {
-				update.password.focus();
-				}
-			else {
-				update.name.focus();
-				}
-			return false;
-		    }
-		}
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#update" role="tab" aria-controls="update" aria-selected="true">회원정보 수정</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">프로필 사진</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#dropout" role="tab" aria-controls="dropout" aria-selected="false">탈퇴</a>
+  </li>
+</ul>
+<div class="tab-content" id="myTabContent">
 
-</script>
-
-<div class="container">
-	<div class="row">
-		<div class="col-sm-3"></div>
-		<div class="col-sm-6"><br>
-			<div class="card">
-				<h4 class="card-header">회원정보 수정</h4>
-				<div class="card-body">
-					<p class="card-text">
-						<form role="form" name="update" onsubmit="return validate();" action="/member/update" method="post">
-							<div class="form-group row">
-							    <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
-							    <div class="col-sm-10">
-							      <input type="text" readonly class="form-control-plaintext" name="email" id="email" value="${member.email}">
-							    </div>
-							  </div>
-							<div class="form-group">
-                            	<label>비밀번호</label>
-                            	<input class="form-control" placeholder="비밀번호" name="password" id="password" type="password" />
-                            </div>
-                             
-                            <div class="form-group">
-                            	<label>비밀번호 확인</label>
-                            	<input class="form-control" placeholder="비밀번호 확인" name="passwordCheck" id="passwordCheck" type="password" />
-                            </div>
-                            
-                            <div class="form-group">
-                            	<label>닉네임</label>
-                            	<input class="form-control" placeholder="닉네임을 입력해주세요" name="name" id="name" type="text" />
-                            </div>
-                            <button class="btn btn-success">수정</button>                                                   
-						</form>
-						<button type="button" class="btn btn-success" data-toggle="modal" data-target="#withdrawalCK">탈퇴</button>
+  <div class="tab-pane fade show active" id="update" role="tabpanel" aria-labelledby="update-tab">
+	  <div class="col-md-8 mx-auto">
+		<div class="row">
+			<div class="col-md-8">
+				<div class="card">
+					<h4 class="card-header">회원정보 수정</h4>
+					<div class="alert alert-danger collapse" role="alert" id="fillError">
+					  <strong>에러!!</strong> 빈칸이 없도록 모두 채워주세요
+					</div>
+										<div class="alert alert-danger collapse" role="alert" id="passck">
+					  <strong>에러!!</strong> 입력하신 두 패스워드가 일치하지 않습니다
+					</div>
+					<div class="alert alert-danger collapse" role="alert" id="passleng">
+					  <strong>에러!!</strong> 패스워드가 8글자 이상이 아닙니다
+					</div>
+					<div class="alert alert-danger collapse" role="alert" id="nickleng">
+					  <strong>에러!!</strong> 닉네임은 2글자 이상 8글자 이하로 작성해주세요
+					</div>
+					<div class="card-body">
+						<p class="card-text">
+							<form role="form" name="update" onsubmit="return validate();" action="/member/update" method="post">
+								<div class="row mb-4">
+	                            	<div class="col-sm-4"><label>비밀번호</label></div>
+	                            	<div class="col-sm-8"><input class="form-control" placeholder="비밀번호" name="password" id="password" type="password" 
+	                            	data-toggle="tooltip" data-placement="right" title="8글자 이상"/></div>
+	                            </div>
+	                             
+	                            <div class="row mb-4">
+	                            	<div class="col-sm-4"><label>비밀번호 확인</label></div>
+	                            	<div class="col-sm-8"><input class="form-control" placeholder="비밀번호 확인" name="PasswordCheck" id="passwordCheck" type="password" /></div>
+	                            </div>
+	                            
+	                            <div class="row mb-4">
+	                            	<div class="col-sm-4"><label>닉네임</label></div>
+	                            	<div class="col-sm-8"><input class="form-control" placeholder="닉네임을 입력해주세요" name="name" id="name" type="text" 
+	                            	data-toggle="tooltip" data-placement="right" title="공백없이 2글자 이상 8글자 이하"/></div>
+	                            </div>
+	                            <hr>
+	                            <div class="col-md-4 mx-auto"> 
+	                            	<button class="button large">UPDATE</button>    
+	                            </div>                                               
+							</form>
+					</div>
 				</div>
-			</div>
 		</div>
-		<div class="col-sm-3"></div>
 	</div>
-</div>
-<div class="modal fade" id="withdrawalCK" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalCenterTitle">탈퇴확인</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+	</div>
+  </div>
+
+  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+	  <div class="col-md-10 mx-auto">
+		<div class="row">
+			<div class="col-md-8">
+				<div class="card">
+					<h4 class="card-header">프로필 업로드</h4>
+					<div class="card-body">
+							<form role="form" name="update" onsubmit="" action="/member/upload" method="post">
+								<div class="input-group">
+								  <div class="custom-file">
+								    <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="uploadImage">
+								    <label class="custom-file-label"for="inputGroupFile01">프로필 사진을 선택해주세요</label>
+								  </div>
+								</div>
+	                            <hr>
+	                            <div class="col-md-3 mx-auto"> 
+	                            	<button class="button large">UPLOAD</button>    
+	                            </div>                                               
+							</form>
+					</div>
+				</div>
+		</div>
+	</div>
+	</div>
+
+  </div>
+  <div class="tab-pane fade" id="dropout" role="tabpanel" aria-labelledby="dropout-tab">
+	<div class="card border-danger mb-3 mx-auto" style="max-width: 18rem;">
+	  <div class="card-header"><h4>탈퇴</h4></div>
+	  <div class="card-body text-danger">
+	    <h5 class="card-title">탈퇴된 이후에는 같은 이메일로 재가입하실 수 없습니다.</h5>
+	    <p class="card-text">정말로 탈퇴 하시겠습니까?</p>
+	  </div>
+	  <hr>
+      <div class="col-md-3 mx-auto"> 
+      	<button class="button large">SUBMIT</button>    
       </div>
-      <div class="modal-body">
-        정말로 탈퇴하시겠습니까?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">아니오</button>
-        <form method="post" action="/member/withdrawal">
-        <input type="hidden" readonly class="form-control-plaintext" name="email" id="email" value="${member.email}">
-       		<button type="submit" class="btn btn-primary">예</button>
-        </form>
-      </div>
-    </div>
+      <br>
+	</div>
   </div>
 </div>
+
+<script>
+$(function () {
+	  $('[data-toggle="tooltip"]').tooltip()
+	})
+function validate(){
+	var passval = $('#password').val();
+	var passckval = $('#passwordCheck').val();
+	var nickval = $('#name').val();
+	
+	var nicklength = nickval.length;
+	var passlength = passval.length;
+	console.log(nicklength);
+	//공백데이터
+	if(!passval || !passckval || !nickval){
+		console.log("공백")
+		$('#fillError').show();
+		return false;
+	}
+	//비밀번호 확인이랑 일치하지 않음
+	if(passval != passckval){
+		$('#passck').show();
+		return false;
+	}
+	//패스워드 8글자 이상
+	if(passlength <8 ){
+		$('#passleng').show();
+		return false;
+	}
+	//닉네임 길이 제한
+	if(nicklength < 2 || nicklength >8){
+		$('#nickleng').show();
+		return false;
+	}
+	}
+</script>
