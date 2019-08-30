@@ -6,7 +6,12 @@
 
 	<!-- 기자 검색 -->
 	<select id="searchjournalist" parameterType="String" resultType="kr.co.journalista.JournalVO">
-		SELECT * FROM airfly.journalistinfo WHERE journal_name regexp #{journal_name}
+		SELECT * FROM airfly.journalistinfo WHERE journal_name regexp #{journal_name} order by journal_name asc
+	</select>
+	
+	<!-- 기자 상세페이지 -->
+	<select id="journalistDetails" parameterType="Integer" resultType="kr.co.journalista.JournalVO">
+		SELECT * FROM airfly.journalistinfo WHERE j_no=#{j_no}
 	</select>
 	
 </mapper>

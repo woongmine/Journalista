@@ -18,4 +18,9 @@ public class SearchServiceImpl implements SearchService {
 		return dao.journalistSearch(journal_name);
 	}
 
+	@Override
+	public JournalVO journalistDetails(int j_no) throws Exception {
+		return dao.journalistDetails(j_no);
+	}
+
 }

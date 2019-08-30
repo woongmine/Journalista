@@ -8,4 +8,6 @@ public interface SearchService {
 
 	public List<JournalVO> journalistSearch(String journal_name) throws Exception;
 
+	public JournalVO journalistDetails(int j_no) throws Exception; 
+	
 }

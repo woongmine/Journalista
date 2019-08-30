@@ -6,7 +6,7 @@
 
 	<select id="search" resultType="kr.co.journalista.JournalVO">
 		select * from journalistinfo
-		where journal_name = #{journal_name}
+		where journal_name regexp #{journal_name}
 	</select>
 	
 	<select id="search_no" resultType="kr.co.journalista.JournalVO">

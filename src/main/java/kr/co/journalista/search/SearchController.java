@@ -1,8 +1,6 @@
 package kr.co.journalista.search;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +32,16 @@ public class SearchController {
 		logger.info("기자검색 들어감"+journal_name);
 		List<JournalVO> journal = service.journalistSearch(journal_name);
 		model.addAttribute("journal", journal);
-	}	
+		
+	}
+	
+	@RequestMapping(value = "/journalistDetails")
+	public void journalistDetails(@RequestParam(value = "j_no") int j_no, Model model) throws Exception{
+		logger.info("기자상세페이지 들어감"+j_no);
+		JournalVO journalistDetail = service.journalistDetails(j_no);
+		model.addAttribute("journalistDetail", journalistDetail);
+	}
+	
 	@RequestMapping(value = "/pressSearch")
 	public void pressSearch() throws Exception{
 		

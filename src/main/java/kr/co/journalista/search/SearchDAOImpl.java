@@ -21,5 +21,10 @@ public class SearchDAOImpl implements SearchDAO {
 		return sql.selectList(namespace+".searchjournalist", journal_name);
 	}
 
+	@Override
+	public JournalVO journalistDetails(int j_no) throws Exception {
+		return sql.selectOne(namespace+".journalistDetails", j_no);
+	}
+
 
 }

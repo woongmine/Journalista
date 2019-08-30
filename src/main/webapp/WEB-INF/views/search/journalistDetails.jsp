@@ -4,28 +4,40 @@
 	pageEncoding="UTF-8"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath }" />
 	
-<!-- Post -->
-<article class="post">
-	<header>
-		<div class="title">
-			<h2><a href="single.html">Magna sed adipiscing</a></h2>
-			<p>Lorem ipsum dolor amet nullam consequat etiam feugiat</p>
-		</div>
-		<div class="meta">
-			<time class="published" datetime="2015-11-01">November 1, 2015</time>
-			<a href="#" class="author"><span class="name">Jane Doe</span><img src="images/avatar.jpg" alt="" /></a>
-		</div>
-	</header>
-	<a href="single.html" class="image featured"><img src="images/pic01.jpg" alt="" /></a>
-	<p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non congue ullam corper. Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
-	<footer>
-		<ul class="actions">
-			<li><a href="single.html" class="button large">Continue Reading</a></li>
-		</ul>
-		<ul class="stats">
-			<li><a href="#">General</a></li>
-			<li><a href="#" class="icon solid fa-heart">28</a></li>
-			<li><a href="#" class="icon solid fa-comment">128</a></li>
-		</ul>
-	</footer>
-</article>
+<style type="text/css">
+
+		#node1
+		{
+		}
+		
+		#node2
+		{
+			float: left;
+			width: 300px;
+		}
+		
+		#node3, #node4, #node5, #node6, #node7
+		{
+			float: left;
+			width: 650px;
+			height: 50px;
+		}
+
+	</style>
+	
+<div class="card">
+	
+	<h3 class="card-header">${journalistDetail.journal_name}기자 </h3>
+	
+	<div class="card-body">
+		<div id="node1">
+			<div id="node2"><img alt="머머리" src="${contextPath}/resources/images/bald.jpg" class="rounded-circle"></div><!-- #node3 end -->
+			<div id="node3">이메일 : ${journalistDetail.journal_email}</div><!-- #node4 end -->
+			<div id="node4">소속 : ${journalistDetail.press}</div><!-- #node6 end -->
+			<div id="node5">평점 : ${journalistDetail.total_score}</div><!-- #node7 end -->
+			<div id="node6">트위터 : ${journalistDetail.journal_twit}</div><!-- #node8 end -->
+			<div id="node7">페이스북 : ${journalistDetail.journal_facefook}</div><!-- #node9 end -->
+		</div>		
+	</div>
+
+</div>

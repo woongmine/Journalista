@@ -2,7 +2,7 @@ package kr.co.journalista;
 
 public class JournalVO {
 	private int p_no, j_no; //언론사고유번호,기자고유번호
-	private String journal_name, journal_email, press, journal_part, journal_pass; //기자이름,기자 이메일,언론사,기자분야
+	private String journal_name, journal_email, press, journal_part, journal_pass, journal_twit, journal_facefook; //기자이름,기자 이메일,언론사,기자분야
 	private Double total_score;
 	
 	public Double getTotal_score() {
@@ -53,4 +53,17 @@ public class JournalVO {
 	public void setJournal_part(String journal_part) {
 		this.journal_part = journal_part;
 	}
+	public String getJournal_twit() {
+		return journal_twit;
+	}
+	public void setJournal_twit(String journal_twit) {
+		this.journal_twit = journal_twit;
+	}
+	public String getJournal_facefook() {
+		return journal_facefook;
+	}
+	public void setJournal_facefook(String journal_facefook) {
+		this.journal_facefook = journal_facefook;
+	}
+	
 }

@@ -39,6 +39,7 @@
 <div class="container">
 <div class="row">
 <c:forEach items="${journal}" var="journalset">
+<c:set var="j_no" value="${journalset.j_no}" />
   <div class="col-sm-4">
     <div class="card" style="height: 300px;">
       <div class="card-body">
@@ -54,7 +55,11 @@
       			<td colspan="2">이메일 : ${journalset.journal_email}</td>
       		</tr>
       		<tr>
-      			<td colspan="2"><input type="submit" value="정보 보기" id="${journalset.j_no}"></td>
+      			<td colspan="2" align="center">
+      				<form action="journalistDetails">
+      					<button type="submit" name="j_no" value="${j_no}" class="button small">자세히 봐야 예쁘다 너도 그렇다</button>
+      				</form>
+      			</td>
       		</tr>
       	</table>
       </div>
@@ -63,5 +68,28 @@
   </c:forEach>
   </div>
 </div>
+ <a id="back-to-top" href="" class="btn btn-lg back-top" role="button" data-toggle="tooltip" data-placement="left"><span class="fas fa-chevron-up"></span></a>
   </c:otherwise>
  </c:choose>
+ 
+ <script>
+ 
+ $(document).ready(function(){
+	    $(window).scroll(function () {
+	           if ($(this).scrollTop() > 50) {
+	               $('#back-to-top').fadeIn();
+	           } else {
+	               $('#back-to-top').fadeOut();
+	           }
+	       });
+	       // scroll body to 0px on click
+	       /*
+	       $('#back-to-top').click(function () {
+	           $('#back-to-top').tooltip('hide');
+	           return false;
+	       });
+	       $('#back-to-top').tooltip('show');
+	       */
+	});
+ 
+ </script>
