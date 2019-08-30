@@ -153,6 +153,17 @@ public class eBoardController {
 		
 	}
 
+	@RequestMapping(value="/best_ranking", method = { RequestMethod.GET, RequestMethod.POST })
+	public @ResponseBody List<JournalVO> Best_Ranking(JournalVO vo) throws Exception{
+		List<JournalVO> best_list = service.best_ranking();
+		return best_list;
+	}
+
+	@RequestMapping(value="/worst_ranking", method = { RequestMethod.GET, RequestMethod.POST })
+	public @ResponseBody List<JournalVO> Worst_Ranking(JournalVO vo) throws Exception{
+		List<JournalVO> best_list = service.worst_ranking();
+		return best_list;
+	}
 	
 	// 게시물 수정
 	@RequestMapping(value = "/update", method = RequestMethod.GET)

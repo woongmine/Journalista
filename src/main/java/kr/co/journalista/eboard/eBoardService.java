@@ -51,5 +51,9 @@ public interface eBoardService {
 
 	public void total_score(eBoardVO vo) throws Exception;
 
+	public List<JournalVO> best_ranking() throws Exception;
+
+	public List<JournalVO> worst_ranking() throws Exception;
+
 
 }

@@ -165,6 +165,16 @@ public class eBoardDAOImpl implements eBoardDAO {
 		sql.update(namespace + ".update_eBoard_avg_score", j_vo);
 	}
 
+	@Override
+	public List<JournalVO> best_ranking() throws Exception {
+		return sql.selectList(namespace + ".BestRanking");
+	}
+
+	@Override
+	public List<JournalVO> worst_ranking() throws Exception {
+		return sql.selectList(namespace + ".WorstRanking");
+	}
+
 
 //	@Override
 //	public void sum_like(eBoardVO vo) throws Exception {

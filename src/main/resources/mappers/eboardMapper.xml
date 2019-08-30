@@ -114,6 +114,7 @@
 	<select id="getLikeList" resultType="kr.co.journalista.eBoardVO">
 		select * from liketo where m_no = #{m_no}
 	</select>
+	
 	<select id="getBoardList" resultType="kr.co.journalista.eBoardVO">
 		select *,(SELECT COUNT(*) FROM e_boardrep WHERE e_no = b.e_no) AS recnt from e_board b order by e_no desc limit 0, 7
 	</select>
@@ -126,9 +127,18 @@
 	</select>
 	
 	<select id="infiniteScrollUp" resultType="kr.co.journalista.eBoardVO">
-		select * from e_board 
+		select * from e_board
 		where e_no &lt; #{e_no}
 		and e_no >= #{e_no} - 7
 	</select>
 
+	<select id="BestRanking" resultType="kr.co.journalista.JournalVO">
+		select journal_name, press, total_score from journalistinfo
+		order by total_score desc limit 0, 7
+	</select>
+
+	<select id="WorstRanking" resultType="kr.co.journalista.JournalVO">
+		select * from journalistinfo where length(total_score) > 0
+		order by total_score limit 0, 7
+	</select>
 </mapper>

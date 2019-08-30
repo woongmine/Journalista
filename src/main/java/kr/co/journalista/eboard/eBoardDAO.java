@@ -57,6 +57,10 @@ public interface eBoardDAO {
 	public List<JournalVO> search_no(JournalVO vo) throws Exception;
 
 	public void total_score(eBoardVO vo) throws Exception;
+	
+	public List<JournalVO> best_ranking() throws Exception;
+	
+	public List<JournalVO> worst_ranking() throws Exception;
 
 //	public void sum_like(eBoardVO vo) throws Exception;
 }

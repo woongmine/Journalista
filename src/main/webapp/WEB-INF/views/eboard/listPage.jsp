@@ -183,13 +183,13 @@ function listview2(e_no){
 				<br>
 				<textarea rows="2" cols="60" id="ere_text${boardlist.e_no}" placeholder="댓글을 입력하세요."></textarea>
 				<br>	
-				<button type="button" class="button" id="btnEreply" onclick="inserttext(${boardlist.e_no})">댓글 작성</button>
+				<button type="button" id="btnEreply" onclick="inserttext(${boardlist.e_no})">댓글 작성</button>
       	<div id="listEreply${boardlist.e_no}" class="example01"  ></div>
     	</div>		
 </div>
 </c:forEach>
 </div>
-<a id="back-to-top" href="#" class="btn btn-lg back-top" role="button" title="Click to return on the top page" data-toggle="tooltip" data-placement="left"><span class="fas fa-chevron-up"></span></a>
+<a id="back-to-top" href="listPage" class="btn btn-lg back-top" role="button" data-toggle="tooltip" data-placement="left"><span class="fas fa-chevron-up"></span></a>
 
 
 <script>
@@ -203,9 +203,9 @@ $(window).scroll(function() {
 	if( currentScrollTop - lastScrollTop > 0 ){
 		console.log("down-scroll");
 		
-	if ($(window).scrollTop() >= $(document).height() - $(window).height()) {
-		var lasteno = $(".scrolling:last").attr("data-e_no");
-		console.log('last eno = ' + lasteno);
+	if ($(window).scrollTop() + 1 >= $(document).height() - $(window).height()) {
+		var e_no = $(".scrolling:last").attr("data-e_no");
+		console.log('lasteno = ' + e_no);
 		$.ajax({
 			type : 'post',
 			url : 'infiniteScrollDown',
@@ -215,7 +215,7 @@ $(window).scroll(function() {
 			},
 			dataType : 'json', 
 			data : JSON.stringify({  
-				e_no : lasteno
+				e_no : e_no
 			}),
 			success : function(data){
 				
@@ -228,7 +228,6 @@ $(window).scroll(function() {
 							console.log('likecheck : ' + this.like_check);
 							if(this.like_check == 1) {
 								button = "<a href= 'like?e_no="+this.e_no+"' class='fas fa-heart' style='color:#6E6E6E; font-size:10pt; font-weight: bolder;color:red' > </a>";
-																													
 								}
 							else {
 								button = "<a href= 'like?e_no="+this.e_no+"' class='icon fa-heart' style='color:#6E6E6E; font-size:10pt; font-weight: bolder;'> </a>";
@@ -251,10 +250,10 @@ $(window).scroll(function() {
 							console.log(this);
 							str +=	"<div class=" + "'card'" + ">" 
 								+	"<input type=" + "'hidden'" + "class=" + "'scrolling'" + "data-e_no=" + this.e_no + " value=" + this.e_no + ">"
-								+	"<h3 class=" + "'card-header'" + ">" + this.name + "기자</h3>"
+								+	"<h3 class=" + "'card-header'" + ">" + this.name + "기자" + score + "</h3>"
 								+	"<div class=" + "'card-body'" + ">"
-								+	"<h4 class=" + "'card-title'" + "><a href='" + this.trackback + "target='_blank'> 기사 링크 + " + this.trackback + "</h4>"
-								+	"<h3>한줄평" + this.evaluation + score + "</h3>"
+								+	"<h4 class=" + "'card-title'" + "><a href='" + this.trackback + "target='_blank'> 기사 링크  : " + this.trackback + "</h4>"
+								+	"<h3>한줄평 : " + this.evaluation + "</h3>"
 								+	"<a> 현재 이 기자의 평균 별점 : " + this.score + "</a>"
 								+	"<div align=" + "'right'" + ">"
 								+	"<a class='icon solid fa-comment' onclick='listview("+this.e_no+")' style='color:#6E6E6E; font-size:10pt; font-weight: bolder;''> comment ( "+this.recnt+" ) </a>"
@@ -268,7 +267,7 @@ $(window).scroll(function() {
 								+	"<br>"
 								+	"<textarea rows='2' cols='60' id='ere_text"+this.e_no+"' placeholder='댓글을 입력하세요.'></textarea>"
 								+	"<br>"	
-								+	"<button type='button' class='button' id='btnEreply' onclick='inserttext("+this.e_no+")'>댓글 작성</button>"
+								+	"<button type='button' id='btnEreply' onclick='inserttext("+this.e_no+")'>댓글 작성</button>"
 				      			+	"<div id='listEreply"+this.e_no+"' class='example01'  ></div>"
 						 		+ 	"</div>"
 						 		+ 	"</div>";
@@ -307,7 +306,7 @@ function listview(e_no){
 			}
 
 /*탑버튼 액션*/
- */*
+
 $(document).ready(function(){
     $(window).scroll(function () {
            if ($(this).scrollTop() > 50) {
@@ -317,14 +316,14 @@ $(document).ready(function(){
            }
        });
        // scroll body to 0px on click
+       /*
        $('#back-to-top').click(function () {
            $('#back-to-top').tooltip('hide');
            return false;
        });
-       
        $('#back-to-top').tooltip('show');
-
+       */
 });
-  */
+
 </script>
 

@@ -20,9 +20,6 @@
 		margin-top: 0.4em;
 	}
 
-	/*  
-	 * Rating styles
-	 */
 	.rating {
 		width: 226px;
 		margin: 0 auto 1em;
@@ -109,7 +106,7 @@ function Search() {
 				if(data != ""){
 					$(data).each(
 						function(){	
-							str +=	"<button id='journalist' onclick='return Select(\""+ this.j_no + "\");'>"
+							str +=	"<button class='button' id='journalist' onclick='return Select(\""+ this.j_no + "\");'>"
 								+	this.j_no + ". " + this.journal_name + ", "
 								+	this.press
 					 			+	"</button>";
@@ -207,7 +204,7 @@ function score(j_no) {
 </script>
 <!-- Sidebar -->
 <section id="sidebar" style="width:400px; margin-left: 10px;">
-	<section id="intro">
+	<section>
 	<input type="hidden" name="name" id="name" value="${member.name}">
 		<div class="modal fade" id="Write_Modal" role="dialog">
 		<div class="modal-dialog" style="top:70px;">
@@ -220,7 +217,7 @@ function score(j_no) {
 		      	<h3>기자 검색</h3>
 		      	<div class="search_name">
 		      	<input type="text" style="width:78%; float:left;" id="keyword" placeholder="기자 이름을 검색해 주세요">
-		      	<button style="float:right;" onclick="return Search();">Search</button><br/>
+		      	<button class="button" style="float:right;" onclick="return Search();">Search</button><br/>
 		      	</div>
 		      	
 		      </div>
@@ -228,7 +225,7 @@ function score(j_no) {
 		      
 		      </div>
 		      <div class="modal-footer">
-		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		        <button class="button" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 		      </div>
 		    </div>
 		  </div>
@@ -243,17 +240,72 @@ function score(j_no) {
 		<div class="w100">
 		<table class="table">
 			<tr>
-			<td><button class="button fit" onClick="location.href='listPage'">기자랭킹</button></td>
-			<td><button class="button fit" onClick="return category_request();">조회수 랭킹</button></td>
-			</tr>	
+			<td><button class="button fit" onClick="return BestRanking();">Best 랭킹</button></td>
+			<td><button class="button fit" onClick="return WorstRanking();">Worst 랭킹</button></td>
+			</tr>
 		</table>
+		<table class="table" id="ranking_table"></table>
 		<br/>
 		<div style="height:300px;">
 	</div>
 	</div>
 	</section>
-
 </section>
 <script>
-
+function BestRanking() {
+ 	$("#ranking_table").empty();
+	$.ajax({
+		type : 'post',
+		url : 'best_ranking',
+		headers : { 
+			"Content-Type" : "application/json",
+			"X-HTTP-Method-Override" : "POST"
+		},
+		dataType : 'json',
+		contentType: 'application/json; charset=utf-8',
+		success : function(data){
+			console.log(data);
+			var str = "";
+			$(data).each(
+					function(){
+						console.log(this.journal_name);
+						console.log(this.press);
+						console.log(this.total_score);
+					var str = "";
+						str +=	"<tr id='ranking_list'>"
+							+	"<td colspan='2'>" + this.journal_name + ", " +this.press + " | " + this.total_score +"</td>"
+				 			+	"</tr>";
+					$("#ranking_table").append(str);
+					});
+				}
+	});
+}
+function WorstRanking() {
+ 	$("#ranking_table").empty();
+	$.ajax({
+		type : 'post',
+		url : 'worst_ranking',
+		headers : { 
+			"Content-Type" : "application/json",
+			"X-HTTP-Method-Override" : "POST"
+		},
+		dataType : 'json',
+		contentType: 'application/json; charset=utf-8',
+		success : function(data){
+			console.log(data);
+			var str = "";
+			$(data).each(
+					function(){
+						console.log(this.journal_name);
+						console.log(this.press);
+						console.log(this.total_score);
+					var str = "";
+						str +=	"<tr>"
+							+	"<td colspan='2'>" + this.journal_name + ", " +this.press + " | " + this.total_score +"</td>"
+				 			+	"</tr>";
+					$("#ranking_table").append(str);
+					});
+				}
+	});
+}
 </script>

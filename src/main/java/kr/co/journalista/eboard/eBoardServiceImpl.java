@@ -125,5 +125,15 @@ public class eBoardServiceImpl implements eBoardService {
 		dao.total_score(vo);
 	}
 
+	@Override
+	public List<JournalVO> best_ranking() throws Exception {
+		return dao.best_ranking();
+	}
+
+	@Override
+	public List<JournalVO> worst_ranking() throws Exception {
+		return dao.worst_ranking();
+	}
+
 
 }
