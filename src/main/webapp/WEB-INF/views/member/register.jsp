@@ -33,6 +33,7 @@
 					
 					$("#password").focus();
 					isCheckEmail = 1;
+					$("#checkcheck").attr("value","1");
 				} else {
 					console.log("사용불가능이메일 들어감");
 					console.log(data);
@@ -72,6 +73,7 @@
 								}
 								 %>
 								<input type="button" class="btn btn-secondary btn-sm" style="width: 20%;" value="중복확인" onclick="checkEmail();" />
+								<input type="hidden" id="checkcheck" value="0"/>
 							</div>
 							<div class="form-group">
                             	<label>비밀번호</label>
@@ -119,7 +121,7 @@
 								 %>
                             </div>
                             <div id="register_button">
-                            <button type="submit" id="register" name="register" class="btn btn-lg btn-success btn-block" onclick="return loading();">회원가입</button>
+                            <button type="submit" id="register" name="register" class="button fit" onclick="return loading();">회원가입</button>
                             
   							</div>
 						</form>
@@ -132,10 +134,17 @@
 
 <script>
 function loading(){
-	var str = "";
-	str += "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> 하는 중...";
-	$("#register").attr('class','button fit');
-	$("#register").append(str);
+	var check = $("#checkcheck").val();
+	if(check == 0) {
+		alert('아이디 중복체크를 해주세요');
+		return false;
+		}
+	else {
+		var str = "";
+		str += "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> 하는 중...";
+		$("#register").attr('class','button fit');
+		$("#register").append(str);
+		}
 }
 
 </script>

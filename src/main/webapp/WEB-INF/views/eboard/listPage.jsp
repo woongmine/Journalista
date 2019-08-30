@@ -189,7 +189,7 @@ function listview2(e_no){
 </div>
 </c:forEach>
 </div>
-<a id="back-to-top" href="listPage" class="btn btn-lg back-top" role="button" data-toggle="tooltip" data-placement="left"><span class="fas fa-chevron-up"></span></a>
+<a id="back-to-top" href="listPage" class="btn btn-lg back-top" title="위로 가기" role="button" data-toggle="tooltip" data-placement="left"><span class="fas fa-chevron-up"></span></a>
 
 
 <script>
