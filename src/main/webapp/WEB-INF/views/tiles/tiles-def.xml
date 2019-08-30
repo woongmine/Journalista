@@ -30,9 +30,9 @@
 		<put-attribute name="body" value="/WEB-INF/views/wrboard/{1}.jsp" />
     </definition>
     <definition name="member/mypage" extends="wrboard">
-        <put-attribute name="nav"   value="/WEB-INF/views/include/mainnav.jsp" />
+        <put-attribute name="nav"   value="/WEB-INF/views/member/mypage.jsp" />
         <put-attribute name="header" value="/WEB-INF/views/include/mainheader.jsp" />
-		<put-attribute name="body" value="/WEB-INF/views/member/mypage.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/member/update.jsp" />
     </definition>
     <definition name="member/*" extends="wrboard">
         <put-attribute name="header" value="/WEB-INF/views/include/mainheader.jsp" />
