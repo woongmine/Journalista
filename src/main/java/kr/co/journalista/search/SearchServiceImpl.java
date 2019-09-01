@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.journalista.JournalVO;
+import kr.co.journalista.WrBoardVO;
+import kr.co.journalista.eBoardVO;
 
 @Service
 public class SearchServiceImpl implements SearchService {
@@ -18,9 +20,28 @@ public class SearchServiceImpl implements SearchService {
 		return dao.journalistSearch(journal_name);
 	}
 
+	// 기자 상세페이지
 	@Override
 	public JournalVO journalistDetails(int j_no) throws Exception {
 		return dao.journalistDetails(j_no);
+	}
+	@Override
+	public List<eBoardVO> journalistDetailsSub(int j_no) throws Exception {
+		return dao.journalistDetailsSub(j_no);
+	}
+
+	// 통합검색
+	@Override
+	public List<eBoardVO> totalEboard(String keyword) throws Exception {
+		return dao.totalEboard(keyword);
+	}
+	@Override
+	public List<JournalVO> totalJournalist(String keyword) throws Exception {
+		return dao.totalJournalist(keyword);
+	}
+	@Override
+	public List<WrBoardVO> totalWrboard(String keyword) throws Exception {
+		return dao.totalWrboard(keyword);
 	}
 
 }

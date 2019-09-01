@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.journalista.JournalVO;
+import kr.co.journalista.WrBoardVO;
+import kr.co.journalista.eBoardVO;
 
 @Controller
 @RequestMapping(value = "/search")
@@ -39,7 +41,9 @@ public class SearchController {
 	public void journalistDetails(@RequestParam(value = "j_no") int j_no, Model model) throws Exception{
 		logger.info("기자상세페이지 들어감"+j_no);
 		JournalVO journalistDetail = service.journalistDetails(j_no);
+		List<eBoardVO> journalistDetailsSub = service.journalistDetailsSub(j_no);
 		model.addAttribute("journalistDetail", journalistDetail);
+		model.addAttribute("journalistDetailsSub", journalistDetailsSub);
 	}
 	
 	@RequestMapping(value = "/pressSearch")
@@ -48,8 +52,16 @@ public class SearchController {
 	}
 	
 	@RequestMapping(value = "/totalSearch")
-	public void totalSearch() throws Exception{
-		
+	public void totalSearch(@RequestParam(value = "keyword") String keyword, Model model) throws Exception{
+		logger.info("통합검색 들어감"+keyword);
+		List<eBoardVO> totalEboard = service.totalEboard(keyword);
+		List<JournalVO> totalJournalist = service.totalJournalist(keyword);
+		List<WrBoardVO> totalWrboard = service.totalWrboard(keyword);
+		String selectkeyword = keyword;
+		model.addAttribute("keyword", selectkeyword);
+		model.addAttribute("totalEboard", totalEboard);
+		model.addAttribute("totalJournalist", totalJournalist);
+		model.addAttribute("totalWrboard", totalWrboard);
 	}
 	
 }

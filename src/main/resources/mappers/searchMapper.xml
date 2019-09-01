@@ -13,5 +13,32 @@
 	<select id="journalistDetails" parameterType="Integer" resultType="kr.co.journalista.JournalVO">
 		SELECT * FROM airfly.journalistinfo WHERE j_no=#{j_no}
 	</select>
+	<select id="journalistDetailsSub" parameterType="Integer" resultType="kr.co.journalista.eBoardVO">
+		SELECT * FROM airfly.e_board WHERE j_no=#{j_no}
+	</select>
+	
+	<!-- 통합검색 -->
+	<select id="totalEboard" parameterType="java.lang.String" resultType="kr.co.journalista.eBoardVO">
+		SELECT * FROM airfly.e_board WHERE `name` REGEXP #{keyword}
+		UNION 
+		SELECT * FROM airfly.e_board WHERE `evaluation` REGEXP #{keyword}
+	</select>
+	<select id="totalJournalist" parameterType="java.lang.String" resultType="kr.co.journalista.JournalVO">
+		SELECT * FROM airfly.journalistinfo WHERE `journal_name` REGEXP #{keyword}
+		UNION 
+		SELECT * FROM airfly.journalistinfo WHERE `journal_email` REGEXP #{keyword}
+		UNION 
+		SELECT * FROM airfly.journalistinfo WHERE `press` REGEXP #{keyword}
+	</select>
+	<select id="totalWrboard" parameterType="java.lang.String" resultType="kr.co.journalista.WrBoardVO">
+		SELECT * FROM airfly.wr_board WHERE `name` REGEXP #{keyword}
+		UNION 
+		SELECT * FROM airfly.wr_board WHERE `wr_title` REGEXP #{keyword}
+		UNION 
+		SELECT * FROM airfly.wr_board WHERE `wr_contents` REGEXP #{keyword}
+	</select>
+	<select id="totalPress" parameterType="java.lang.String" resultType="kr.co.journalista.PressVO">
+		
+	</select>
 	
 </mapper>

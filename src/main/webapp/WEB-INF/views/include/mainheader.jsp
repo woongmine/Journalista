@@ -4,6 +4,17 @@
 	pageEncoding="UTF-8"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath }" />
 
+<script> 
+
+	function press(f){
+		if(f.keyCode == 13){ //javascript에서는 13이 enter키를 의미함
+			keyword.submit(); //formname에 사용자가 지정한 form의 name입력 } 
+		} 
+	}
+	
+</script>
+
+
 <!-- Header -->
 <header id="header">
 	<h1>
@@ -29,8 +40,8 @@
 	<nav class="main">
 		<ul>
 			<li class="search"><a class="fa-search" href="#search">Search</a>
-				<form id="search" method="get" action="#">
-					<input type="text" name="query" placeholder="Search" />
+				<form id="search" method="get" action="/search/totalSearch">
+					<input type="text" name="keyword" id="keyword" placeholder="Search" onkeypress="JavaScript:press(this.form)"/>
 				</form></li>
 			<li class="menu"><a class="fa-bars" href="#menu">Menu</a></li>
 			<c:if test="${member.name==null}">
@@ -57,8 +68,8 @@
 
 	<!-- Search -->
 	<section>
-		<form class="search" method="get" action="#">
-			<input type="text" name="query" placeholder="Search" />
+		<form class="search" method="get" action="/search/totalSearch">
+			<input type="text" name="keyword" id="keyword" placeholder="Search" onkeypress="JavaScript:press(this.form)"/>
 		</form>
 	</section>
 
