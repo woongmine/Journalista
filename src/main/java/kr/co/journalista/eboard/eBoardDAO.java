@@ -62,5 +62,4 @@ public interface eBoardDAO {
 	
 	public List<JournalVO> worst_ranking() throws Exception;
 
-//	public void sum_like(eBoardVO vo) throws Exception;
 }

@@ -71,27 +71,29 @@ public class eBoardController {
 		return "redirect:/eboard/listPage";
 	}
 	
-	@RequestMapping(value = "like")
-	public void getlike(eBoardVO vo, HttpSession session, HttpServletResponse response) throws Exception{
-		PrintWriter writer = response.getWriter();
-        response.setCharacterEncoding("utf-8");
-        response.setContentType("text/html; utf-8");
+	@RequestMapping(value = "like", method = { RequestMethod.GET, RequestMethod.POST })
+	@ResponseBody
+	public int like(int e_no, HttpSession session) throws Exception{
 		System.out.println("hi");
 		String login_email = (String) session.getAttribute("login_email");
 		System.out.println(login_email);
 		String login_member_no = (String) session.getAttribute("login_member_no");
 		System.out.println(login_member_no);
+		eBoardVO vo = new eBoardVO();
 		if (login_member_no != null) {
 			vo.setM_no(Integer.parseInt(login_member_no));
 		}
+		vo.setE_no(e_no);
         System.out.println("e_no : " + vo.getE_no());
 		
 		if (login_email != null) {
+			System.out.println("여기오니");
 			service.like(vo);
-			writer.write("<script> location.href='/eboard/listPage';</script>");
+			int like_check = service.like_or_unlike(vo);
+			return like_check;
 		}
 		else {
-			writer.write("<script> alert(\"로그인을 해주세요.\"); location.href='/eboard/listPage';</script>");
+			return 3;
 		}
 	}
 	

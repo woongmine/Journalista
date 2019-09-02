@@ -140,4 +140,9 @@ public class eBoardServiceImpl implements eBoardService {
 	}
 
 
+	@Override
+	public int like_or_unlike(eBoardVO vo) throws Exception {
+		return dao.like_or_unlike(vo);
+	}
+
 }

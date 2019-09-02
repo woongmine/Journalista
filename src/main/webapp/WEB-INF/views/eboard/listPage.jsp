@@ -168,15 +168,15 @@ function listview2(e_no){
 		<div align="right">
 		<a class="icon solid fa-comment" onclick="listview(${boardlist.e_no})" style="color:#6E6E6E; font-size:10pt; font-weight: bolder;"> comment( ${boardlist.recnt} ) </a>
 		<a style="color:#6E6E6E; font-size:10pt; font-weight: bolder;"> | </a>
-		<input type="hidden" value="${boardlist.like_check }"style="color:#6E6E6E; font-size:10pt; font-weight: bolder;">
 		<% 
 		int like_check = (int)pageContext.getAttribute("like_check");
 		if (like_check == 1) { %>
-		<a href="like?e_no=${boardlist.e_no}" class="fas fa-heart" style="color:#6E6E6E; font-size:10pt; font-weight: bolder; color:red"></a>
+		<a onclick = "return like_or_unlike(${boardlist.e_no});" id="like${boardlist.e_no }" class="fas fa-heart" style="color:#6E6E6E; font-size:10pt; font-weight: bolder; color:red"></a>
 		<% } else { %>
-		<a href="like?e_no=${boardlist.e_no}" class="icon fa-heart" style="color:#6E6E6E; font-size:10pt; font-weight: bolder; "></a>
+		<a onclick = "return like_or_unlike(${boardlist.e_no});" id="like${boardlist.e_no }" class="icon fa-heart" style="color:#6E6E6E; font-size:10pt; font-weight: bolder; color:red"></a>
 		<% } %>
-		<a style="color:#6E6E6E; font-size:10pt; font-weight: bolder;">like ( ${boardlist.like} )</a>
+		<a style="color:#6E6E6E; font-size:10pt; font-weight: bolder;">like (</a>
+		<a id="like_count${boardlist.e_no }">${boardlist.like }</a><a style="color:#6E6E6E; font-size:10pt; font-weight: bolder;"> )</a>
 		</div>
 	</div>
 		<div id="replytext${boardlist.e_no}" style="width: 700px; display: none;">		
@@ -193,6 +193,41 @@ function listview2(e_no){
 
 
 <script>
+function like_or_unlike(e_no){
+	console.log(e_no);
+	 $.ajax({
+		    url: "like",
+		    type: "POST",
+		    cache: false,
+		    dataType: "json",
+		    data: 'e_no=' + e_no,
+		    success: function(data) {
+				console.log("좋아요2222");
+				console.log(data);
+				str = "";
+				if(data == 0){
+					console.log("언라잌");
+					$("#like"+e_no).attr('class','icon fa-heart');
+					var like_count = $("#like_count"+e_no).text();
+					console.log(like_count);
+					$("#like_count"+e_no).text(like_count*1 - 1);
+					}
+				else if(data == 3){
+					alert("로그인 해주세요");
+					return false;
+					}
+				else {
+					console.log("라잌");
+					$("#like"+e_no).attr('class','fas fa-heart');
+					var like_count = $("#like_count"+e_no).text();
+					console.log(like_count);
+					$("#like_count"+e_no).text(like_count*1 + 1);
+					}
+		    }
+		  });
+
+}
+
 var lastScrollTop = 0;
 var easeEffect = 'easeInQuint';
 
@@ -227,10 +262,10 @@ $(window).scroll(function() {
 							var score = "";
 							console.log('likecheck : ' + this.like_check);
 							if(this.like_check == 1) {
-								button = "<a href= 'like?e_no="+this.e_no+"' class='fas fa-heart' style='color:#6E6E6E; font-size:10pt; font-weight: bolder;color:red' > </a>";
-								}
+								button = "<a onclick = 'return like_or_unlike(" + this.e_no + ");' id='like" + this.e_no + "' class='fas fa-heart' style='color:#6E6E6E; font-size:10pt; font-weight: bolder; color:red' > </a>";
+							}
 							else {
-								button = "<a href= 'like?e_no="+this.e_no+"' class='icon fa-heart' style='color:#6E6E6E; font-size:10pt; font-weight: bolder;'> </a>";
+								button = "<a onclick = 'return like_or_unlike(" + this.e_no + ");' id='like" + this.e_no + "' class='icon fa-heart' style='color:#6E6E6E; font-size:10pt; font-weight: bolder; color:red'> </a>";
 								}
 							if(this.score == 1) {
 								score = "<i class='fas fa-star' style='color:orange; float:right;'></i>"
@@ -257,10 +292,10 @@ $(window).scroll(function() {
 								+	"<a> 현재 이 기자의 평균 별점 : " + this.score + "</a>"
 								+	"<div align=" + "'right'" + ">"
 								+	"<a class='icon solid fa-comment' onclick='listview("+this.e_no+")' style='color:#6E6E6E; font-size:10pt; font-weight: bolder;''> comment ( "+this.recnt+" ) </a>"
-								+	"<a style='color:#6E6E6E; font-size:10pt; font-weight: bolder;'> | </a>"
-								+	"<input type=" + "'hidden'" + "value=" + this.like_check + ">"						
+								+	"<a style='color:#6E6E6E; font-size:10pt; font-weight: bolder;'> | </a>"				
 								+	button
-								+	"<a style='color:#6E6E6E; font-size:10pt; font-weight: bolder;'>like ( " + this.like + " )</a>"
+								+	"<a style='color:#6E6E6E; font-size:10pt; font-weight: bolder;'>like ( </a>"
+								+	"<a id='like_count"+ this.e_no + "'>" + this.like + "</a><a style='color:#6E6E6E; font-size:10pt; font-weight: bolder;'> )</a> "
 								+	"</div>"
 								+	"</div>"
 								+	"<div id='replytext"+this.e_no+"' style='width: 700px; display: none;'>"		

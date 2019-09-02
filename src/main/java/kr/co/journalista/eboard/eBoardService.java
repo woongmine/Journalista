@@ -53,6 +53,8 @@ public interface eBoardService {
 
 	public List<JournalVO> best_ranking() throws Exception;
 
+	public int like_or_unlike(eBoardVO vo) throws Exception;
+	
 	public List<JournalVO> worst_ranking() throws Exception;
 
 
