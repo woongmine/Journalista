@@ -232,12 +232,14 @@ public class MemberController {
 				logger.info("find pw-@@@@@@@@@@@@@@@@");
 				String email = request.getParameter("email");
 				String name = request.getParameter("name");
+				String birthday=request.getParameter("birthday");
 				
-				//MemberVO idCheck = service.idCheck(userId);
+				
 				
 				
 				logger.info("find email = "+ email);
 				logger.info("find name = "+ name);
+				logger.info("find birthday = "+ birthday);
 				String password = "";
 				String st[] = {"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
 				Random r = new Random();
@@ -248,6 +250,7 @@ public class MemberController {
 				String encryptPassword = passwordEncoder.encode(spassword);			
 				vo.setEmail(email);
 				vo.setName(name);
+				vo.setBirthday(birthday);
 				vo.setPassword(encryptPassword);
 				service.update_pw(vo);
 				logger.info("임시비밀번호는!!!!!!!!!!!!!!!!!!!!!!=================================="+password);

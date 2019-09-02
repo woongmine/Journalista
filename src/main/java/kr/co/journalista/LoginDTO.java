@@ -6,7 +6,17 @@ public class LoginDTO {
 		private String password;
 		private static boolean useCookie;
 		private int leave;
+		private int auth;
 		
+		
+		
+		
+		public int getAuth() {
+			return auth;
+		}
+		public void setAuth(int auth) {
+			this.auth = auth;
+		}
 		public String getEmail() {
 			return email;
 		}

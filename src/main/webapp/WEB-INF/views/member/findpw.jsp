@@ -5,28 +5,30 @@
 
 <!-- Content Wrapper. Contains page content -->
 <script>
-	$(function(){
+$(function(){
 	
-		$("#findpw").click(function(){
-			var email = $("#email").val();
-			var name = $("#name").val();			
-			var param={
-					email : email,
-					name : name					
-			};	
-			console.log(param);
-			$.ajax({
-				type: "post",
-				url: "${path}/member/findpw",
-				data: param,
-				success: function(){
-					
-					alert("임시비밀번호 발송 완료");
-					
-				}
-				});				
-		});
+	$("#findpw").click(function(){
+		var email = $("#email").val();
+		var name = $("#name").val();	
+		var birthday = $("#birthday").val();
+		var param={
+				email : email,
+				name : name,
+				birthday : birthday
+		};	
+		console.log(param);
+		$.ajax({
+			type: "post",
+			url: "${path}/member/findpw",
+			data: param,
+			success: function(){
+				
+				alert("임시비밀번호 발송 완료");
+				location.href = "/";
+			}
+			});				
 	});
+});
 </script>
 <div class="col-md-4 mx-auto">
 <div class="card">
@@ -35,10 +37,20 @@
     <h5 class="card-title"><center>임시비밀번호발급</center></h5>
     <p class="card-text">
     <form method="post">
-			<input type="email" name="email" id="email" placeholder="이메일" /><br />
-			<input type="text" name="name" id="name" placeholder="이름"/><br />
+			<div>
+			<label>이메일</label>
+			<input type="email" name="email" id="email" /><br />
+			</div>
+			<div>
+			<label>이름</label>
+			<input type="text" name="name" id="name" /><br />	
+			</div>
+			<div>
+                 <label>생년월일</label>
+                 <input type="date" class="form-control" name="birthday" id="birthday" placeholder="date input">
+            </div>
+			
 			<hr>
-				
 		   	<input class="button fit" type="button" id="findpw" value="비밀번호발급"/>			
 	</form>
 	</p>

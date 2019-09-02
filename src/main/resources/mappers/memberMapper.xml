@@ -49,7 +49,7 @@
 	</update>
 	<!-- 비밀번호 변경 -->
 	<update id="update_pw" parameterType="kr.co.journalista.MemberVO">
-	 	update airfly.member set password = #{password} where email = #{email} and name = #{name}
+	 	update airfly.member set password = #{password} where email = #{email} and name = #{name} and birthday = #{birthday}
 	</update>	
 	
 	<!-- 회원이 탈퇴함 leave를 1로 바꾸고 탈퇴날짜가 찍힘 -->

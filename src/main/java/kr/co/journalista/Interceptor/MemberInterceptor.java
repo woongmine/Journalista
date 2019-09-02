@@ -1,4 +1,4 @@
-package kr.co.journalista.member;
+package kr.co.journalista.Interceptor;
 
 import javax.inject.Inject;
 import javax.servlet.http.Cookie;
@@ -11,6 +11,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+
+import kr.co.journalista.member.MemberService;
 
 public class MemberInterceptor extends HandlerInterceptorAdapter {
 

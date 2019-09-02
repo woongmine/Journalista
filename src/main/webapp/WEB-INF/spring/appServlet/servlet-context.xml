@@ -34,8 +34,7 @@
 		base-package="kr.co.journalista.member" />
 
 	<!-- 자동로그인 인터셉터 -->
-	<beans:bean id="MemberInterceptor"
-		class="kr.co.journalista.member.MemberInterceptor" />
+	<beans:bean id="MemberInterceptor" class="kr.co.journalista.Interceptor.MemberInterceptor" />
 	<interceptors>
 		<interceptor>
 			<mapping path="/member/login" />
@@ -53,6 +52,23 @@
 			<beans:ref bean="UserInterceptor" />
 		</interceptor>
 	</interceptors>
+	<!-- 회원 로그인페이지 막기 -->
+	<beans:bean id="LoginInterceptor" class="kr.co.journalista.Interceptor.LoginInterceptor" />
+	<interceptors>
+		<interceptor>
+			<mapping path="/member/login" />		
+			<beans:ref bean="LoginInterceptor" />
+		</interceptor>
+	</interceptors>
+	<!-- 관리자 권한 확인 -->
+	<beans:bean id="AdminInterceptor" class="kr.co.journalista.Interceptor.AdminInterceptor" />
+	<interceptors>
+		<interceptor>
+			<mapping path="/admin/*" />		
+			<beans:ref bean="AdminInterceptor" />
+		</interceptor>
+	</interceptors>
+	
 
 
 	<beans:bean id="tilesViewResolver"
