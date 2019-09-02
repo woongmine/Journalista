@@ -91,6 +91,8 @@ public class MemberController {
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; utf-8");
 		logger.info("post withdrawal");
+		String email = (String)session.getAttribute("login_email");
+		vo.setEmail(email);
 		service.mypage_withdrawal(vo, session);
 		writer.write("<script> alert(\"탈퇴 완료. 안녕히 가세요ㅠ\"); location.href='/';</script>");
 		session.invalidate();

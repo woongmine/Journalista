@@ -100,7 +100,9 @@
 	  </div>
 	  <hr>
       <div class="col-md-3 mx-auto"> 
-      	<button class="button large">SUBMIT</button>    
+      <form role="form" name="withdrawal" action="/member/withdrawal" method="post">
+      	<button class="button large">SUBMIT</button>  
+      </form>  
       </div>
       <br>
 	</div>

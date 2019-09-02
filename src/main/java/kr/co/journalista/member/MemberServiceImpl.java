@@ -47,7 +47,7 @@ public class MemberServiceImpl implements MemberService {
 	// 마이페이지에서 회원탈퇴 vo에 지금 date날짜 넣고 db에 vo sql쿼리 실행하는 dao실행
 	@Override
 	public void mypage_withdrawal(MemberVO vo, HttpSession session) throws Exception {
-		Date date = new Date(0);
+		Date date = new Date();
 		vo.setWithdrawal_date(date);
 		dao.mypage_withdrawal(vo);
 	}
