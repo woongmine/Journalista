@@ -203,9 +203,11 @@
 	<div id="replytext" style="width: 650px;">
 			
 			<br>
+			<c:if test="${member.name != null}">
 				<textarea rows="2" cols="60" id="re_text" placeholder="댓글을 입력하세요."></textarea>
 			
 				<button type="button" class="button" id="btnReply">댓글 작성</button>
+			</c:if>	
 				<br>
 				<br>
 				
