@@ -24,7 +24,7 @@ $(function(){
 			success: function(){
 				
 				alert("임시비밀번호 발송 완료");
-				location.href = "/";
+				location.href = "/member/login";
 			}
 			});				
 	});

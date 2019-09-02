@@ -5,16 +5,27 @@ import java.util.Date;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import kr.co.journalista.LoginDTO;
 import kr.co.journalista.MemberVO;
+import kr.co.journalista.register.MailHandler;
 
 @Service
 public class MemberServiceImpl implements MemberService {
 
 	@Inject
 	private MemberDAO dao;
+	
+	@Inject
+	private JavaMailSender mailSender;
+	
+	@Autowired
+	BCryptPasswordEncoder passwordEncoder;
+
 
 	// 로그인
 	@Override
@@ -61,6 +72,17 @@ public class MemberServiceImpl implements MemberService {
 	//비밀번호 발급
 	@Override
 	public void update_pw(MemberVO vo) throws Exception {
+		
+		MailHandler sendMail = new MailHandler(mailSender);
+		sendMail.setSubject("[Journalista 임시비밀번호 발급]");
+		sendMail.setText(
+				new StringBuffer().append("<h1> 저널리스트 임시비밀번호 입니다. </h1>").append("이메일은 :  "+vo.getEmail()+"<br>").append("임시비밀번호는  : "+vo.getPassword()).toString());
+		sendMail.setFrom("Journalista", "저널리스타");
+		sendMail.setTo(vo.getEmail());
+		sendMail.send();
+		String spassword = vo.getPassword();					
+		String encryptPassword = passwordEncoder.encode(spassword);	
+		vo.setPassword(encryptPassword);
 		dao.update_pw(vo);
 		
 	}

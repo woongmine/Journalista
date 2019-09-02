@@ -226,17 +226,14 @@ public class MemberController {
 				return "member/findpw";
 			}
 		
-		//비밀번호 변경
+			//비밀번호 변경
 			@RequestMapping(value = "/findpw", method = RequestMethod.POST)
 			public void findpw(@ModelAttribute MemberVO vo,HttpServletRequest request) throws Exception{
 				logger.info("find pw-@@@@@@@@@@@@@@@@");
 				String email = request.getParameter("email");
 				String name = request.getParameter("name");
 				String birthday=request.getParameter("birthday");
-				
-				
-				
-				
+						
 				logger.info("find email = "+ email);
 				logger.info("find name = "+ name);
 				logger.info("find birthday = "+ birthday);
@@ -246,24 +243,15 @@ public class MemberController {
 				for(int i=1; i<=6; i++) {				
 					password += st[r.nextInt(26)];				
 				}
-				String spassword = password;					
-				String encryptPassword = passwordEncoder.encode(spassword);			
+					
 				vo.setEmail(email);
 				vo.setName(name);
 				vo.setBirthday(birthday);
-				vo.setPassword(encryptPassword);
+				vo.setPassword(password);
 				service.update_pw(vo);
 				logger.info("임시비밀번호는!!!!!!!!!!!!!!!!!!!!!!=================================="+password);
-				logger.info("암호화된비밀번호는!!!!!!!!!!!!!!!!!!!!!!=================================="+vo.getPassword());
 				
-			/*
-			 * MailHandler sendMail = new MailHandler(mailSender);
-			 * sendMail.setSubject("[Journalista 서비스 임시비밀번호 발급]"); sendMail.setText( new
-			 * StringBuffer().append("<h1> 저널리스트 임시비밀번호 </h1>").append(vo.getEmail()).
-			 * append("' target='_blenk'>이메일 인증 확인</a>").toString());
-			 * sendMail.setFrom("Journalista", "저널리스타"); sendMail.setTo(vo.getEmail());
-			 * sendMail.send();
-			 */
+			
 			}
 			@RequestMapping(value="needLogin")
 			public ModelAndView needLogin() throws Exception{
