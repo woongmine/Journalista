@@ -11,6 +11,7 @@ $(function(){
 		var email = $("#email").val();
 		var name = $("#name").val();	
 		var birthday = $("#birthday").val();
+				
 		var param={
 				email : email,
 				name : name,
@@ -22,7 +23,6 @@ $(function(){
 			url: "${path}/member/findpw",
 			data: param,
 			success: function(){
-				
 				alert("임시비밀번호 발송 완료");
 				location.href = "/member/login";
 			}

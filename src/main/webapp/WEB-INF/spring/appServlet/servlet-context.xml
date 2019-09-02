@@ -49,6 +49,9 @@
 			<mapping path="/wrboard/write" />
 			<mapping path="/eboard/write" />
 			<mapping path="/admin/*" />
+			<mapping path="/member/mypage" />
+			<mapping path="/member/update" />
+			<mapping path="/member/withdrawal" />
 			<beans:ref bean="UserInterceptor" />
 		</interceptor>
 	</interceptors>

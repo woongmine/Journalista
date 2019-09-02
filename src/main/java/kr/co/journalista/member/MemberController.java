@@ -79,7 +79,7 @@ public class MemberController {
 				vo.setEmail(email);
 				service.mypage_update(vo);
 				session.invalidate();
-				return "redirect:/";
+				return "redirect:/member/login";
 			} else {
 				logger.info("8자리 이상 아님");
 				//8자리 이하가 아니네 에러페이지로 리다이렉트
