@@ -72,18 +72,17 @@
 				<div class="card">
 					<h4 class="card-header">프로필 업로드</h4>
 					<div class="card-body">
-							<form role="form" name="update" onsubmit="" action="/member/upload" method="post">
-								<div class="input-group">
+								<div class="input-group mb-3">
 								  <div class="custom-file">
-								    <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="uploadImage">
-								    <label class="custom-file-label"for="inputGroupFile01">프로필 사진을 선택해주세요</label>
+								    <input type="file" class="custom-file-input" id="inputGroupFile01" name="uploadFile" aria-describedby="inputGroupFileAddon01">
+								    <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
 								  </div>
 								</div>
+								<h4>프로필로 사용될 이미지 파일만 업로드해주시기 바랍니다(2MB 이하)</h4>
 	                            <hr>
 	                            <div class="col-md-3 mx-auto"> 
-	                            	<button class="button large">UPLOAD</button>    
+	                            	<button class="button large" id="uploadBtn">UPLOAD</button>    
 	                            </div>                                               
-							</form>
 					</div>
 				</div>
 		</div>
@@ -99,10 +98,10 @@
 	    <p class="card-text">정말로 탈퇴 하시겠습니까?</p>
 	  </div>
 	  <hr>
-      <div class="col-md-3 mx-auto"> 
-      <form role="form" name="withdrawal" action="/member/withdrawal" method="post">
+      <div class="col-md-3 mx-auto">
+ 		<form role="form" name="withdrawal" action="/member/withdrawal" method="post">
       	<button class="button large">SUBMIT</button>  
-      </form>  
+      	</form>  
       </div>
       <br>
 	</div>
@@ -110,9 +109,17 @@
 </div>
 
 <script>
+//부트스트랩
+$('#inputGroupFile01').on('change',function(){
+    //get the file name
+    var fileName = $(this).val();
+    //replace the "Choose a file" label
+    $(this).next('.custom-file-label').html(fileName);
+});
 $(function () {
 	  $('[data-toggle="tooltip"]').tooltip()
-	})
+	});
+	
 function validate(){
 	var passval = $('#password').val();
 	var passckval = $('#passwordCheck').val();
@@ -142,5 +149,40 @@ function validate(){
 		$('#nickleng').show();
 		return false;
 	}
+	
 	}
+	
+$(document).ready(function(){
+	$("#uploadBtn").on("click", function(e){
+		var formData = new FormData();
+		var inputFile = $("input[name='uploadFile']");
+		var files = inputFile[0].files;
+		console.log(files);
+		for(var i = 0; i < files.length; i++){
+			formData.append("uploadFile",files[i]);	
+		}
+	$.ajax({
+		url: '/member/upload',
+		processData:false,
+		contentType:false,
+		data: formData,
+		type:'POST',
+		error:function(request,status,error){
+	        alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
+	       },
+		success: function(result){
+			if(result=='1'){
+				alert("이미지 파일이 아닙니다");
+			}else if(result=='2'){
+				alert("이미지 파일이 2MB보다 큽니다");
+			}else if(result=='3'){
+				location.reload();
+			}
+		}
+	
+	});
+	
+	});
+});
+
 </script>

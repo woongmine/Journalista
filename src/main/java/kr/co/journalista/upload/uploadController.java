@@ -7,6 +7,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+
 
 @Controller
 public class uploadController {
@@ -60,6 +63,7 @@ public class uploadController {
 				//이미지 타입인지 체크
 				if(checkImageType(saveFile)) {
 					if(fileSize <= 3145728) {
+						
 						multipartFile.transferTo(saveFile); //이미지 파일이면 서버에 이미지 저장
 						return ResponseEntity.ok().body("/img/"+uploadFolderPath+"/"+uploadFileName);
 					} else {
@@ -73,6 +77,38 @@ public class uploadController {
 			}
 			return ResponseEntity.badRequest().build();
 		//for문 끝
+		
+	}
+	
+	@ResponseBody
+	@PostMapping("member/upload")
+	public String uploadProfile(MultipartFile uploadFile, HttpSession session){
+		logger.info("프로필 업로드");
+		String uploadFolder = "D:\\YDK\\spring\\beforeproject\\src\\main\\webapp\\WEB-INF\\views\\img\\profile";
+		String profileNo = (String)session.getAttribute("login_member_no");
+	
+		String rename = profileNo;
+		String uploadFileName = uploadFile.getOriginalFilename();
+		uploadFileName = rename+".jpg";
+		File saveFile = new File(uploadFolder, uploadFileName);
+		long fileSize = uploadFile.getSize();
+		try {
+			if(checkImageType(saveFile)) {
+				if(fileSize <= 2097152) {
+					logger.info("2메가 이하네");
+					uploadFile.transferTo(saveFile); //이미지 파일이면 서버에 이미지 저장
+					return "3"; //성공데스네
+				} else {
+					return "2";//이미지파일이면서 용량이 2메가를 넘어가면 2를 리턴
+				}
+			}else {
+				return "1";//이미지 파일이 아닐때 1을 리턴
+			}
+
+		}catch (Exception e) {
+			logger.error(e.getMessage());
+			return "error";
+		}
 		
 	}
 
