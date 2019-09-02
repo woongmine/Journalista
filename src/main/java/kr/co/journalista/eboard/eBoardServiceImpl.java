@@ -5,6 +5,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
 import kr.co.journalista.JournalVO;
@@ -80,6 +83,7 @@ public class eBoardServiceImpl implements eBoardService {
 	public int write(eBoardVO vo) throws Exception {
 		Date date = new Date();
 		vo.setE_datetime(date);
+		
 		return dao.write(vo);
 	}
 

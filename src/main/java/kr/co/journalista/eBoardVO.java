@@ -22,6 +22,7 @@ public class eBoardVO {
 	private String evaluation;
 	private int j_no;
 	private double total_score;
+	private String articletitle;
 	
 	
 	public double getTotal_score() {
@@ -137,6 +138,12 @@ public class eBoardVO {
 	}
 	public void setLike(int like) {
 		this.like = like;
+	}
+	public String getArticletitle() {
+		return articletitle;
+	}
+	public void setArticletitle(String articletitle) {
+		this.articletitle = articletitle;
 	}
 	
 	 

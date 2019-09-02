@@ -7,6 +7,9 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -54,6 +57,14 @@ public class eBoardController {
 	public String getWrite(eBoardVO vo) throws Exception{
 		System.out.println("write 기자 : " + vo.getName());
 		System.out.println("trackback : " + vo.getTrackback());
+		
+		String url = vo.getTrackback();
+		Document doc = Jsoup.connect(url).get();
+		Elements elements = doc.select("title");
+		String temp = elements.text();
+		String[] articletitle = temp.split("-|:");
+		vo.setArticletitle(articletitle[0]);
+		
 		service.write(vo);
 		service.total_score(vo);
 		

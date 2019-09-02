@@ -44,14 +44,14 @@
 		<table>
 		<tr>
 			<th>한줄평</th>
-			<th>주소</th>
+			<th>기사 제목</th>
 			<th>평점</th>
 			<th>날짜</th>
 		</tr>
 		<c:forEach items="${journalistDetailsSub}" var="journalistDetailContents">
 		<tr>
 			<td>${journalistDetailContents.evaluation}</td>
-			<td><a href="${journalistDetailContents.trackback}" target="_blank">기사링크</a></td>
+			<td><a href="${journalistDetailContents.trackback}" target="_blank">${journalistDetailContents.articletitle}</a></td>
 			<td>${journalistDetailContents.score}</td>
 			<td><fmt:formatDate value="${journalistDetailContents.e_datetime}" pattern="yyyy.MM.dd" /></td>
 		</tr>

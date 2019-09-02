@@ -10,7 +10,7 @@
 	.commentdetail {
 		
 		height: 130px;
-		width: 450px;
+		width: 550px;
 	}
 
 </style>
@@ -26,7 +26,7 @@
 			<div>&nbsp;&nbsp;한줄평 : ${eboard.evaluation}</div>
 			<div>&nbsp;&nbsp;${eboard.name} 기자</div>
 			<div>&nbsp;&nbsp;score : ${eboard.score}</div>
-			<div>&nbsp;&nbsp;<a href="${eboard.trackback}">기사 링크</a></div>
+			<div>&nbsp;&nbsp;<a href="${eboard.trackback}">${eboard.articletitle}</a></div>
 		</div>
 	</c:forEach>
 	<hr style="margin: 10px;" width="50%">

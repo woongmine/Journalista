@@ -88,7 +88,7 @@ function idcheck(){
 var temp = "";
 
 function Search() {
-	var journal_name = $("#keyword").val();
+	var journal_name = $(".keyword").val();
 	console.log("키워드 : "+journal_name);
 	if (journal_name == "") {
 		alert("검색어를 입력하세요!");
@@ -216,7 +216,7 @@ function score(j_no) {
 		      <div class="modal-body" id="modal_body">
 		      	<h3>기자 검색</h3>
 		      	<div class="search_name">
-		      	<input type="text" style="width:78%; float:left;" id="keyword" placeholder="기자 이름을 검색해 주세요">
+		      	<input type="text" style="width:78%; float:left;" id="keyword" class="keyword" placeholder="기자 이름을 검색해 주세요">
 		      	<button class="button" style="float:right;" onclick="return Search();">Search</button><br/>
 		      	</div>
 		      	
