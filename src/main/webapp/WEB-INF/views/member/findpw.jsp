@@ -26,7 +26,13 @@ $(function(){
 				alert("임시비밀번호 발송 완료");
 				location.href = "/member/login";
 			}
-			});				
+			});	
+		var str = "";
+		str += "<button class='button fit' style='width:212px;'>" 
+			+ "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span>비밀번호 발급 중...";
+			+ "</button>"
+		$("#findpw").remove();
+		$("#temp").append(str);
 	});
 });
 </script>
@@ -49,9 +55,9 @@ $(function(){
                  <label>생년월일</label>
                  <input type="date" class="form-control" name="birthday" id="birthday" placeholder="date input">
             </div>
-			
-			<hr>
-		   	<input class="button fit" type="button" id="findpw" value="비밀번호발급"/>			
+			<hr id="temp">
+		   	<input class="button fit" type="button" id="findpw" value="비밀번호발급"/>
+		   	
 	</form>
 	</p>
 					
