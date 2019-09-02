@@ -20,7 +20,7 @@ public class AdminInterceptor extends HandlerInterceptorAdapter {
 		HttpSession session = request.getSession();
 		Integer authcheck = (Integer) session.getAttribute("auth");
 
-			if(authcheck == 1) {
+			if(authcheck == 1 || authcheck == 2 || authcheck == 3) {
 				logger.info("관리자 번호 아님!!!!");
 				response.sendRedirect(request.getContextPath()+"/");
 				return false;
