@@ -12,8 +12,8 @@
 	
 	<!-- 기자 추가 -->
 	<insert id="journal_register" parameterType="kr.co.journalista.JournalVO">
-		insert into airfly.journalistinfo(journal_email, journal_pass, journal_name, press, journal_part)
-		values(#{journal_email}, #{journal_pass}, #{journal_name}, #{press}, #{journal_part})
+		insert into airfly.journalistinfo(journal_email, journal_pass, journal_twit, journal_facebook ,journal_name, press, journal_part)
+		values(#{journal_email}, #{journal_pass}, #{journal_twit}, #{journal_facebook}, #{journal_name}, #{press}, #{journal_part})
 	</insert>
 	
 	<!-- 언론사 추가 -->

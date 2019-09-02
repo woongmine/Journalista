@@ -61,6 +61,14 @@
     <input type="text" class="form-control" id="journal_name" name="journal_name" placeholder="이름">
   </div>
   <div class="form-group">
+    <label for="journal_twit">트위터</label>
+    <input type="text" class="form-control" id="journal_twit" name="journal_twit" placeholder="트위터">
+  </div>
+    <div class="form-group">
+    <label for="journal_facebook">페이스북</label>
+    <input type="text" class="form-control" id="journal_facebook" name="journal_facebook" placeholder="페이스북">
+  </div>
+  <div class="form-group">
     <label for="inputAddress2">언론사명</label>
     <input type="text" class="form-control" id="press" placeholder="조선일보,중앙일보,동아일보,한국일보">
   </div>
