@@ -61,9 +61,17 @@ public class MemberController {
 		String passCk = vo.getPasswordCheck();
 		logger.info("비밀번호:"+pass);
 		logger.info("비밀번호확인:"+passCk);
+			
+		String encryptPassword = passwordEncoder.encode(pass);
+		vo.setPassword(encryptPassword);
+	
+		System.out.println("암호화된 비밀번호는======="+encryptPassword);
+		
+		
+		
 		if(pass.equals(passCk)) {
 			//패스와 패스확인이 일치하고 널값이 아닌경우
-			if(nick.length() > 8 && pass.length() >0 ) {
+			if(nick.length() <= 8 && pass.length() >0 ) {
 				//글자수가 8자리 이상
 				logger.info("모든 조건 만족");
 				nick = nick.replace(" ", "");//닉네임 공백제거
@@ -73,7 +81,7 @@ public class MemberController {
 				session.invalidate();
 				return "redirect:/";
 			} else {
-				logger.info("8자리 상이 아님");
+				logger.info("8자리 이상 아님");
 				//8자리 이하가 아니네 에러페이지로 리다이렉트
 				return "redirect:/";
 			}
