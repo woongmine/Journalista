@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.journalista.JournalVO;
+import kr.co.journalista.PressVO;
 import kr.co.journalista.WrBoardVO;
 import kr.co.journalista.eBoardVO;
 
@@ -47,8 +48,17 @@ public class SearchController {
 	}
 	
 	@RequestMapping(value = "/pressSearch")
-	public void pressSearch() throws Exception{
-		
+	public void pressSearch(Model model) throws Exception{
+		logger.info("언론사 검색 페이지 진입");
+		List<PressVO> press = service.pressSearch();
+		model.addAttribute("press", press);
+	}
+	
+	@RequestMapping(value = "/pressSearchComplete")
+	public void pressSearchComplete(@RequestParam(value = "press_name") String press_name, Model model) throws Exception{
+		logger.info("언론사 검색됨");
+		List<JournalVO> pressSearch = service.pressSearchComplete(press_name);
+		model.addAttribute("pressSearch", pressSearch);
 	}
 	
 	@RequestMapping(value = "/totalSearch")

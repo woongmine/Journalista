@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.journalista.JournalVO;
+import kr.co.journalista.PressVO;
 import kr.co.journalista.WrBoardVO;
 import kr.co.journalista.eBoardVO;
 
@@ -42,6 +43,17 @@ public class SearchServiceImpl implements SearchService {
 	@Override
 	public List<WrBoardVO> totalWrboard(String keyword) throws Exception {
 		return dao.totalWrboard(keyword);
+	}
+	
+	// 언론사 검색 페이지
+	@Override
+	public List<PressVO> pressSearch() throws Exception {
+		return dao.pressSearch();
+	}
+
+	@Override
+	public List<JournalVO> pressSearchComplete(String press_name) throws Exception {
+		return dao.pressSearchComplete(press_name);
 	}
 
 }

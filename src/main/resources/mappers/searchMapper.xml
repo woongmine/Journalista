@@ -37,8 +37,12 @@
 		UNION 
 		SELECT * FROM airfly.wr_board WHERE `wr_contents` REGEXP #{keyword}
 	</select>
-	<select id="totalPress" parameterType="java.lang.String" resultType="kr.co.journalista.PressVO">
-		
-	</select>
 	
+	<!-- 언론사 검색 -->
+	<select id="pressSearch" resultType="kr.co.journalista.PressVO">
+		SELECT `press_name` FROM airfly.press
+	</select>
+	<select id="pressSearchComplete" parameterType="java.lang.String" resultType="kr.co.journalista.JournalVO">
+		SELECT * FROM airfly.journalistinfo WHERE `press` REGEXP #{press_name}
+	</select>
 </mapper>

@@ -27,7 +27,7 @@
  				<a class="dropdown-toggle" type="text" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">journalist</a>
 				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
     				<a class="dropdown-item" href="/search/journalistSearch">Journalist</a>
-   					<a class="dropdown-item" href="#">Press</a>
+   					<a class="dropdown-item" href="/search/pressSearch">Press</a>
   				</div>
 			</li>
 			<li><a href="/wrboard/listPage">board</a></li>

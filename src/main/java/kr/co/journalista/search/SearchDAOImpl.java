@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.co.journalista.JournalVO;
+import kr.co.journalista.PressVO;
 import kr.co.journalista.WrBoardVO;
 import kr.co.journalista.eBoardVO;
 
@@ -45,6 +46,16 @@ public class SearchDAOImpl implements SearchDAO {
 	@Override
 	public List<WrBoardVO> totalWrboard(String keyword) throws Exception {
 		return sql.selectList(namespace+".totalWrboard", keyword);
+	}
+
+	// 언론사 검색 페이지
+	@Override
+	public List<PressVO> pressSearch() throws Exception {
+		return sql.selectList(namespace+".pressSearch");
+	}
+	@Override
+	public List<JournalVO> pressSearchComplete(String press_name) throws Exception {
+		return sql.selectList(namespace+".pressSearchComplete", press_name);
 	}
 
 
