@@ -36,7 +36,7 @@
 			<div id="node4">소속 : ${journalistDetail.press}</div><!-- #node6 end -->
 			<div id="node5">평점 평균 : ${journalistDetail.total_score}</div><!-- #node7 end -->
 			<div id="node6">트위터 : ${journalistDetail.journal_twit}</div><!-- #node8 end -->
-			<div id="node7">페이스북 : ${journalistDetail.journal_facefook}</div><!-- #node9 end -->
+			<div id="node7">페이스북 : ${journalistDetail.journal_facebook}</div><!-- #node9 end -->
 		</div>
 	</div>
 	<div>
