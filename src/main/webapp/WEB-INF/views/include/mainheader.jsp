@@ -50,7 +50,7 @@
 			<c:if test="${member.name!=null}">
 			  <li class="search nav-item dropdown">
 			  
-    <div class="nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img width="45px" height="55px" class="img-fluid rounded-circle" src="/profile/${member.m_no}.jpg" onError="this.src='/profile/default.jpg';" alt="${member.name}"></div>
+    <div class="nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img width="45px" height="55px" class="img-fluid rounded-circle" src="/resources/images/profile/profile/${member.m_no}.jpg" onError="this.src='/resources/images/profile/default.jpg';" alt="${member.name}"></div>
     <div class="dropdown-menu">
       <div class="dropdown-item-text"> ${member.name} 님</div>
       <div class="dropdown-divider"></div>

@@ -5,7 +5,7 @@
 <section id="sidebar" style="width:400px; margin-left: 10px;">
 	<section>
 		<div class="card" style="width: 18rem;">
-		 <img id="myImage" width="150px" height="150px" class="rounded-circle mx-auto" src="/profile/${member.m_no}.jpg" onError="this.src='/profile/default.jpg';" alt="${member.name}">
+		 <img id="myImage" width="150px" height="150px" class="rounded-circle mx-auto" src="/resources/images/profile/${member.m_no}.jpg" onError="this.src='/resources/images/profile/default.jpg';" alt="${member.name}">
 		  <div class="card-body">
 		    <h5 class="card-title">${member.name}</h5>
 		    <p class="card-text">${member.email}</p>
