@@ -12,7 +12,7 @@
 	
 	<!-- 목록 -->
 	<select id="listEreply" resultType="kr.co.journalista.EreplyVO">
-		select ere_no, e_no, ere_text, email, name, regdate, updatedate
+		select ere_no, e_no, m_no, ere_text, email, name, regdate, updatedate
 		from e_boardrep
 		where e_no = #{e_no}
 		order by regdate desc

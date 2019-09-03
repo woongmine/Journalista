@@ -67,7 +67,6 @@
 			url: "${path}/ereply/insert",
 			data: param,
 			success: function(){
-				alert("댓글이 등록되었습니다.");
 				listview2(e_no);
 				
 			}
@@ -118,25 +117,38 @@ function listview2(e_no){
 				for ( var i in result) {
 					if (result[i].email == userId) {							
 						output += "<tr>";
-						output += "<td style='color:#6E6E6E; font-size:10pt; '>"  + "<a style='color:#6E6E6E; font-size:11pt; font-weight: bolder;'>"+ result[i].name 
-								+"</a>";
+						output += "<td>";
+						output += "<div class='media'>";
+						output += "<img width='45px' height='55px' class='img-fluid rounded-circle' src='/resources/images/profile/"+result[i].m_no+".jpg'"
+						output += "onError=this.src='/resources/images/profile/default.jpg'>";
+						
+						output += "&nbsp; &nbsp; &nbsp;<div class='media-boby' style='color:#6E6E6E; font-size:10pt; '>" + "<a style='color:#6E6E6E; font-size:11pt; font-weight: bolder;'>"+result[i].name
+								+ "</a>";
 						output += " / " + changeDate(result[i].regdate)
 								+ "<br>";
 						output += result[i].ere_text + "</td>"
 						output += "<td><a style='color:#6E6E6E; font-size:13pt;' class='far fa-trash-alt' onClick='javascript:ereplydelete("
 								+ result[i].ere_no+","+e_no+
 								 ")'></a></td>";
-						output += "<tr>";
+						output += "</div>";
+						output += "</td>";
+						output += "</tr>";
 					
 
 					} else {
 						output += "<tr>";
-						output += "<td colspan='2' style='color:#6E6E6E; font-size:10pt; '>"+ "<a style='color:#6E6E6E; font-size:11pt; font-weight: bolder;'>" + result[i].name 
+						output += "<td colspan='2'>";
+						output += "<div class='media'>";
+						output += "<img width='45px' height='55px' class='img-fluid rounded-circle' src='/resources/images/profile/"+result[i].m_no+".jpg'"
+						output += "onError=this.src='/resources/images/profile/default.jpg'>";
+						output += "&nbsp; &nbsp; &nbsp;<div class='media-boby' style='color:#6E6E6E; font-size:10pt; '>" + "<a style='color:#6E6E6E; font-size:11pt; font-weight: bolder;'>"+result[i].name
 								+ "</a>";
 						output += " / " + changeDate(result[i].regdate)
 								+ "<br>";
-						output += result[i].ere_text + "<br></td>"
-						output += "<tr>";
+						output += result[i].ere_text + "</div>"
+						output += "</div>";
+						output += "</td>";
+						output += "</tr>";
 						
 					}
 				}

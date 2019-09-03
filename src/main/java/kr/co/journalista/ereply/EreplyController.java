@@ -26,11 +26,13 @@ private static final Logger logger = LoggerFactory.getLogger(EreplyController.cl
 	
 	@RequestMapping("/insert")
 	public void insert(EreplyVO ereplyVO, HttpSession session, HttpServletRequest request)throws Exception{
-		logger.info("insert EREPLY~~~~~~~~~~~~~");
 		String userId = (String)session.getAttribute("userId");
 		String userName = (String)session.getAttribute("userName");
+		Integer m_no =  (Integer) session.getAttribute("m_no");
+
 		ereplyVO.setEmail(userId);
 		ereplyVO.setName(userName);
+		ereplyVO.setM_no(m_no);
 		ereplyVO.setEre_ip(ClientUtils.getRemoteIP(request));
 		service.create(ereplyVO);
 	}

@@ -33,10 +33,14 @@ public class ReplyController {
 	public void insert(ReplyVO replyVO, HttpSession session, HttpServletRequest request) throws Exception{
 		String userId = (String) session.getAttribute("userId");
 		String userName = (String) session.getAttribute("userName");
+		Integer m_no =  (Integer) session.getAttribute("m_no");
+		
 		replyVO.setEmail(userId);
 		replyVO.setName(userName);
+		replyVO.setM_no(m_no);
 		replyVO.setRe_ip(ClientUtils.getRemoteIP(request));	
 		logger.info("userId"+ userId);
+		logger.info("m_no==="+m_no);
 		service.create(replyVO);
 	}
 	

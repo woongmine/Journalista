@@ -155,8 +155,9 @@ public class MemberController {
 				session.setAttribute("login_email", vo.getEmail());
 				session.setAttribute("auth", vo.getAuth());
 				session.setAttribute("login_member_no", Integer.toString(vo.getM_no()));
+				session.setAttribute("m_no", vo.getM_no());
 				System.out.println(vo.getM_no());
-				
+				logger.info("m_no======"+vo.getM_no());
 				model.addAttribute("member", vo);
 				
 				// 로그인 유지를 선택할 경우

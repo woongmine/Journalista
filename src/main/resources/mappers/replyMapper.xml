@@ -8,13 +8,13 @@
 	<!-- 댓글 입력 -->
 	<insert id="insertReply"
 		parameterType="kr.co.journalista.ReplyVO">
-		INSERT INTO wr_boardrep ( wr_no, re_text, email, name, re_ip)
-		VALUES ( #{wr_no}, #{re_text}, #{email}, #{name},#{re_ip})
+		INSERT INTO wr_boardrep ( wr_no, m_no, re_text, email, name, re_ip)
+		VALUES ( #{wr_no}, #{m_no}, #{re_text}, #{email}, #{name},#{re_ip})
 	</insert>
 
 	<!-- 댓글 목록 -->
 	<select id="listReply" resultType="kr.co.journalista.ReplyVO">
-		SELECT re_no, wr_no, re_text, email, name, regdate, updatedate
+		SELECT re_no, wr_no, m_no, re_text, email, name, regdate, updatedate
 		FROM wr_boardrep
 		WHERE wr_no=#{wr_no}
 		ORDER BY re_no

@@ -6,6 +6,7 @@ public class ReplyVO {
 	
 	private Integer re_no;
 	private Integer wr_no;
+	private Integer m_no;
 	private String re_text;
 	private String email;
 	private String name;
@@ -15,6 +16,13 @@ public class ReplyVO {
 	
 	
 	
+	
+	public Integer getM_no() {
+		return m_no;
+	}
+	public void setM_no(Integer m_no) {
+		this.m_no = m_no;
+	}
 	public String getRe_ip() {
 		return re_ip;
 	}

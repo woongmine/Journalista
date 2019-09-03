@@ -17,7 +17,7 @@
 			var re_text=$("#re_text").val();
 			var wr_no="${view.wr_no}";
 			if(re_text == ""){
-				alert("댓글을 입력하란말이다 개쉐리야~~!");
+				alert("입력할 댓글이 없습니다.");
 			}else{
 			var param={
 					re_text : re_text,
@@ -28,7 +28,6 @@
 				url: "${path}/reply/insert",
 				data: param,
 				success: function(){
-					alert("댓글이 등록되었습니다.");
 					listReply2();
 				}
 			});	
@@ -36,7 +35,7 @@
 		});
 	});
 	
-	 //댓글 목록2
+	//댓글 목록2
 	function listReply2(){
 		var userId= "<%=session.getAttribute("userId")%>";
 		console.log(userId);
@@ -50,26 +49,41 @@
 								console.log(userId);
 								console.log(result[i].email);
 								output += "<tr>";
-								output += "<td style='color:#6E6E6E; font-size:10pt; '>" + "<a style='color:#6E6E6E; font-size:11pt; font-weight: bolder;'>"+result[i].name
+								output += "<td>";
+								output += "<div class='media'>";
+								output += "<img width='45px' height='55px' class='img-fluid rounded-circle' src='/resources/images/profile/"+result[i].m_no+".jpg'"
+								output += "onError=this.src='/resources/images/profile/default.jpg'>";
+								
+								output += "&nbsp; &nbsp; &nbsp;<div class='media-boby' style='color:#6E6E6E; font-size:10pt; '>" + "<a style='color:#6E6E6E; font-size:11pt; font-weight: bolder;'>"+result[i].name
 										+ "</a>";
 								output += " / " + changeDate(result[i].regdate)
 										+ "<br>";
-								output += result[i].re_text + "</td>"
+								output += result[i].re_text + "</div>"
+								
 								output += "<td><a style='color:#6E6E6E; font-size:13pt;'class='far fa-trash-alt' onClick='javascript:replydelete("
 										+ result[i].re_no
 										+ ")'></a></td>";
-								output += "<tr>";
+								output += "</div>";
+								output += "</td>";
+								output += "</tr>";
 								
 
 							} else {
+								
 								output += "<tr>";
-								output += "<td colspan='2' style='color:#6E6E6E; font-size:10pt; ' >" + "<a style='color:#6E6E6E; font-size:11pt; font-weight: bolder;'>" + result[i].name 
-										+"</a>";
+								output += "<td colspan='2'>";
+								output += "<div class='media'>";
+								output += "<img width='45px' height='55px' class='img-fluid rounded-circle' src='/resources/images/profile/"+result[i].m_no+".jpg'"
+								output += "onError=this.src='/resources/images/profile/default.jpg'>";
+								output += "&nbsp; &nbsp; &nbsp;<div class='media-boby' style='color:#6E6E6E; font-size:10pt; '>" + "<a style='color:#6E6E6E; font-size:11pt; font-weight: bolder;'>"+result[i].name
+										+ "</a>";
 								output += " / " + changeDate(result[i].regdate)
 										+ "<br>";
-								output += result[i].re_text + "<br></td>"
-								output += "<tr>";
-								
+								output += result[i].re_text + "</div>"
+								output += "</div>";
+								output += "</td>";
+								output += "</tr>";
+							
 							}
 						}
 						output += "</table>";
@@ -78,6 +92,7 @@
 				});
 
 	}
+
 
 	//댓글 수정
 	function replyupdate(re_no) {
