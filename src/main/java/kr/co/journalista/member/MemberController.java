@@ -170,7 +170,7 @@ public class MemberController {
 				
 				logger.info("유저 이름은 : " + vo.getName());
 				
-				return "home";
+				return "/eboard/listPage";
 					
 			}else {		//비밀번호 불일치시 
 				rttr.addFlashAttribute("msg", "retry");

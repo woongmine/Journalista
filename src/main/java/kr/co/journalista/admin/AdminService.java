@@ -15,6 +15,7 @@ public interface AdminService {
 	
 	//기자 추가
 	public void addJournal(JournalVO vo) throws Exception;
+	public List<PressVO> pressSearch() throws Exception;
 	
 	//언론사 추가
 	public void addPress(PressVO vo) throws Exception;

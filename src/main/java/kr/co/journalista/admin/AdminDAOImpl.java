@@ -33,6 +33,11 @@ public class AdminDAOImpl implements AdminDAO {
 		sql.insert(namespace+".journal_register", vo);		
 	}
 	@Override
+	public List<PressVO> pressSearch() throws Exception {
+		return sql.selectList(namespace+".pressSearch");
+	}
+	
+	@Override
 	public void addPress(PressVO vo) throws Exception {
 		sql.insert(namespace+".press_register", vo);		
 	}

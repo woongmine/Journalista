@@ -32,7 +32,11 @@ public class AdminServiceImpl implements AdminService {
 	public void addJournal(JournalVO vo) throws Exception {
 		dao.addJournal(vo);		
 	}
-
+	@Override
+	public List<PressVO> pressSearch() throws Exception {
+		return dao.pressSearch();
+	}
+	
 	@Override
 	public void addPress(PressVO vo) throws Exception {
 		dao.addPress(vo);		

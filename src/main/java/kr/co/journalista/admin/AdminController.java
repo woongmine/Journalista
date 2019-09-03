@@ -33,7 +33,9 @@ public class AdminController {
 	//추가 컨트롤러들
 	//관리자 추가,기자추가,언론사추가 페이지 연결
 	@RequestMapping(value = "/admin/addmember", method = RequestMethod.GET)
-	public void getLogin() throws Exception{
+	public void getLogin(Model model) throws Exception{
+    	List<PressVO> pressSearch = service.pressSearch();
+    	model.addAttribute("pressSearch", pressSearch);
 		logger.info("get addmember");
 	}
     //관리자 추가 POST

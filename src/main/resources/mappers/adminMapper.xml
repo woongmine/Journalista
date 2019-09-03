@@ -126,4 +126,8 @@
 		</foreach>
 	</update>
 	
+	<select id="pressSearch" resultType="kr.co.journalista.PressVO">
+		SELECT `press_name` FROM airfly.press
+	</select>
+	
  </mapper>

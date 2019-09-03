@@ -77,15 +77,15 @@
 	<!-- Links -->
 	<section>
 		<ul class="links">
-			<li><a href="#">
+			<li><a href="/eboard/listPage">
 					<h3>Comment</h3>
 					<p>사용자들이 올린 한줄평들을 모아서 보기</p>
 			</a></li>
-			<li><a href="#">
+			<li><a href="/search/journalistSearch">
 					<h3>Junalist</h3>
 					<p>기자 검색</p>
 			</a></li>
-			<li><a href="#">
+			<li><a href="/wrboard/listPage">
 					<h3>Board</h3>
 					<p>기타 게시판</p>
 			</a></li>
