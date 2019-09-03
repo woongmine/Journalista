@@ -58,6 +58,8 @@ public class eBoardController {
 		System.out.println("write 기자 : " + vo.getName());
 		System.out.println("trackback : " + vo.getTrackback());
 		int m_no = Integer.parseInt((String) session.getAttribute("login_member_no"));
+		String writer_name = (String) session.getAttribute("userName");
+		vo.setWriter_name(writer_name);
 		vo.setM_no(m_no);
 		System.out.println(m_no);
 		String url = vo.getTrackback();
