@@ -55,7 +55,7 @@
 	function inserttext(e_no){
 		var ere_text=$("#ere_text"+e_no).val();
 		if(ere_text == "" ){
-			alert("댓글어딧나 어디있냔 말이다 개쉐리야~~~~~~!");
+			alert("등록할 댓글이 없습니다.");
 		}else{
 		var param={
 				ere_text : ere_text,
