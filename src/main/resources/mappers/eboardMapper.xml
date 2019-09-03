@@ -24,8 +24,8 @@
 	
 	<insert id="write" parameterType="kr.co.journalista.eBoardVO">
 		insert into
-		e_board(`score`, `trackback`, `e_datetime`, `evaluation`, `name`, `j_no`, `articletitle`, `m_no`)
-		values(#{score}, #{trackback}, #{e_datetime}, #{evaluation}, #{name}, #{j_no}, #{articletitle}, #{m_no})
+		e_board(`score`, `trackback`, `e_datetime`, `evaluation`, `name`, `j_no`, `articletitle`, `m_no`, `writer_name`)
+		values(#{score}, #{trackback}, #{e_datetime}, #{evaluation}, #{name}, #{j_no}, #{articletitle}, #{m_no}, #{writer_name})
 	</insert>
 	
 	<select id="total_score" parameterType="kr.co.journalista.eBoardVO" resultType="double">
