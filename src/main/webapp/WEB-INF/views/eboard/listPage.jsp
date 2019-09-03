@@ -145,9 +145,9 @@ function listview2(e_no){
 			}
 		});
 }
-	
-</script>
 
+
+</script>
 <div class="layer_center" id="top" style="width: 800px; margin-top: 0px;">
 <c:forEach items="${boardlist}" var="boardlist">
 <div class="card">
@@ -162,6 +162,10 @@ function listview2(e_no){
 	</h3>
 	<c:set var="like_check" value='${boardlist.like_check }'/>
 	<div class="card-body">
+		<div style="float:right;">
+		<!-- 
+		<a data-toggle="modal" href="#Edit_Modal" style="color:blue; font-size:15px;">Edit</a><a> | </a> -->
+		<a href="Delete?e_no=${boardlist.e_no }" style="color:red; font-size:15px;">Delete</a></div>
 		<h4 class="card-title">기사 제목 : <a href="${boardlist.trackback}" target="_blank"> ${boardlist.articletitle}</a></h4>
 		<h3>한줄평 : ${boardlist.evaluation }</h3>
 		<a style="color:#6E6E6E; font-size:10pt; font-weight: bolder;">현재 이 기자의 평균 별점 : ${boardlist.total_score }점</a>

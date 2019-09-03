@@ -25,8 +25,8 @@ public class eBoardServiceImpl implements eBoardService {
 	}
 
 	@Override
-	public void delete(int wr_no) throws Exception {
-		 dao.delete(wr_no);
+	public void delete(int e_no) throws Exception {
+		 dao.delete(e_no);
 	}
 
 	@Override
@@ -145,4 +145,8 @@ public class eBoardServiceImpl implements eBoardService {
 		return dao.like_or_unlike(vo);
 	}
 
+	@Override
+	public eBoardVO getBoardForDelete(int e_no) throws Exception {
+		return dao.getBoardForDelete(e_no);
+	}
 }

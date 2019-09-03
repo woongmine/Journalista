@@ -13,7 +13,7 @@ public interface eBoardService {
 	public void update(eBoardVO vo) throws Exception;
 	 
 	// 게시물 삭제
-	public void delete(int wr_no) throws Exception;
+	public void delete(int e_no) throws Exception;
 	 
 	// 게시물 조회
 	public eBoardVO view(int wr_no) throws Exception;
@@ -57,5 +57,5 @@ public interface eBoardService {
 	
 	public List<JournalVO> worst_ranking() throws Exception;
 
-
+	public eBoardVO getBoardForDelete(int e_no) throws Exception;
 }

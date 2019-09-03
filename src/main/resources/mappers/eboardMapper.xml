@@ -4,6 +4,14 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.journalista.mappers.eboardMapper">
 
+	<update id="delete" parameterType="int">
+		update e_board set e_del = 1 where e_no = #{e_no}
+	</update>
+
+	<select id="getBoardForDelete" resultType="kr.co.journalista.eBoardVO">
+		select m_no from e_board where e_no = #{e_no}
+	</select>
+	
 	<select id="search" resultType="kr.co.journalista.JournalVO">
 		select * from journalistinfo
 		where journal_name regexp #{journal_name}
@@ -116,13 +124,14 @@
 	</select>
 	
 	<select id="getBoardList" resultType="kr.co.journalista.eBoardVO">
-		select *,(SELECT COUNT(*) FROM e_boardrep WHERE e_no = b.e_no) AS recnt from e_board b order by e_no desc limit 0, 7
+		select *,(SELECT COUNT(*) FROM e_boardrep WHERE e_no = b.e_no) AS recnt from e_board b where e_del = 0 order by e_no desc limit 0, 7
 	</select>
 
 	<select id="infiniteScrollDown" resultType="kr.co.journalista.eBoardVO">
 		select * from e_board 
 		where e_no >= #{e_no} - 7
 		and e_no &lt; #{e_no}
+		and e_del = 0
 		order by e_no desc
 	</select>
 	

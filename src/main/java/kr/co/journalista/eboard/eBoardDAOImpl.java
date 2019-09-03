@@ -27,8 +27,8 @@ public class eBoardDAOImpl implements eBoardDAO {
 	}
 
 	@Override
-	public void delete(int wr_no) throws Exception {
-		sql.update(namespace + ".delete", wr_no);
+	public void delete(int e_no) throws Exception {
+		sql.update(namespace + ".delete", e_no);
 	}
 
 	@Override
@@ -175,6 +175,11 @@ public class eBoardDAOImpl implements eBoardDAO {
 		return sql.selectList(namespace + ".WorstRanking");
 	}
 
+	@Override
+	public eBoardVO getBoardForDelete(int e_no) throws Exception {
+		return sql.selectOne(namespace + ".getBoardForDelete", e_no);
+		
+	}
 
 //	@Override
 //	public void sum_like(eBoardVO vo) throws Exception {

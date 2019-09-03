@@ -219,40 +219,30 @@ public class eBoardController {
 		}
 	}
 
-	// 게시물 삭제
-	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	public void getDelete(@RequestParam("e_no") int e_no, Model model, HttpSession session, HttpServletResponse response) throws Exception {
-		eBoardVO view = null;
-		PrintWriter writer = response.getWriter();
-        response.setCharacterEncoding("utf-8");
-        response.setContentType("text/html; utf-8");
-		view = service.view(e_no);
-		String login_email = (String) session.getAttribute("login_email");
-		System.out.println("sessionemail : " + login_email);
-		String writer_email = view.getEmail();
-		System.out.println("writeremail : " + writer_email);
-		if(login_email != null) {
-			if(!login_email.equals(writer_email)) {
-				writer.write("<script> alert(\"본인만 지울 수 있다.\"); location.href='/eboard/view?e_no=" + e_no + "';</script>");
-			}
-			else {
-				service.delete(view.getE_no());
-				writer.write("<script> alert(\"삭제됐다.\"); location.href='/eboard/listPage?num=1';</script>");
-			}
-		}
-		else {
-			writer.write("<script> alert(\"로그인 하셍.\"); location.href='/eboard/listPage?num=1';</script>");
-		}
-		model.addAttribute("view", view);
-	}
-
-	// 게시물 삭제
-	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	public String postDelete(eBoardVO vo) throws Exception {
-		service.delete(vo.getE_no());
-
-		return "redirect:/eboard/listPage?num=1";
-	}
+	   // 게시물 삭제
+	   @RequestMapping(value = "/Delete", method = RequestMethod.GET)
+	   public void getDelete(@RequestParam("e_no") int e_no, Model model, HttpSession session, HttpServletResponse response) throws Exception {
+	      PrintWriter writer = response.getWriter();
+	      response.setCharacterEncoding("utf-8");
+	      response.setContentType("text/html; utf-8");
+	      String login_member_no = (String) session.getAttribute("login_member_no");
+	      eBoardVO vo = new eBoardVO();
+	      vo = service.getBoardForDelete(e_no);
+	      if(login_member_no != null) {
+		     int loginM_no = Integer.parseInt(login_member_no);
+		     int writerM_no = vo.getM_no();
+	         if(loginM_no != writerM_no){
+	            writer.write("<script> alert(\"본인만 지울 수 있다.\"); location.href='/eboard/listPage';</script>");
+	         }
+	         else {
+	            service.delete(e_no);
+	            writer.write("<script> alert(\"삭제됐다.\"); location.href='/eboard/listPage';</script>");
+	         }
+	      }
+	      else {
+	         writer.write("<script> alert(\"로그인 하셍.\"); location.href='/eboard/listPage';</script>");
+	      }
+	   }
 	
 	
 }
