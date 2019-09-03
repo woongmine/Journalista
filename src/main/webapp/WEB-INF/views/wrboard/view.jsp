@@ -196,24 +196,9 @@
 
 		<div>
 			<label>내용</label>
-			<textarea rows="5" cols="50" name="wr_contents" readonly="readonly">${view.wr_contents}</textarea>
+			<div style="height:200px;" name="wr_contents" readonly="readonly">${view.wr_contents}</div>
 		</div>
-		<div>
-			<input type="hidden" id="loginemail" value="${member.email }" /> <input
-				type="hidden" id="writeremail" value="${view.email }" /> <input
-				type="hidden" id="wr_no" value="${view.wr_no }" /> <input
-				type="hidden" id="max" value="<%=max%>" /> <input type="hidden"
-				id="min" value="<%=min%>" /> <a
-				href="/wrboard/past?wr_no=${view.wr_no}"
-				onclick="return CheckPrePage();">이전글</a> <a
-				href="/wrboard/update?wr_no=${view.wr_no}"
-				onclick="return checkmodify();">수정</a> <a
-				href="/wrboard/delete?wr_no=${view.wr_no}"
-				onclick="return checkdrop();">삭제</a> <a
-				href="/wrboard/listPage?num=1"> 목록보기</a> <a
-				href="/wrboard/next?wr_no=${view.wr_no}"
-				onclick="return CheckNextPage();">다음글</a>
-		</div>
+
 	</form>
 	<div id="replytext" style="width: 650px;">
 			
@@ -230,6 +215,7 @@
 	
 		
 	</div>
+	
 	<!-- <div id="listReply"></div> -->
 	<form align="center" name="check">
 		<!-- 	<table class="table" style="width: 60%" align="center">
@@ -258,7 +244,21 @@
 		</tbody>
 	</table>
  -->
-
+<div style="float:center;">
+		<input type="hidden" id="loginemail" value="${member.email }" /> 
+		<input type="hidden" id="writeremail" value="${view.email }" /> 
+		<input type="hidden" id="wr_no" value="${view.wr_no }" /> 
+		<input type="hidden" id="max" value="<%=max%>" /> 
+		<input type="hidden" id="min" value="<%=min%>" /> 
+		<a href="/wrboard/past?wr_no=${view.wr_no}"
+		onclick="return CheckPrePage();"><i class="fas fa-chevron-left"></i>이전글</a>&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="/wrboard/update?wr_no=${view.wr_no}"
+		onclick="return checkmodify();">수정<i class="fas fa-edit"></i></a> &nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="/wrboard/delete?wr_no=${view.wr_no}"
+		onclick="return checkdrop();">삭제<i class="fas fa-trash-alt"></i></a> &nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="/wrboard/listPage?num=1"> 목록보기<i class="fas fa-list"></i></a> &nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="/wrboard/next?wr_no=${view.wr_no}" onclick="return CheckNextPage();">다음글<i class="fas fa-chevron-right"></i></a>
+	</div>
 		<br /> <a href="/">홈으로</a>
 	</form>
 	

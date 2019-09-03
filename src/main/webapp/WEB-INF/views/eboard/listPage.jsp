@@ -325,7 +325,7 @@ $(window).scroll(function() {
 								+	"<h3 class=" + "'card-header'" + "><a href='/search/journalistDetails?j_no=" + this.j_no + "' title='기자 상세페이지로 이동'>" + this.name + "</a> 기자" + score + "</h3>"
 								+	"<div class=" + "'card-body'" + ">"
 								+	"<div style='float:right;'>"
-								+	"<a href='Delete?e_no=" + this.e_no + "' style='color:red; font-size:15px; float:right;' title='삭제하기'>X</a>"
+								+	"<a href='Delete?e_no=" + this.e_no + "' style='color:red; font-size:15px; float:right;' title='삭제하기'><i class='fas fa-trash-alt'></i></a>"
 								+	"<br/>"
 								+	"<a style='float:right;'><font size='2'>닉네임 : " + this.writer_name + "</font></a><br/>"
 								+	"<p style='float:right;'>" + date + "</p><br/>"
