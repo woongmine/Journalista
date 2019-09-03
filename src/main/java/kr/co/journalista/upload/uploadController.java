@@ -65,7 +65,7 @@ public class uploadController {
 					if(fileSize <= 3145728) {
 						
 						multipartFile.transferTo(saveFile); //이미지 파일이면 서버에 이미지 저장
-						return ResponseEntity.ok().body("/img/"+uploadFolderPath+"/"+uploadFileName);
+						return ResponseEntity.ok().body(uploadFolderPath+"/"+uploadFileName);
 					} else {
 						return ResponseEntity.ok().body("2");//이미지파일이면서 용량이 3메가를 넘어가면 2를 리턴
 					}

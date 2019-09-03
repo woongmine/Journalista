@@ -169,5 +169,9 @@ public class AdminController {
 		service.wrboardDelete(wr_noArray);
 		return "admin/wrboardPage";
 	}
-    
+    //이벤트 페이지
+	@RequestMapping(value = "/admin/lotto", method = RequestMethod.GET)
+	public void getLotto() throws Exception{
+		logger.info("get addmember");
+	}
 }
