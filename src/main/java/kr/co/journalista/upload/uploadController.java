@@ -37,7 +37,7 @@ public class uploadController {
 	@ResponseBody
 	public ResponseEntity<String>uploadAjaxPost(@RequestParam("file") MultipartFile multipartFile){
 		logger.info("update ajax post");
-		String uploadFolder = "C:\\Users\\vip\\Documents\\Journalista\\src\\main\\webapp\\WEB-INF\\views\\img"; //업로드되는 폴더 설정
+		String uploadFolder = "/home/hosting_users/ydkhaha/tomcat/webapps/ROOT/resources/images"; //업로드되는 폴더 설정
 		String uploadFolderPath = getFolder();
 		//폴더 만들기
 		File uploadPath = new File(uploadFolder, uploadFolderPath);
@@ -84,7 +84,7 @@ public class uploadController {
 	@PostMapping("member/upload")
 	public String uploadProfile(MultipartFile uploadFile, HttpSession session){
 		logger.info("프로필 업로드");
-		String uploadFolder = "D:\\YDK\\spring\\beforeproject\\src\\main\\webapp\\WEB-INF\\views\\img\\profile";
+		String uploadFolder = "/home/hosting_users/ydkhaha/tomcat/webapps/ROOT/resources/images/profile";
 		String profileNo = (String)session.getAttribute("login_member_no");
 	
 		String rename = profileNo;
