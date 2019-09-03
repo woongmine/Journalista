@@ -154,7 +154,7 @@ function listview2(e_no){
 	<c:set var="number_no" value='${boardlist.e_no }' />
 	<c:set var="score" value='${boardlist.score }'/>
 	<input type="hidden" class="scrolling" name="number" id="number${number_no }" data-e_no="${boardlist.e_no }" value="${boardlist.e_no}">
-	<h3 class="card-header"><a href="/search/journalistDetails?j_no=${boardlist.j_no }" title="기자 상세페이지로 이동">${boardlist.name } 기자</a> 
+	<h3 class="card-header"><a href="/search/journalistDetails?j_no=${boardlist.j_no }" title="기자 상세페이지로 이동">${boardlist.name }</a> 기자
 	<% int score = (int)pageContext.getAttribute("score"); 
 	   for(int i=1; i<=score; i++){ %>
 		<i class="fas fa-star" style="color:orange; float:right;"></i>
@@ -165,11 +165,12 @@ function listview2(e_no){
 		<div style="float:right;">
 		<!-- 
 		<a data-toggle="modal" href="#Edit_Modal" style="color:blue; font-size:15px;">Edit</a><a> | </a> -->
-		<a href="Delete?e_no=${boardlist.e_no }" style="color:red; font-size:15px;">X</a></div>
-		<h4 class="card-title">기사 제목 : <a href="${boardlist.trackback}" target="_blank"> ${boardlist.articletitle}</a></h4>
-		<h3>한줄평 : ${boardlist.evaluation }</h3>
-		<a style="color:#6E6E6E; font-size:10pt; font-weight: bolder;">현재 이 기자의 평균 별점 : ${boardlist.total_score }점</a>
-		<div align="right">
+		<a href="Delete?e_no=${boardlist.e_no }" style="color:red; font-size:15px; float:right;" title="삭제하기"><i class="fas fa-trash-alt"></i></a>
+		<br/>
+		<a style="float:right;"><font size="2">닉네임 : ${boardlist.writer_name }</font></a><br/>
+		<p style="float:right;"><fmt:formatDate value="${boardlist.e_datetime}" pattern="yyyy/MM/dd, HH:mm" /> </p>
+		<br/>
+		<div style="float:right;">
 		<a class="icon solid fa-comment" onclick="listview(${boardlist.e_no})" style="color:#6E6E6E; font-size:10pt; font-weight: bolder;"> comment( ${boardlist.recnt} ) </a>
 		<a style="color:#6E6E6E; font-size:10pt; font-weight: bolder;"> | </a>
 		<% 
@@ -182,17 +183,23 @@ function listview2(e_no){
 		<a style="color:#6E6E6E; font-size:10pt; font-weight: bolder;">like (</a>
 		<a id="like_count${boardlist.e_no }">${boardlist.like }</a><a style="color:#6E6E6E; font-size:10pt; font-weight: bolder;"> )</a>
 		</div>
+		</div>
+		<h3 class="card-title">기사 제목 : <a href="${boardlist.trackback}" target="_blank"> ${boardlist.articletitle}</a></h3>
+		<h3>한줄평 : ${boardlist.evaluation }</h3>
+		<a style="color:#6E6E6E; font-size:10pt; font-weight: bolder;">현재 이 기자의 평균 별점 : ${boardlist.total_score }점</a>
 	</div>
-		<div id="replytext${boardlist.e_no}" style="width: 700px; display: none;">		
-				<br>
-				<textarea rows="2" cols="60" id="ere_text${boardlist.e_no}" placeholder="댓글을 입력하세요."></textarea>
-				<br>	
-				<button type="button" id="btnEreply" class="button" onclick="inserttext(${boardlist.e_no})">댓글 작성</button>
-      	<div id="listEreply${boardlist.e_no}" class="example01"  ></div>
-    	</div>		
+	<div id="replytext${boardlist.e_no}" style="width: 700px; display: none;">		
+		<br>
+		<textarea rows="2" cols="60" id="ere_text${boardlist.e_no}" placeholder="댓글을 입력하세요."></textarea>
+		<br>	
+		<button type="button" id="btnEreply" class="button" onclick="inserttext(${boardlist.e_no})">댓글 작성</button>
+     	<div id="listEreply${boardlist.e_no}" class="example01"  ></div>
+   	</div>		
 </div>
 </c:forEach>
 </div>
+
+
 <a id="back-to-top" href="listPage" class="btn btn-lg back-top" title="위로 가기" role="button" data-toggle="tooltip" data-placement="left"><span class="fas fa-chevron-up"></span></a>
 
 
@@ -287,20 +294,40 @@ $(window).scroll(function() {
 								score = "<i class='fas fa-star' style='color:orange; float:right;'></i><i class='fas fa-star' style='color:orange; float:right;'></i></i><i class='fas fa-star' style='color:orange; float:right;'></i></i><i class='fas fa-star' style='color:orange; float:right;'></i></i><i class='fas fa-star' style='color:orange; float:right;'></i>"
 								}
 							console.log(this);
+							console.log(this.e_datetime);
+							var date = new Date(this.e_datetime);
+							function getFormatDate(date){
+								var year = date.getFullYear();
+								var month = (1 + date.getMonth());
+								month = month >= 10 ? month : '0' + month;
+								var day = date.getDate(); 
+								day = day >= 10 ? day : '0' + day;
+								var hour = date.getHours();
+								var min = date.getMinutes();
+								return  year + '/' + month + '/' + day + ', ' + hour + ':' + min;
+							}
+							date = getFormatDate(date);
+							console.log(date);
 							str +=	"<div class=" + "'card'" + ">" 
 								+	"<input type=" + "'hidden'" + "class=" + "'scrolling'" + "data-e_no=" + this.e_no + " value=" + this.e_no + ">"
-								+	"<h3 class=" + "'card-header'" + ">" + this.name + "기자" + score + "</h3>"
+								+	"<h3 class=" + "'card-header'" + "><a href='/search/journalistDetails?j_no=" + this.j_no + "' title='기자 상세페이지로 이동'>" + this.name + "</a> 기자" + score + "</h3>"
 								+	"<div class=" + "'card-body'" + ">"
-								+	"<h4 class=" + "'card-title'" + "> 기사 제목  : <a href='" + this.trackback + "target='_blank'> " + this.articletitle + "</h4>"
-								+	"<h3>한줄평 : " + this.evaluation + "</h3>"
-								+	"<a> 현재 이 기자의 평균 별점 : " + this.score + "</a>"
-								+	"<div align=" + "'right'" + ">"
+								+	"<div style='float:right;'>"
+								+	"<a href='Delete?e_no=" + this.e_no + "' style='color:red; font-size:15px; float:right;' title='삭제하기'>X</a>"
+								+	"<br/>"
+								+	"<a style='float:right;'><font size='2'>닉네임 : " + this.writer_name + "</font></a><br/>"
+								+	"<p style='float:right;'>" + date + "</p><br/>"
+								+	"<div style='float:right;'>"
 								+	"<a class='icon solid fa-comment' onclick='listview("+this.e_no+")' style='color:#6E6E6E; font-size:10pt; font-weight: bolder;''> comment ( "+this.recnt+" ) </a>"
 								+	"<a style='color:#6E6E6E; font-size:10pt; font-weight: bolder;'> | </a>"				
 								+	button
 								+	"<a style='color:#6E6E6E; font-size:10pt; font-weight: bolder;'>like ( </a>"
 								+	"<a id='like_count"+ this.e_no + "'>" + this.like + "</a><a style='color:#6E6E6E; font-size:10pt; font-weight: bolder;'> )</a> "
 								+	"</div>"
+								+	"</div>"
+								+	"<h3 class=" + "'card-title'" + "> 기사 제목  : <a href='" + this.trackback + "target='_blank'> " + this.articletitle + "</h3>"
+								+	"<h3>한줄평 : " + this.evaluation + "</h3>"
+								+	"<a> 현재 이 기자의 평균 별점 : " + this.score + "</a>"
 								+	"</div>"
 								+	"<div id='replytext"+this.e_no+"' style='width: 700px; display: none;'>"		
 								+	"<br>"
