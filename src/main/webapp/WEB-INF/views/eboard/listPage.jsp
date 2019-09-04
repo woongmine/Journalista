@@ -161,60 +161,68 @@ function listview2(e_no){
 
 
 </script>
+
 <div class="layer_center" id="top" style="width: 870px; margin-top: 0px;">
 <c:forEach items="${boardlist}" var="boardlist">
-<div class="card">
 	<c:set var="number_no" value='${boardlist.e_no }' />
 	<c:set var="score" value='${boardlist.score }'/>
-	<input type="hidden" class="scrolling" name="number" id="number${number_no }" data-e_no="${boardlist.e_no }" value="${boardlist.e_no}">
-	<h3 class="card-header"><a href="/search/journalistDetails?j_no=${boardlist.j_no }" title="기자 상세페이지로 이동">${boardlist.name }</a> 기자
-	<% int score = (int)pageContext.getAttribute("score"); 
-	   for(int i=1; i<=score; i++){ %>
-		<i class="fas fa-star" style="color:orange; float:right;"></i>
-	<% } %>
-	</h3>
 	<c:set var="like_check" value='${boardlist.like_check }'/>
 	<c:set var="writer_email" value='${boardlist.writer_email }'/>
-	<div class="card-body">
-		<div style="float:right;">
-		<!-- 
-		<a data-toggle="modal" href="#Edit_Modal" style="color:blue; font-size:15px;">Edit</a><a> | </a> -->
+	<input type="hidden" class="scrolling" name="number" id="number${number_no }" data-e_no="${boardlist.e_no }" value="${boardlist.e_no}">
+	<article class="post">
+		<header>
+			<div class="title" style="padding-top: 60px;">
+				<h2><a href="/search/journalistDetails?j_no=${boardlist.j_no }" title="기자 상세페이지로 이동">${boardlist.name } 기자</a></h2>
+				<p style="font-size:15px;">${boardlist.press }, 평균 평점 : ${boardlist.total_score } </p>
+			</div>
+			<div class="meta" style="padding-top: 20px;">
+				<p style="font-size:15px; color:black;"><fmt:formatDate value="${boardlist.e_datetime}" pattern="yyyy/MM/dd, HH:mm" /></p>
+				<p style="font-size:15px; color:black;">writer : <br/>${boardlist.writer_name}</p>
+			</div>
+		</header>
+		기사 링크 : <a style="color:#0040FF; font-size:20px;" href="${boardlist.trackback}" target="_blank"> ${boardlist.articletitle}</a>
+		<br/>
+		<p> </p>
+		<p style="color:black;">한줄평 : ${boardlist.evaluation }</p>
 		<% String writer_email = (String)pageContext.getAttribute("writer_email");
 		if (writer_email.equals(login_email)) {
 			%>
 		<a href="Delete?e_no=${boardlist.e_no }" style="color:red; font-size:15px; float:right;" title="삭제하기"><i class="fas fa-trash-alt"></i></a>
 		<% }%>
+		<% int score = (int)pageContext.getAttribute("score"); 
+	   for(int i=1; i<=score; i++){ %>
+		<i class="fas fa-star" style="color:orange; float:left;"></i>
+	<% } %>
 		<br/>
-		<a style="float:right;"><font size="2">닉네임 : ${boardlist.writer_name }</font></a><br/>
-		<p style="float:right;"><fmt:formatDate value="${boardlist.e_datetime}" pattern="yyyy/MM/dd, HH:mm" /> </p>
-		<br/>
-		<div style="float:right;">
-		<a class="icon solid fa-comment" onclick="listview(${boardlist.e_no})" style="color:#6E6E6E; font-size:10pt; font-weight: bolder;"> comment( ${boardlist.recnt} ) </a>
-		<a style="color:#6E6E6E; font-size:10pt; font-weight: bolder;"> | </a>
-		<% 
-		int like_check = (int)pageContext.getAttribute("like_check");
-		if (like_check == 1) { %>
-		<a onclick = "return like_or_unlike(${boardlist.e_no});" id="like${boardlist.e_no }" class="fas fa-heart" style="color:#6E6E6E; font-size:10pt; font-weight: bolder; color:red"></a>
-		<% } else { %>
-		<a onclick = "return like_or_unlike(${boardlist.e_no});" id="like${boardlist.e_no }" class="icon fa-heart" style="color:#6E6E6E; font-size:10pt; font-weight: bolder; color:red"></a>
-		<% } %>
-		<a style="color:#6E6E6E; font-size:10pt; font-weight: bolder;">like (</a>
-		<a id="like_count${boardlist.e_no }">${boardlist.like }</a><a style="color:#6E6E6E; font-size:10pt; font-weight: bolder;"> )</a>
-		</div>
-		</div>
-		<h3 class="card-title">기사 제목 : <a href="${boardlist.trackback}" target="_blank"> ${boardlist.articletitle}</a></h3>
-		<h3>한줄평 : ${boardlist.evaluation }</h3>
-		<a style="color:#6E6E6E; font-size:10pt; font-weight: bolder;">현재 이 기자의 평균 별점 : ${boardlist.total_score }점</a>
-	</div>
-	<div id="replytext${boardlist.e_no}" style="width: 700px; display: none;">		
+		<footer>
+			<ul class="actions" style="width:650px">
+				<li></li>
+			</ul>
+			<ul class="stats" style="width:170px;">
+			<% 
+			int like_check = (int)pageContext.getAttribute("like_check");
+			if (like_check == 1) { %>
+			<a onclick = "return like_or_unlike(${boardlist.e_no});" id="like${boardlist.e_no }" class="fas fa-heart" style="color:#6E6E6E; font-size:10pt; font-weight: bolder; color:red"></a>
+			<% } else { %>
+			<a onclick = "return like_or_unlike(${boardlist.e_no});" id="like${boardlist.e_no }" class="icon fa-heart" style="color:#6E6E6E; font-size:10pt; font-weight: bolder; color:red"></a>
+			<% } %>
+			<a style="color:#6E6E6E; font-size:10pt; font-weight: bolder;">like </a>
+			<a id="like_count${boardlist.e_no }">${boardlist.like }</a><a style="color:#6E6E6E; font-size:10pt; font-weight: bolder;"> </a>
+			<a class="icon solid fa-comment" onclick="listview(${boardlist.e_no})" style="color:#6E6E6E; font-size:10pt; font-weight: bolder;"> comment ${boardlist.recnt} </a>
+			</ul>
+			
+		</footer>
+		<div id="replytext${boardlist.e_no}" style="width: 700px; display: none;">		
 		<br>
 		<textarea rows="2" cols="60" id="ere_text${boardlist.e_no}" placeholder="댓글을 입력하세요."></textarea>
 		<br>	
 		<button type="button" id="btnEreply" class="button" onclick="inserttext(${boardlist.e_no})">댓글 작성</button>
      	<div id="listEreply${boardlist.e_no}" class="example01"  ></div>
-   	</div>		
-</div>
+   	</div>
+	</article>
 </c:forEach>
+<div class="card">
+	</div>
 </div>
 
 
@@ -297,19 +305,19 @@ $(window).scroll(function() {
 								button = "<a onclick = 'return like_or_unlike(" + this.e_no + ");' id='like" + this.e_no + "' class='icon fa-heart' style='color:#6E6E6E; font-size:10pt; font-weight: bolder; color:red'> </a>";
 								}
 							if(this.score == 1) {
-								score = "<i class='fas fa-star' style='color:orange; float:right;'></i>"
+								score = "<i class='fas fa-star' style='color:orange; float:left;'></i>"
 								}
 							else if(this.score == 2) {
-								score = "<i class='fas fa-star' style='color:orange; float:right;'></i><i class='fas fa-star' style='color:orange; float:right;'></i>"
+								score = "<i class='fas fa-star' style='color:orange; float:left;'></i><i class='fas fa-star' style='color:orange; float:left;'></i>"
 								}
 							else if(this.score == 3) {
-								score = "<i class='fas fa-star' style='color:orange; float:right;'></i><i class='fas fa-star' style='color:orange; float:right;'></i></i><i class='fas fa-star' style='color:orange; float:right;'></i>"
+								score = "<i class='fas fa-star' style='color:orange; float:left;'></i><i class='fas fa-star' style='color:orange; float:left;'></i></i><i class='fas fa-star' style='color:orange; float:left;'></i>"
 								}
 							else if(this.score == 4) {
-								score = "<i class='fas fa-star' style='color:orange; float:right;'></i><i class='fas fa-star' style='color:orange; float:right;'></i></i><i class='fas fa-star' style='color:orange; float:right;'></i></i><i class='fas fa-star' style='color:orange; float:right;'></i>"
+								score = "<i class='fas fa-star' style='color:orange; float:left;'></i><i class='fas fa-star' style='color:orange; float:left;'></i></i><i class='fas fa-star' style='color:orange; float:left;'></i></i><i class='fas fa-star' style='color:orange; float:left;'></i>"
 								}
 							else if(this.score == 5) {
-								score = "<i class='fas fa-star' style='color:orange; float:right;'></i><i class='fas fa-star' style='color:orange; float:right;'></i></i><i class='fas fa-star' style='color:orange; float:right;'></i></i><i class='fas fa-star' style='color:orange; float:right;'></i></i><i class='fas fa-star' style='color:orange; float:right;'></i>"
+								score = "<i class='fas fa-star' style='color:orange; float:left;'></i><i class='fas fa-star' style='color:orange; float:left;'></i></i><i class='fas fa-star' style='color:orange; float:left;'></i></i><i class='fas fa-star' style='color:orange; float:left;'></i></i><i class='fas fa-star' style='color:orange; float:left;'></i>"
 								}
 							console.log(this);
 							console.log(this.e_datetime);
@@ -331,27 +339,36 @@ $(window).scroll(function() {
 								}
 							date = getFormatDate(date);
 							console.log(date);
-							str +=	"<div class=" + "'card'" + ">" 
-								+	"<input type=" + "'hidden'" + "class=" + "'scrolling'" + "data-e_no=" + this.e_no + " value=" + this.e_no + ">"
-								+	"<h3 class=" + "'card-header'" + "><a href='/search/journalistDetails?j_no=" + this.j_no + "' title='기자 상세페이지로 이동'>" + this.name + "</a> 기자" + score + "</h3>"
-								+	"<div class=" + "'card-body'" + ">"
-								+	"<div style='float:right;'>"
-								+	delete_button
+
+							str +=	"<input type=" + "'hidden'" + "class=" + "'scrolling'" + "data-e_no=" + this.e_no + " value=" + this.e_no + ">"
+								+	"<article class='post'>"
+								+	"<header>"
+								+	"<div class='title' style='padding-top: 60px;'>"
+								+	"<h2><a href='/search/journalistDetails?j_no=" + this.j_no + "' title='기자 상세페이지로 이동'>" + this.name + "</a> 기자</h2>"
+								+	"<p style='font-size:15px;'>" + this.press + ", 평균 평점 : " + this.total_score + "</p>"
+								+	"</div>"
+								+	"<div class='meta' style='padding-top: 20px;'>"
+								+	"<p style='font-size:15px; color:black;'>" + date + "</p>"
+								+	"</div>"
+								+	"</header>"
+								+	"기사 링크 : <a style='color:#0040FF; font-size:20px;' href='" + this.trackback +"' target='_blanck'>" + this.articletitle + "</a>"
 								+	"<br/>"
-								+	"<a style='float:right;'><font size='2'>닉네임 : " + this.writer_name + "</font></a><br/>"
-								+	"<p style='float:right;'>" + date + "</p><br/>"
-								+	"<div style='float:right;'>"
-								+	"<a class='icon solid fa-comment' onclick='listview("+this.e_no+")' style='color:#6E6E6E; font-size:10pt; font-weight: bolder;''> comment ( "+this.recnt+" ) </a>"
-								+	"<a style='color:#6E6E6E; font-size:10pt; font-weight: bolder;'> | </a>"
+								+	"<p> </p>"
+								+	"<p style='color:black;'>한 줄 평 : " + this.evaluation + "</p>"
+								+	delete_button
+								+	score
+								+	"<br/>"
+								+	"<footer>"
+								+	"<ul class='actions' style='width:650px'>"
+								+	"<li></li>"
+								+	"</ul>"
+								+	"<ul class='stats' style='widht:180px;'>"
 								+	button
-								+	"<a style='color:#6E6E6E; font-size:10pt; font-weight: bolder;'>like ( </a>"
-								+	"<a id='like_count"+ this.e_no + "'>" + this.like + "</a><a style='color:#6E6E6E; font-size:10pt; font-weight: bolder;'> )</a> "
-								+	"</div>"
-								+	"</div>"
-								+	"<h3 class=" + "'card-title'" + "> <a href='" + this.trackback + "target='_blank'> " + this.articletitle + "</h3>"
-								+	"<h3>한줄평 : " + this.evaluation + "</h3>"
-								+	"<a style='color:#6E6E6E; font-size:10pt; font-weight: bolder;'> 현재 이 기자의 평균 별점 : " + this.score + "</a>"
-								+	"</div>"
+								+	"<a style='color:#6E6E6E; font-size:10pt; font-weight: bolder;'>like  </a>"
+								+	"<a id='like_count"+ this.e_no + "'>" + this.like + "</a><a style='color:#6E6E6E; font-size:10pt; font-weight: bolder;'> </a> "
+								+	"<a class='icon solid fa-comment' onclick='listview("+this.e_no+")' style='color:#6E6E6E; font-size:10pt; font-weight: bolder;''> comment  "+this.recnt+"  </a>"
+								+	"</ul>"
+								+	"</footer>"
 								+	"<div id='replytext"+this.e_no+"' style='width: 700px; display: none;'>"		
 								+	"<br>"
 								+	"<textarea rows='2' cols='60' id='ere_text"+this.e_no+"' placeholder='댓글을 입력하세요.'></textarea>"
@@ -359,7 +376,8 @@ $(window).scroll(function() {
 								+	"<button type='button' id='btnEreply' class='button' onclick='inserttext("+this.e_no+")'>댓글 작성</button>"
 				      			+	"<div id='listEreply"+this.e_no+"' class='example01'  ></div>"
 						 		+ 	"</div>"
-						 		+ 	"</div>";
+						 		+ 	"</article>";
+							
 					 		
 					});			
 					$(".layer_center").append(str);
