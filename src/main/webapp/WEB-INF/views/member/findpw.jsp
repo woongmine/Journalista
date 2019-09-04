@@ -48,7 +48,7 @@ $(function(){
 			<input type="email" name="email" id="email" /><br />
 			</div>
 			<div>
-			<label>이름</label>
+			<label>닉네임</label>
 			<input type="text" name="name" id="name" /><br />	
 			</div>
 			<div>
