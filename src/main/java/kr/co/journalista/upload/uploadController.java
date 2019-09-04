@@ -35,7 +35,7 @@ public class uploadController {
 	}
 	@PostMapping(value="wrboard/upload", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
-	public ResponseEntity<String>uploadAjaxPost(@RequestParam("file") MultipartFile multipartFile){
+	public ResponseEntity<String>uploadAjaxPost(@RequestParam("file") MultipartFile multipartFile) throws Exception{
 		logger.info("update ajax post");
 		String uploadFolder = "/home/hosting_users/ydkhaha/tomcat/webapps/ROOT/resources/images"; //업로드되는 폴더 설정
 		String uploadFolderPath = getFolder();
@@ -61,19 +61,17 @@ public class uploadController {
 			try {
 				File saveFile = new File(uploadPath, uploadFileName);
 				//이미지 타입인지 체크
-				if(checkImageType(saveFile)) {
+				
 					if(fileSize <= 3145728) {
-						
 						multipartFile.transferTo(saveFile); //이미지 파일이면 서버에 이미지 저장
-						return ResponseEntity.ok().body(uploadFolderPath+"/"+uploadFileName);
+						return ResponseEntity.ok().body("/resources/images/"+uploadFolderPath+"/"+uploadFileName);
 					} else {
 						return ResponseEntity.ok().body("2");//이미지파일이면서 용량이 3메가를 넘어가면 2를 리턴
 					}
-				}else {
-					return ResponseEntity.ok().body("1");//이미지 파일이 아닐때 1을 리턴
-				}
-			}catch(Exception e) {
-				logger.error(e.getMessage());
+
+			}catch(Exception e2) {
+				logger.info("수정함222222222");
+				logger.error(e2.getMessage());
 			}
 			return ResponseEntity.badRequest().build();
 		//for문 끝
@@ -93,7 +91,6 @@ public class uploadController {
 		File saveFile = new File(uploadFolder, uploadFileName);
 		long fileSize = uploadFile.getSize();
 		try {
-			if(checkImageType(saveFile)) {
 				if(fileSize <= 2097152) {
 					logger.info("2메가 이하네");
 					uploadFile.transferTo(saveFile); //이미지 파일이면 서버에 이미지 저장
@@ -101,10 +98,6 @@ public class uploadController {
 				} else {
 					return "2";//이미지파일이면서 용량이 2메가를 넘어가면 2를 리턴
 				}
-			}else {
-				return "1";//이미지 파일이 아닐때 1을 리턴
-			}
-
 		}catch (Exception e) {
 			logger.error(e.getMessage());
 			return "error";
