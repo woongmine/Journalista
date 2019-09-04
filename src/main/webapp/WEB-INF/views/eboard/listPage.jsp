@@ -349,6 +349,7 @@ $(window).scroll(function() {
 								+	"</div>"
 								+	"<div class='meta' style='padding-top: 20px;'>"
 								+	"<p style='font-size:15px; color:black;'>" + date + "</p>"
+								+	"<p style='font-size:15px; color:black;'> writer : <br/>" + this.writer_name + "</p>"
 								+	"</div>"
 								+	"</header>"
 								+	"기사 링크 : <a style='color:#0040FF; font-size:20px;' href='" + this.trackback +"' target='_blanck'>" + this.articletitle + "</a>"
