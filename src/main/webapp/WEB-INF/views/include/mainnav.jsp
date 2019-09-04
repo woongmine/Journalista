@@ -251,6 +251,13 @@ function score(j_no) {
 	</div>
 	</div>
 	</section>
+	<section class="blurb">
+		<h2>이달의 기자</h2>
+		<p>회원들의 평점 중에서 한달간 가장 높은 평점을 받은 기자를 직접 찾아 인터뷰 해봤습니다. 이달의 기자를 받은 기자는</p>
+		<ul class="actions">
+			<li><a href="#" class="button">Learn More</a></li>
+		</ul>
+	</section>
 	<!-- footer -->
 	<section id="footer">
 		<ul class="icons">
