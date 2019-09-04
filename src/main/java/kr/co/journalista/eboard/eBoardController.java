@@ -193,7 +193,6 @@ public class eBoardController {
 		session.setAttribute("wr_no", vo.getE_no());
 		session.setAttribute("wr_title", vo.getE_title());
 		session.setAttribute("wr_contents", vo.getE_contents());
-		session.setAttribute("writeremail", vo.getEmail());
 		
 	}
 

@@ -5,13 +5,19 @@ import java.util.Date;
 public class eBoardVO {
 	private int e_no;
 	private int m_no;
-	private String email;
+	private String writer_email;
 	private String name;
 	private int e_hit;
 	private Date e_datetime;
 	private String e_title;
 	private String e_contents;
 	private String e_ip;
+	public String getWriter_email() {
+		return writer_email;
+	}
+	public void setWriter_email(String writer_email) {
+		this.writer_email = writer_email;
+	}
 	private int e_del;
 	private String category;
 	private int score;
@@ -79,12 +85,6 @@ public class eBoardVO {
 	}
 	public void setM_no(int m_no) {
 		this.m_no = m_no;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
 	}
 	public String getName() {
 		return name;

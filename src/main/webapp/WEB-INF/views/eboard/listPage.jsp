@@ -3,6 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath }" />
+<% String login_email = (String)session.getAttribute("login_email"); %>
 <style>
 	.card {
 		margin-bottom:20px;
@@ -173,11 +174,16 @@ function listview2(e_no){
 	<% } %>
 	</h3>
 	<c:set var="like_check" value='${boardlist.like_check }'/>
+	<c:set var="writer_email" value='${boardlist.writer_email }'/>
 	<div class="card-body">
 		<div style="float:right;">
 		<!-- 
 		<a data-toggle="modal" href="#Edit_Modal" style="color:blue; font-size:15px;">Edit</a><a> | </a> -->
+		<% String writer_email = (String)pageContext.getAttribute("writer_email");
+		if (writer_email.equals(login_email)) {
+			%>
 		<a href="Delete?e_no=${boardlist.e_no }" style="color:red; font-size:15px; float:right;" title="삭제하기"><i class="fas fa-trash-alt"></i></a>
+		<% }%>
 		<br/>
 		<a style="float:right;"><font size="2">닉네임 : ${boardlist.writer_name }</font></a><br/>
 		<p style="float:right;"><fmt:formatDate value="${boardlist.e_datetime}" pattern="yyyy/MM/dd, HH:mm" /> </p>
@@ -318,6 +324,11 @@ $(window).scroll(function() {
 								var min = date.getMinutes();
 								return  year + '/' + month + '/' + day + ', ' + hour + ':' + min;
 							}
+							var login_email= "<%=session.getAttribute("login_email")%>";
+							var delete_button = "";
+							if (login_email == this.writer_email) {
+								delete_button = "<a href='Delete?e_no=" + this.e_no + "' style='color:red; font-size:15px; float:right;' title='삭제하기'><i class='fas fa-trash-alt'></i></a>";
+								}
 							date = getFormatDate(date);
 							console.log(date);
 							str +=	"<div class=" + "'card'" + ">" 
@@ -325,19 +336,19 @@ $(window).scroll(function() {
 								+	"<h3 class=" + "'card-header'" + "><a href='/search/journalistDetails?j_no=" + this.j_no + "' title='기자 상세페이지로 이동'>" + this.name + "</a> 기자" + score + "</h3>"
 								+	"<div class=" + "'card-body'" + ">"
 								+	"<div style='float:right;'>"
-								+	"<a href='Delete?e_no=" + this.e_no + "' style='color:red; font-size:15px; float:right;' title='삭제하기'><i class='fas fa-trash-alt'></i></a>"
+								+	delete_button
 								+	"<br/>"
 								+	"<a style='float:right;'><font size='2'>닉네임 : " + this.writer_name + "</font></a><br/>"
 								+	"<p style='float:right;'>" + date + "</p><br/>"
 								+	"<div style='float:right;'>"
 								+	"<a class='icon solid fa-comment' onclick='listview("+this.e_no+")' style='color:#6E6E6E; font-size:10pt; font-weight: bolder;''> comment ( "+this.recnt+" ) </a>"
-								+	"<a style='color:#6E6E6E; font-size:10pt; font-weight: bolder;'> | </a>"				
+								+	"<a style='color:#6E6E6E; font-size:10pt; font-weight: bolder;'> | </a>"
 								+	button
 								+	"<a style='color:#6E6E6E; font-size:10pt; font-weight: bolder;'>like ( </a>"
 								+	"<a id='like_count"+ this.e_no + "'>" + this.like + "</a><a style='color:#6E6E6E; font-size:10pt; font-weight: bolder;'> )</a> "
 								+	"</div>"
 								+	"</div>"
-								+	"<h3 class=" + "'card-title'" + "> 기사 제목  : <a href='" + this.trackback + "target='_blank'> " + this.articletitle + "</h3>"
+								+	"<h3 class=" + "'card-title'" + "> <a href='" + this.trackback + "target='_blank'> " + this.articletitle + "</h3>"
 								+	"<h3>한줄평 : " + this.evaluation + "</h3>"
 								+	"<a style='color:#6E6E6E; font-size:10pt; font-weight: bolder;'> 현재 이 기자의 평균 별점 : " + this.score + "</a>"
 								+	"</div>"
