@@ -339,7 +339,7 @@ $(window).scroll(function() {
 								+	"</div>"
 								+	"<h3 class=" + "'card-title'" + "> 기사 제목  : <a href='" + this.trackback + "target='_blank'> " + this.articletitle + "</h3>"
 								+	"<h3>한줄평 : " + this.evaluation + "</h3>"
-								+	"<a> 현재 이 기자의 평균 별점 : " + this.score + "</a>"
+								+	"<a style='color:#6E6E6E; font-size:10pt; font-weight: bolder;'> 현재 이 기자의 평균 별점 : " + this.score + "</a>"
 								+	"</div>"
 								+	"<div id='replytext"+this.e_no+"' style='width: 700px; display: none;'>"		
 								+	"<br>"
