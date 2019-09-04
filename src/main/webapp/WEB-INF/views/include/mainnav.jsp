@@ -251,6 +251,14 @@ function score(j_no) {
 	</div>
 	</div>
 	</section>
+	<!-- footer -->
+	<section id="footer">
+		<ul class="icons">
+			<li><a href="#" class="icon solid fa-rss"><span class="label">RSS</span></a></li>
+			<li><a href="#" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+		</ul>
+		<p class="copyright">© 2019 Team AirFly All rights reserved.</p>
+	</section>
 </section>
 <script>
 function BestRanking() {
