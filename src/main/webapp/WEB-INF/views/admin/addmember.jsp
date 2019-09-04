@@ -70,7 +70,12 @@
   </div>
   <div class="form-group">
     <label for="inputAddress2">언론사명</label>
-    <input type="text" class="form-control" id="press" placeholder="조선일보,중앙일보,동아일보,한국일보">
+    <select id="press" name="press" class="custom-select">
+    	<option value="" selected="selected">언론사 선택</option>
+    	<c:forEach items="${pressSearch}" var="press">
+    	<option value="${press.press_name}">${press.press_name}</option>
+    	</c:forEach>
+    </select>
   </div>
   <div class="form-group">
     <label for="inputAddress2">부서명</label>
