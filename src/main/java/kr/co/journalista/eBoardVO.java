@@ -12,12 +12,6 @@ public class eBoardVO {
 	private String e_title;
 	private String e_contents;
 	private String e_ip;
-	public String getWriter_email() {
-		return writer_email;
-	}
-	public void setWriter_email(String writer_email) {
-		this.writer_email = writer_email;
-	}
 	private int e_del;
 	private String category;
 	private int score;
@@ -30,7 +24,20 @@ public class eBoardVO {
 	private double total_score;
 	private String articletitle;
 	private String writer_name;
+	private String press;
 	
+	public String getPress() {
+		return press;
+	}
+	public void setPress(String press) {
+		this.press = press;
+	}
+	public String getWriter_email() {
+		return writer_email;
+	}
+	public void setWriter_email(String writer_email) {
+		this.writer_email = writer_email;
+	}
 	
 	public String getWriter_name() {
 		return writer_name;
