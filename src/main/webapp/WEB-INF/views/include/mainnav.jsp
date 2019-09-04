@@ -212,7 +212,7 @@ function score(j_no) {
 		    <!-- Modal content-->
 		    <div class="modal-content">
 		      <div class="modal-header">
-		        <h2 class="modal-title">한 줄 평 남기기</h2>
+		        <h2 class="modal-title"><i class="fas fa-edit"></i>평점 남기기</h2>
 		      </div>
 		      <div class="modal-body" id="modal_body">
 		      	<h3>기자 검색</h3>
@@ -233,7 +233,7 @@ function score(j_no) {
 		</div>
 		<div>
 		<div>
-		<button style="font-size:20px;"data-toggle="modal" data-target="#Write_Modal" class="button fit" onclick="return idcheck();">한줄평 남기기</button>
+		<button style="font-size:20px;"data-toggle="modal" data-target="#Write_Modal" class="button fit" onclick="return idcheck();"><i class="fas fa-edit"></i>평점 남기기</button>
 		</div>
 		</div>
 	</section>

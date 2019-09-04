@@ -160,7 +160,7 @@ function listview2(e_no){
 
 
 </script>
-<div class="layer_center" id="top" style="width: 800px; margin-top: 0px;">
+<div class="layer_center" id="top" style="width: 870px; margin-top: 0px;">
 <c:forEach items="${boardlist}" var="boardlist">
 <div class="card">
 	<c:set var="number_no" value='${boardlist.e_no }' />
