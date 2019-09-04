@@ -103,7 +103,7 @@
 			</if>
 			<if test="searchType == 'name'.toString()">
 				and `name` like CONCAT('%', #{keyword}, '%') and wr_del = 0
-			</if>	
+			</if>
 		</if>
 		<if test="category != null">
 			<if test="category=='request'">
@@ -128,7 +128,7 @@
 	</select>
 
 	<select id="infiniteScrollDown" resultType="kr.co.journalista.eBoardVO">
-		select * from e_board 
+		select *,(SELECT COUNT(*) FROM e_boardrep WHERE e_no = b.e_no) AS recnt from e_board b
 		where e_no >= #{e_no} - 7
 		and e_no &lt; #{e_no}
 		and e_del = 0
