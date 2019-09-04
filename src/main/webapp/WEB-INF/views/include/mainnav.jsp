@@ -180,16 +180,15 @@ function score(j_no) {
 						var evaluation = $("#evaluation").val();
 						console.log(evaluation);
 						var name = this.journal_name;
-						console.log("넘길 jr_name: " + name);
 						var j_no = this.j_no;
-						console.log("넘길 j_nㅐ: " + j_no);
+						var press = this.press;
 						var score = "";
 						score += "<div class=" + "'rating rating2'" + ">" 
-							  + "<a href=" + "'/eboard/write?score=5&trackback=" + escape(trackback) + "&evaluation=" + evaluation + "&name=" + name + "&j_no=" + j_no + "'onclick=" + "'return five_stars();'" + ">★</a>"
-							  + "<a href=" + "'/eboard/write?score=4&trackback=" + escape(trackback) + "&evaluation=" + evaluation + "&name=" + name + "&j_no=" + j_no + "'onclick=" + "'return four_stars();'" + ">★</a>"
-							  + "<a href=" + "'/eboard/write?score=3&trackback=" + escape(trackback) + "&evaluation=" + evaluation + "&name=" + name + "&j_no=" + j_no + "'onclick=" + "'return three_stars();'" + ">★</a>"
-							  + "<a href=" + "'/eboard/write?score=2&trackback=" + escape(trackback) + "&evaluation=" + evaluation + "&name=" + name + "&j_no=" + j_no + "'onclick=" + "'return two_stars();'" + ">★</a>"
-							  + "<a href=" + "'/eboard/write?score=1&trackback=" + escape(trackback) + "&evaluation=" + evaluation + "&name=" + name + "&j_no=" + j_no + "'onclick=" + "'return a_star();'" + ">★</a>"
+							  + "<a href=" + "'/eboard/write?score=5&trackback=" + escape(trackback) + "&evaluation=" + escape(evaluation) + "&name=" + name + "&j_no=" + j_no + "&press=" + press + "'onclick=" + "'return five_stars();'" + ">★</a>"
+							  + "<a href=" + "'/eboard/write?score=4&trackback=" + escape(trackback) + "&evaluation=" + escape(evaluation) + "&name=" + name + "&j_no=" + j_no + "&press=" + press + "'onclick=" + "'return four_stars();'" + ">★</a>"
+							  + "<a href=" + "'/eboard/write?score=3&trackback=" + escape(trackback) + "&evaluation=" + escape(evaluation) + "&name=" + name + "&j_no=" + j_no + "&press=" + press + "'onclick=" + "'return three_stars();'" + ">★</a>"
+							  + "<a href=" + "'/eboard/write?score=2&trackback=" + escape(trackback) + "&evaluation=" + escape(evaluation) + "&name=" + name + "&j_no=" + j_no + "&press=" + press + "'onclick=" + "'return two_stars();'" + ">★</a>"
+							  + "<a href=" + "'/eboard/write?score=1&trackback=" + escape(trackback) + "&evaluation=" + escape(evaluation) + "&name=" + name + "&j_no=" + j_no + "&press=" + press + "'onclick=" + "'return a_star();'" + ">★</a>"
 							  + "</div>";
 						console.log(score);
 						
