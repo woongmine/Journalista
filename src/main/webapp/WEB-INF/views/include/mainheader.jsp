@@ -24,7 +24,7 @@
 		<ul>
 			<li><a href="/eboard/listPage">comment</a></li>
 			<li class="nav-item dropdown">
- 				<a class="dropdown-toggle" type="text" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">journalist</a>
+ 				<a class="dropdown-toggle" type="text" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="cursor: pointer;">journalist</a>
 				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
     				<a class="dropdown-item" href="/search/journalistSearch">Journalist</a>
    					<a class="dropdown-item" href="/search/pressSearch">Press</a>
