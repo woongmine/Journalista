@@ -6,7 +6,7 @@
 
 <div class="404error">
 
-<h1  class="fas fa-exclamation-triangle" align="center">404 ERROR</h1> 
+<span class="fas fa-exclamation-triangle" align="center" style="font-size: 150px;">404 ERROR</span> 
 
 
 </div>

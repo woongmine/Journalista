@@ -173,47 +173,56 @@
 		}
 	}
 </script>
-<title>게시물 보기</title>
+
+<style type="text/css">
+
+		#node1
+		{
+		}
+		#node2
+		{
+		}
+		#node3
+		{
+		}
+
+	</style>
 </head>
+<title>게시물 보기</title>
 <body onload="delpageCheck();">
-	<form method="post">
+	<form method="post" class="row mx-auto">
 		<input type="hidden" id="delcheck" value="${view.wr_del }" />
-		<div>
-			<label style="margin-bottom:0px;">제목</label> <div name="wr_title">${view.wr_title }</div><br/>
+		<div id="node1" class="post" style="width: 50%">
+			<div id="node2" class="title">
+				<span name="wr_title">${view.wr_title}</span><br> <span
+					name="name" align="right">${view.name} | </span> <span
+					name="wr_datetime"><fmt:formatDate
+						value="${view.wr_datetime}" pattern="yy.MM.dd hh.mm.ss" /></span>
+			</div>
+			<!-- #node2 end -->
+			<hr style="border: none; border: 1px solid #c0c0c0;">
+			<div id="node3">
+				<div style="height: 100px;" name="wr_contents" readonly="readonly">${view.wr_contents}</div>
+				<br />
+			</div>
+			<!-- #node3 end -->
+			<div id="node4">
+				<div id="replytext" style="width: 650px;">
+					<br>
+					<c:if test="${member.name != null}">
+						<textarea rows="2" cols="60" id="re_text" placeholder="댓글을 입력하세요."></textarea>
+						<button type="button" class="button" id="btnReply">댓글 작성</button>
+					</c:if>
+					<br> <br>
+					<div id="listReply" class="example01"></div>
+				</div>
+			</div>
 		</div>
-
-		<div>
-			<label style="margin-bottom:0px;">작성자</label> <div name="name">${view.name }</div><br/>
-		</div>
-
-		<div>
-			<label style="margin-bottom:0px;">작성날짜</label> <div name="wr_datetime"><fmt:formatDate value="${view.wr_datetime}" pattern="yy.MM.dd-hh.mm.ss" /></div>
-			<br/>
-		</div>
-
-		<div>
-			<label style="margin-bottom:0px;">내용</label>
-			<div style="height:100px;" name="wr_contents" readonly="readonly">${view.wr_contents}</div><br/>
-		</div>
-
+		<!-- #node1 end -->
 	</form>
-	<div id="replytext" style="width: 650px;">
-			
-			<br>
-			<c:if test="${member.name != null}">
-				<textarea rows="2" cols="60" id="re_text" placeholder="댓글을 입력하세요."></textarea>
-			
-				<button type="button" class="button" id="btnReply">댓글 작성</button>
-			</c:if>	
-				<br>
-				<br>
-				
-				<div id="listReply" class="example01" ></div>
-	
-		
-	</div>
-	
-	<!-- <div id="listReply"></div> -->
+</body>
+
+<!-- <div id="listReply"></div> -->
 	<form align="center" name="check">
 		<!-- 	<table class="table" style="width: 60%" align="center">
 		<thead class="thead-dark">
