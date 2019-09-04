@@ -179,24 +179,21 @@
 	<form method="post">
 		<input type="hidden" id="delcheck" value="${view.wr_del }" />
 		<div>
-			<label>제목</label> <input type="text" name="wr_title"
-				value="${view.wr_title }" readonly="readonly" />
+			<label style="margin-bottom:0px;">제목</label> <div name="wr_title">${view.wr_title }</div><br/>
 		</div>
 
 		<div>
-			<label>작성자</label> <input type="text" name="name"
-				value="${view.name }" readonly="readonly" />
+			<label style="margin-bottom:0px;">작성자</label> <div name="name">${view.name }</div><br/>
 		</div>
 
 		<div>
-			<label>작성날짜</label> <input type="text" name="wr_datetime"
-				value="<fmt:formatDate value="${view.wr_datetime}" pattern="yy.MM.dd-hh.mm.ss" />"
-				readonly="readonly" />
+			<label style="margin-bottom:0px;">작성날짜</label> <div name="wr_datetime"><fmt:formatDate value="${view.wr_datetime}" pattern="yy.MM.dd-hh.mm.ss" /></div>
+			<br/>
 		</div>
 
 		<div>
-			<label>내용</label>
-			<div style="height:200px;" name="wr_contents" readonly="readonly">${view.wr_contents}</div>
+			<label style="margin-bottom:0px;">내용</label>
+			<div style="height:100px;" name="wr_contents" readonly="readonly">${view.wr_contents}</div><br/>
 		</div>
 
 	</form>
