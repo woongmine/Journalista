@@ -180,10 +180,10 @@ function listview2(e_no){
 				<p style="font-size:15px; color:black;">writer : <br/>${boardlist.writer_name}</p>
 			</div>
 		</header>
-		기사 링크 : <a style="color:#0040FF; font-size:20px;" href="${boardlist.trackback}" target="_blank"> ${boardlist.articletitle}</a>
+		LINK : <a style="color:#0040FF; font-size:20px;" href="${boardlist.trackback}" target="_blank"> ${boardlist.articletitle}</a>
 		<br/>
 		<p> </p>
-		<p style="color:black;">한줄평 : ${boardlist.evaluation }</p>
+		<p style="color:black;">${boardlist.evaluation }</p>
 		<% String writer_email = (String)pageContext.getAttribute("writer_email");
 		if (writer_email.equals(login_email)) {
 			%>
@@ -352,10 +352,10 @@ $(window).scroll(function() {
 								+	"<p style='font-size:15px; color:black;'> writer : <br/>" + this.writer_name + "</p>"
 								+	"</div>"
 								+	"</header>"
-								+	"기사 링크 : <a style='color:#0040FF; font-size:20px;' href='" + this.trackback +"' target='_blanck'>" + this.articletitle + "</a>"
+								+	"LINK : <a style='color:#0040FF; font-size:20px;' href='" + this.trackback +"' target='_blanck'>" + this.articletitle + "</a>"
 								+	"<br/>"
 								+	"<p> </p>"
-								+	"<p style='color:black;'>한 줄 평 : " + this.evaluation + "</p>"
+								+	"<p style='color:black;'>" + this.evaluation + "</p>"
 								+	delete_button
 								+	score
 								+	"<br/>"
@@ -363,11 +363,11 @@ $(window).scroll(function() {
 								+	"<ul class='actions' style='width:650px'>"
 								+	"<li></li>"
 								+	"</ul>"
-								+	"<ul class='stats' style='widht:180px;'>"
+								+	"<ul class='stats' style='widht:170px;'>"
 								+	button
 								+	"<a style='color:#6E6E6E; font-size:10pt; font-weight: bolder;'>like  </a>"
 								+	"<a id='like_count"+ this.e_no + "'>" + this.like + "</a><a style='color:#6E6E6E; font-size:10pt; font-weight: bolder;'> </a> "
-								+	"<a class='icon solid fa-comment' onclick='listview("+this.e_no+")' style='color:#6E6E6E; font-size:10pt; font-weight: bolder;''> comment  "+this.recnt+"  </a>"
+								+	"<a class='icon solid fa-comment' onclick='listview("+this.e_no+")' style='color:#6E6E6E; font-size:10pt; font-weight: bolder;''>comment "+this.recnt+" </a>"
 								+	"</ul>"
 								+	"</footer>"
 								+	"<div id='replytext"+this.e_no+"' style='width: 700px; display: none;'>"		
