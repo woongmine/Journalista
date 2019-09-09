@@ -177,7 +177,7 @@ function listview2(e_no){
 			</div>
 			<div class="meta" style="padding-top: 20px;">
 				<p style="font-size:15px; color:black;"><fmt:formatDate value="${boardlist.e_datetime}" pattern="yyyy/MM/dd, HH:mm" /></p>
-				<p style="font-size:15px; color:black;">writer : <br/>${boardlist.writer_name}</p>
+				<a class="author"><img width='45px' height='55px' class='img-fluid rounded-circle align-self-center' src="/resources/images/profile/${boardlist.m_no}" onError=this.src="/resources/images/profile/default.jpg"><span class='name'>${boardlist.writer_name}</span></a>
 			</div>
 		</header>
 		LINK : <a style="color:#0040FF; font-size:20px;" href="${boardlist.trackback}" target="_blank"> ${boardlist.articletitle}</a>
@@ -195,10 +195,10 @@ function listview2(e_no){
 	<% } %>
 		<br/>
 		<footer>
-			<ul class="actions" style="width:650px">
+			<ul class="actions">
 				<li></li>
 			</ul>
-			<ul class="stats" style="width:170px;">
+			<ul class="stats">
 			<% 
 			int like_check = (int)pageContext.getAttribute("like_check");
 			if (like_check == 1) { %>
@@ -349,7 +349,7 @@ $(window).scroll(function() {
 								+	"</div>"
 								+	"<div class='meta' style='padding-top: 20px;'>"
 								+	"<p style='font-size:15px; color:black;'>" + date + "</p>"
-								+	"<p style='font-size:15px; color:black;'> writer : <br/>" + this.writer_name + "</p>"
+								+	"<a class='author'> <img width='45px' height='55px' class='img-fluid rounded-circle align-self-center' src='/resources/images/profile/"+this.m_no+".jpg' onError=this.src='/resources/images/profile/default.jpg'>"+"<span class='name'>" + this.writer_name + "</span>" + "</a>"
 								+	"</div>"
 								+	"</header>"
 								+	"LINK : <a style='color:#0040FF; font-size:20px;' href='" + this.trackback +"' target='_blanck'>" + this.articletitle + "</a>"
@@ -360,10 +360,10 @@ $(window).scroll(function() {
 								+	score
 								+	"<br/>"
 								+	"<footer>"
-								+	"<ul class='actions' style='width:650px'>"
+								+	"<ul class='actions'>"
 								+	"<li></li>"
 								+	"</ul>"
-								+	"<ul class='stats' style='widht:170px;'>"
+								+	"<ul class='stats'>"
 								+	button
 								+	"<a style='color:#6E6E6E; font-size:10pt; font-weight: bolder;'>like  </a>"
 								+	"<a id='like_count"+ this.e_no + "'>" + this.like + "</a><a style='color:#6E6E6E; font-size:10pt; font-weight: bolder;'> </a> "
