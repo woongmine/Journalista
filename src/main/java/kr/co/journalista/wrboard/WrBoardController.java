@@ -54,6 +54,7 @@ public class WrBoardController {
 		vo.setWr_ip(ClientUtils.getRemoteIP(request));	
 		vo.setName((String)session.getAttribute("userName"));
 		if(login_email != null) {
+			vo.setEmail(login_email);
 			service.write(vo);
 			num =  service.viewafterwrite();
 			writer.write("<script> alert(\"작성완료.\"); location.href='/wrboard/view?wr_no=" + num + "';</script>");
