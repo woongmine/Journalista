@@ -31,16 +31,15 @@
 		from airfly.member
 		where `email` = #{email}
 	</select>
-	
 	<!-- 로그인 유지 -->
 	<update id="keepLogin">
 		update airfly.member set sessionKey=#{sessionId},
-		sessionLimit=#{sessionLimit} where email=#{email}
+		sessionLimit=#{next} where email=#{email}
 	</update>
 	<!-- 로그인세션키 -->
 	<select id="checkUserWithSessionKey" resultType="kr.co.journalista.MemberVO">
 		select * from
-		airfly.member where sessionKey=#{value}
+		airfly.member where sessionKey=#{sessionId} and sessionLimit > now()
 
 	</select>
 	<!-- 회원정보 수정 -->

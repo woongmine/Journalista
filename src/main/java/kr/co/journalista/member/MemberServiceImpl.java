@@ -45,8 +45,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	// 세션키
-	public MemberVO checkUserWithSessionKey(String value) {
-		return dao.checkUserWithSessionKey(value);
+	public MemberVO checkUserWithSessionKey(String sessionId) throws Exception {
+		return dao.checkUserWithSessionKey(sessionId);
 	}
 
 	// 회원정보 수정

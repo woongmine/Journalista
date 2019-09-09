@@ -52,8 +52,8 @@ public class MemberDAOImpl implements MemberDAO {
 
 	// 자동로그인 세션키
 	@Override
-	public MemberVO checkUserWithSessionKey(String value) {
-		return sql.selectOne(namespace + ".checkUserWithSessionkey", value);
+	public MemberVO checkUserWithSessionKey(String sessionId) {
+		return sql.selectOne(namespace + ".checkUserWithSessionKey", sessionId);
 	}
 
 	// 마이페이지에서 회원탈퇴 마이바티스 sql실행

@@ -32,15 +32,23 @@
 		base-package="kr.co.journalista.board" />
 	<context:component-scan
 		base-package="kr.co.journalista.member" />
-
-	<!-- 자동로그인 인터셉터 -->
-	<beans:bean id="MemberInterceptor" class="kr.co.journalista.Interceptor.MemberInterceptor" />
+	<!-- 자동로그인 쿠키생성 인터셉터 -->
+ <beans:bean id="MemberInterceptor" class="kr.co.journalista.Interceptor.MemberInterceptor" />
 	<interceptors>
 		<interceptor>
 			<mapping path="/member/login" />
 			<beans:ref bean="MemberInterceptor" />
 		</interceptor>
-	</interceptors>
+	</interceptors> 
+
+	<!-- 자동로그인 인터셉터 -->
+	 <beans:bean id="RememberInterceptor" class="kr.co.journalista.Interceptor.RememberInterceptor" />
+	<interceptors>
+		<interceptor>
+			<mapping path="/**/" />
+			<beans:ref bean="RememberInterceptor" />
+		</interceptor>
+	</interceptors>  
 	
 	<!-- 비로그인자 권한 막기 -->
 	<beans:bean id="UserInterceptor" class="kr.co.journalista.Interceptor.UserInterceptor" />

@@ -114,10 +114,11 @@ public class MemberController {
 
 	// 로그인 처리(자동로그인포함)
 		@RequestMapping(value = "/login", method = RequestMethod.POST)
-		public String login(LoginDTO dto, Model model,HttpSession session, RedirectAttributes rttr
+		public String login(LoginDTO dto, Model model,HttpSession session,HttpServletResponse response, RedirectAttributes rttr
 				) throws Exception {
 			logger.info("post login");
 			
+		
 			if(session.getAttribute("login") != null) {
 				logger.info("로그인 세션 초기화@@@@@@");
 				session.removeAttribute("login");
@@ -163,9 +164,16 @@ public class MemberController {
 				// 로그인 유지를 선택할 경우
 				if (LoginDTO.isUseCookie()) {
 					logger.info("!!!!!!!!!!!!! :" + LoginDTO.isUseCookie());
+					Cookie cookie = new Cookie("loginCookie", session.getId());
+					cookie.setPath("/");
+
 					int amount = 60 * 60 * 24 * 7; // 7일
+					cookie.setMaxAge(amount);
+					response.addCookie(cookie);
 					Date sessionLimit = new Date(System.currentTimeMillis() + (1000 * amount));// 로그인 유지기간 설정
 					service.keepLogin(vo.getEmail(), session.getId(), sessionLimit);
+					
+				
 				}
 				
 				logger.info("유저 이름은 : " + vo.getName());

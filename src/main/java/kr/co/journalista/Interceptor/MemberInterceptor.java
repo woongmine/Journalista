@@ -18,8 +18,6 @@ public class MemberInterceptor extends HandlerInterceptorAdapter {
 
 	private static final Logger logger = LoggerFactory.getLogger(MemberInterceptor.class);
 
-	@Inject
-	private MemberService service;
 
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
